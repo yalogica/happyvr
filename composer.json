@@ -1,0 +1,11 @@
+{
+    "name": "yalogica/happyvr",
+    "autoload": {
+        "psr-4": {
+            "Yalogica\\HappyVR\\": "includes/"
+        }
+    },
+    "require": {
+        "freemius/wordpress-sdk": "^2.12.2"
+    }
+}
