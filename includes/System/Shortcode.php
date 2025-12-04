@@ -46,7 +46,7 @@ class Shortcode {
             return "<div style='{$styleEmpty}'>" . esc_html__( 'HappyVR: Virtual tour ID is not defined.', 'happyvr' ) . "</div>";
         }
 
-        $item = DataModel::getItem( $id );
+        $item = DataModel::getItemPublic( $id );
         if ( empty( $item ) ) {
             return "<div style='{$styleEmpty}'>" . esc_html__( 'HappyVR: Virtual tour not found.', 'happyvr' ) . "</div>";
         }

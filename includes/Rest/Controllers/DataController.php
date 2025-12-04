@@ -17,7 +17,7 @@ class DataController {
             [
                 [
                     'methods' => \WP_REST_Server::READABLE,
-                    'callback' => [ $this, 'getVirtualTourData' ],
+                    'callback' => [ $this, 'getVirtualTourDataPublic' ],
                     'permission_callback' => '__return_true',
                     'args' => [
                         'id' => [
@@ -202,11 +202,11 @@ class DataController {
         );
     }
 
-    public function getVirtualTourData( \WP_REST_Request $request ) {
+    public function getVirtualTourDataPublic( \WP_REST_Request $request ) {
         $id = intval( $request->get_param( 'id' ), 10 );
 
         try {
-            $item = DataModel::getItemData( $id );
+            $item = DataModel::getItemPublic( $id );
             
             if ( $item ) {
                 return new \WP_REST_Response([

@@ -375,12 +375,13 @@ class DataModel {
         return false;
     }
 
-    public static function getItemData( $id ) {
+    public static function getItemPublic( $id ) {
         $post = get_post( $id );
         if ( $post && $post->post_type === self::POST_TYPE) {
             $data = [];
             $data['id'] = $post->ID;
             $data['title'] = $post->post_title;
+            $data['status'] = $post->post_status;
             
             $all_meta = get_post_meta( $post->ID );
             $meta = function ( $key ) use ( $all_meta ) {
