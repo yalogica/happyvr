@@ -1,0 +1,24 @@
+{
+  "name": "happyvr/divi-virtualtour-embed",
+  "d4Shortcode": "",
+  "title": "HappyVR Embed",
+  "titles": "HappyVR Virtual Tours",
+  "moduleIcon": "happyvr/virtualtour-embed-icon",
+  "moduleClassName": "happyvr_virtualtour_embed",
+  "moduleOrderClassName": "happyvr_virtualtour_embed",
+  "category": "module",
+  "childrenName": [],
+  "attributes": {
+    "module": {
+      "type": "object",
+      "selector": "{{selector}}",
+      "default": {
+        "meta": { "adminLabel": { "desktop": { "value": "HappyVR Virtual Tour" } } }
+      }
+    },
+    "tourId":  { "type": "object", "default": { "innerContent": { "desktop": { "value": "0" } } } },
+    "width":   { "type": "object", "default": { "innerContent": { "desktop": { "value": "100%" } } } },
+    "height":  { "type": "object", "default": { "innerContent": { "desktop": { "value": "400px" } } } },
+    "sceneId": { "type": "object", "default": { "innerContent": { "desktop": { "value": "" } } } }
+  }
+}
