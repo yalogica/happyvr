@@ -3,7 +3,7 @@ Contributors: yalogica, freemius
 Tags: virtual tour, 360 panorama, real estate, panorama viewer, vr
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 2.6.1
+Stable tag: 2.7.0
 Requires PHP: 7.4
 License: GPLv3 
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -161,6 +161,10 @@ Absolutely! HappyVR has a lifetime license plan. All you have to do is pay a one
 
 
 == Changelog ===
+
+= 2.7.0 =
+* Added: Lock layers (and entire groups) to prevent accidental changes in the builder
+* Changed: Updated the Freemius SDK to 2.13.5
 
 = 2.6.1 =
 * Changed: Redesigned the upgrade to PRO dialog

@@ -12097,16 +12097,16 @@
     VirtualTourStatus["Draft"] = "draft";
     VirtualTourStatus["Publish"] = "publish";
   })(VirtualTourStatus$1 || (VirtualTourStatus$1 = {}));
-  function r$3(e) {
+  function r$r(e) {
     var t, f, n = "";
     if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
       var o = e.length;
-      for (t = 0; t < o; t++) e[t] && (f = r$3(e[t])) && (n && (n += " "), n += f);
+      for (t = 0; t < o; t++) e[t] && (f = r$r(e[t])) && (n && (n += " "), n += f);
     } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function clsx() {
-    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$3(e)) && (n && (n += " "), 
+  function clsx$o() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$r(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
@@ -13740,7 +13740,7 @@
     return (Number.isNaN(major) ? 0 : major) < parseInt(VIRTUAL_TOUR_CONFIG_VERSION, 10);
   }
   function cn(...inputs) {
-    return twMerge(clsx(inputs));
+    return twMerge(clsx$o(inputs));
   }
   function cleanObject(obj) {
     if (obj === null || typeof obj !== "object") {
@@ -13914,8 +13914,8 @@
   function die(error, ...args) {
     throw new Error(`[Immer] minified error nr: ${error}. Full error at: https://bit.ly/3cXEKWf`);
   }
-  var O$5 = Object;
-  var getPrototypeOf$2 = O$5.getPrototypeOf;
+  var O$1 = Object;
+  var getPrototypeOf$2 = O$1.getPrototypeOf;
   var CONSTRUCTOR = "constructor";
   var PROTOTYPE = "prototype";
   var CONFIGURABLE = "configurable";
@@ -13927,13 +13927,13 @@
     if (!value) return false;
     return isPlainObject$2(value) || isArray$1(value) || !!value[DRAFTABLE] || !!value[CONSTRUCTOR]?.[DRAFTABLE] || isMap(value) || isSet(value);
   }
-  var objectCtorString = O$5[PROTOTYPE][CONSTRUCTOR].toString();
+  var objectCtorString = O$1[PROTOTYPE][CONSTRUCTOR].toString();
   var cachedCtorStrings = new WeakMap;
   function isPlainObject$2(value) {
     if (!value || !isObjectish(value)) return false;
     const proto = getPrototypeOf$2(value);
-    if (proto === null || proto === O$5[PROTOTYPE]) return true;
-    const Ctor = O$5.hasOwnProperty.call(proto, CONSTRUCTOR) && proto[CONSTRUCTOR];
+    if (proto === null || proto === O$1[PROTOTYPE]) return true;
+    const Ctor = O$1.hasOwnProperty.call(proto, CONSTRUCTOR) && proto[CONSTRUCTOR];
     if (Ctor === Object) return true;
     if (!isFunction$7(Ctor)) return false;
     let ctorString = cachedCtorStrings.get(Ctor);
@@ -13945,7 +13945,7 @@
   }
   function each$2(obj, iter, strict = true) {
     if (getArchtype(obj) === 0) {
-      const keys = strict ? Reflect.ownKeys(obj) : O$5.keys(obj);
+      const keys = strict ? Reflect.ownKeys(obj) : O$1.keys(obj);
       keys.forEach(key => {
         iter(key, obj[key], obj);
       });
@@ -13957,7 +13957,7 @@
     const state = thing[DRAFT_STATE];
     return state ? state.type_ : isArray$1(thing) ? 1 : isMap(thing) ? 2 : isSet(thing) ? 3 : 0;
   }
-  var has = (thing, prop, type = getArchtype(thing)) => type === 2 ? thing.has(prop) : O$5[PROTOTYPE].hasOwnProperty.call(thing, prop);
+  var has = (thing, prop, type = getArchtype(thing)) => type === 2 ? thing.has(prop) : O$1[PROTOTYPE].hasOwnProperty.call(thing, prop);
   var get = (thing, prop, type = getArchtype(thing)) => type === 2 ? thing.get(prop) : thing[prop];
   var set$9 = (thing, propOrOldValue, value, type = getArchtype(thing)) => {
     if (type === 2) thing.set(propOrOldValue, value); else if (type === 3) {
@@ -13993,7 +13993,7 @@
     if (isArray$1(base)) return Array[PROTOTYPE].slice.call(base);
     const isPlain = isPlainObject$2(base);
     if (strict === true || strict === "class_only" && !isPlain) {
-      const descriptors = O$5.getOwnPropertyDescriptors(base);
+      const descriptors = O$1.getOwnPropertyDescriptors(base);
       delete descriptors[DRAFT_STATE];
       let keys = Reflect.ownKeys(descriptors);
       for (let i = 0; i < keys.length; i++) {
@@ -14010,7 +14010,7 @@
           [VALUE]: base[key]
         };
       }
-      return O$5.create(getPrototypeOf$2(base), descriptors);
+      return O$1.create(getPrototypeOf$2(base), descriptors);
     } else {
       const proto = getPrototypeOf$2(base);
       if (proto !== null && isPlain) {
@@ -14018,21 +14018,21 @@
           ...base
         };
       }
-      const obj = O$5.create(proto);
-      return O$5.assign(obj, base);
+      const obj = O$1.create(proto);
+      return O$1.assign(obj, base);
     }
   }
   function freeze$3(obj, deep = false) {
     if (isFrozen$2(obj) || isDraft(obj) || !isDraftable(obj)) return obj;
     if (getArchtype(obj) > 1) {
-      O$5.defineProperties(obj, {
+      O$1.defineProperties(obj, {
         set: dontMutateMethodOverride,
         add: dontMutateMethodOverride,
         clear: dontMutateMethodOverride,
         delete: dontMutateMethodOverride
       });
     }
-    O$5.freeze(obj);
+    O$1.freeze(obj);
     if (deep) each$2(obj, (_key, value) => {
       freeze$3(value, true);
     }, false);
@@ -14046,7 +14046,7 @@
   };
   function isFrozen$2(obj) {
     if (obj === null || !isObjectish(obj)) return true;
-    return O$5.isFrozen(obj);
+    return O$1.isFrozen(obj);
   }
   var PluginMapSet = "MapSet";
   var PluginPatches = "Patches";
@@ -14795,7 +14795,7 @@
   var createSlottableError = __name$A(ownerName => `${ownerName} failed to slot onto its \`Slottable\`. Expected \`Slottable\` to receive a single React element child.`, "createSlottableError");
   var use = React$1[" use ".trim().toString()];
   const falsyToString = value => typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
-  const cx = clsx;
+  const cx = clsx$o;
   const cva = (base, config) => props => {
     var _config_compoundVariants;
     if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
@@ -17055,7 +17055,7 @@
     Component.displayName = toPascalCase(iconName);
     return Component;
   };
-  const __iconNode$1t = [ [ "path", {
+  const __iconNode$1q = [ [ "path", {
     d: "M4 20h16",
     key: "14thso"
   } ], [ "path", {
@@ -17065,13 +17065,13 @@
     d: "M8 12h8",
     key: "1wcyev"
   } ] ];
-  const Baseline = createLucideIcon("baseline", __iconNode$1t);
-  const __iconNode$1s = [ [ "path", {
+  const Baseline = createLucideIcon("baseline", __iconNode$1q);
+  const __iconNode$1p = [ [ "path", {
     d: "M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8",
     key: "mg9rjx"
   } ] ];
-  const Bold = createLucideIcon("bold", __iconNode$1s);
-  const __iconNode$1r = [ [ "path", {
+  const Bold = createLucideIcon("bold", __iconNode$1p);
+  const __iconNode$1o = [ [ "path", {
     d: "M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z",
     key: "hh9hay"
   } ], [ "path", {
@@ -17081,16 +17081,16 @@
     d: "M12 22V12",
     key: "d0xqtd"
   } ] ];
-  const Box = createLucideIcon("box", __iconNode$1r);
-  const __iconNode$1q = [ [ "path", {
+  const Box = createLucideIcon("box", __iconNode$1o);
+  const __iconNode$1n = [ [ "path", {
     d: "M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1",
     key: "ezmyqa"
   } ], [ "path", {
     d: "M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1",
     key: "e1hn23"
   } ] ];
-  const Braces = createLucideIcon("braces", __iconNode$1q);
-  const __iconNode$1p = [ [ "path", {
+  const Braces = createLucideIcon("braces", __iconNode$1n);
+  const __iconNode$1m = [ [ "path", {
     d: "M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z",
     key: "18u6gg"
   } ], [ "circle", {
@@ -17099,41 +17099,41 @@
     r: "3",
     key: "1vg3eu"
   } ] ];
-  const Camera = createLucideIcon("camera", __iconNode$1p);
-  const __iconNode$1o = [ [ "path", {
+  const Camera = createLucideIcon("camera", __iconNode$1m);
+  const __iconNode$1l = [ [ "path", {
     d: "M20 6 9 17l-5-5",
     key: "1gmf2c"
   } ] ];
-  const Check = createLucideIcon("check", __iconNode$1o);
-  const __iconNode$1n = [ [ "path", {
+  const Check = createLucideIcon("check", __iconNode$1l);
+  const __iconNode$1k = [ [ "path", {
     d: "m6 9 6 6 6-6",
     key: "qrunsl"
   } ] ];
-  const ChevronDown = createLucideIcon("chevron-down", __iconNode$1n);
-  const __iconNode$1m = [ [ "path", {
+  const ChevronDown = createLucideIcon("chevron-down", __iconNode$1k);
+  const __iconNode$1j = [ [ "path", {
     d: "m15 18-6-6 6-6",
     key: "1wnfg3"
   } ] ];
-  const ChevronLeft = createLucideIcon("chevron-left", __iconNode$1m);
-  const __iconNode$1l = [ [ "path", {
+  const ChevronLeft = createLucideIcon("chevron-left", __iconNode$1j);
+  const __iconNode$1i = [ [ "path", {
     d: "m9 18 6-6-6-6",
     key: "mthhwq"
   } ] ];
-  const ChevronRight = createLucideIcon("chevron-right", __iconNode$1l);
-  const __iconNode$1k = [ [ "path", {
+  const ChevronRight = createLucideIcon("chevron-right", __iconNode$1i);
+  const __iconNode$1h = [ [ "path", {
     d: "m18 15-6-6-6 6",
     key: "153udz"
   } ] ];
-  const ChevronUp = createLucideIcon("chevron-up", __iconNode$1k);
-  const __iconNode$1j = [ [ "path", {
+  const ChevronUp = createLucideIcon("chevron-up", __iconNode$1h);
+  const __iconNode$1g = [ [ "path", {
     d: "m7 15 5 5 5-5",
     key: "1hf1tw"
   } ], [ "path", {
     d: "m7 9 5-5 5 5",
     key: "sgt6xg"
   } ] ];
-  createLucideIcon("chevrons-up-down", __iconNode$1j);
-  const __iconNode$1i = [ [ "circle", {
+  createLucideIcon("chevrons-up-down", __iconNode$1g);
+  const __iconNode$1f = [ [ "circle", {
     cx: "12",
     cy: "12",
     r: "10",
@@ -17145,8 +17145,8 @@
     d: "M12 8v8",
     key: "napkw2"
   } ] ];
-  const CirclePlus = createLucideIcon("circle-plus", __iconNode$1i);
-  const __iconNode$1h = [ [ "circle", {
+  const CirclePlus = createLucideIcon("circle-plus", __iconNode$1f);
+  const __iconNode$1e = [ [ "circle", {
     cx: "12",
     cy: "12",
     r: "10",
@@ -17158,15 +17158,15 @@
     d: "M12 17h.01",
     key: "p32p05"
   } ] ];
-  const CircleQuestionMark = createLucideIcon("circle-question-mark", __iconNode$1h);
-  const __iconNode$1g = [ [ "circle", {
+  const CircleQuestionMark = createLucideIcon("circle-question-mark", __iconNode$1e);
+  const __iconNode$1d = [ [ "circle", {
     cx: "12",
     cy: "12",
     r: "10",
     key: "1mglay"
   } ] ];
-  const Circle = createLucideIcon("circle", __iconNode$1g);
-  const __iconNode$1f = [ [ "path", {
+  const Circle = createLucideIcon("circle", __iconNode$1d);
+  const __iconNode$1c = [ [ "path", {
     d: "M11 14h10",
     key: "1w8e9d"
   } ], [ "path", {
@@ -17186,8 +17186,8 @@
     rx: "1",
     key: "ublpy"
   } ] ];
-  const ClipboardPaste = createLucideIcon("clipboard-paste", __iconNode$1f);
-  const __iconNode$1e = [ [ "path", {
+  const ClipboardPaste = createLucideIcon("clipboard-paste", __iconNode$1c);
+  const __iconNode$1b = [ [ "path", {
     d: "M12 6v6l4 2",
     key: "mmk7yg"
   } ], [ "circle", {
@@ -17196,16 +17196,16 @@
     r: "10",
     key: "1mglay"
   } ] ];
-  const Clock = createLucideIcon("clock", __iconNode$1e);
-  const __iconNode$1d = [ [ "path", {
+  const Clock = createLucideIcon("clock", __iconNode$1b);
+  const __iconNode$1a = [ [ "path", {
     d: "m16 18 6-6-6-6",
     key: "eg8j8"
   } ], [ "path", {
     d: "m8 6-6 6 6 6",
     key: "ppft3o"
   } ] ];
-  const Code = createLucideIcon("code", __iconNode$1d);
-  const __iconNode$1c = [ [ "path", {
+  const Code = createLucideIcon("code", __iconNode$1a);
+  const __iconNode$19 = [ [ "path", {
     d: "m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z",
     key: "9ktpf1"
   } ], [ "circle", {
@@ -17214,8 +17214,8 @@
     r: "10",
     key: "1mglay"
   } ] ];
-  createLucideIcon("compass", __iconNode$1c);
-  const __iconNode$1b = [ [ "rect", {
+  createLucideIcon("compass", __iconNode$19);
+  const __iconNode$18 = [ [ "rect", {
     width: "14",
     height: "14",
     x: "8",
@@ -17227,8 +17227,8 @@
     d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",
     key: "zix9uf"
   } ] ];
-  const Copy = createLucideIcon("copy", __iconNode$1b);
-  const __iconNode$1a = [ [ "path", {
+  const Copy = createLucideIcon("copy", __iconNode$18);
+  const __iconNode$17 = [ [ "path", {
     d: "M12 15V3",
     key: "m9g1x1"
   } ], [ "path", {
@@ -17238,8 +17238,8 @@
     d: "m7 10 5 5 5-5",
     key: "brsn70"
   } ] ];
-  const Download = createLucideIcon("download", __iconNode$1a);
-  const __iconNode$19 = [ [ "circle", {
+  const Download = createLucideIcon("download", __iconNode$17);
+  const __iconNode$16 = [ [ "circle", {
     cx: "12",
     cy: "12",
     r: "1",
@@ -17255,8 +17255,8 @@
     r: "1",
     key: "1pcz8c"
   } ] ];
-  const Ellipsis = createLucideIcon("ellipsis", __iconNode$19);
-  const __iconNode$18 = [ [ "path", {
+  const Ellipsis = createLucideIcon("ellipsis", __iconNode$16);
+  const __iconNode$15 = [ [ "path", {
     d: "m15 15 6 6",
     key: "1s409w"
   } ], [ "path", {
@@ -17281,8 +17281,8 @@
     d: "M9 9 3 3",
     key: "v551iv"
   } ] ];
-  createLucideIcon("expand", __iconNode$18);
-  const __iconNode$17 = [ [ "path", {
+  createLucideIcon("expand", __iconNode$15);
+  const __iconNode$14 = [ [ "path", {
     d: "M15 3h6v6",
     key: "1q9fwt"
   } ], [ "path", {
@@ -17292,8 +17292,8 @@
     d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",
     key: "a6xqqp"
   } ] ];
-  const ExternalLink = createLucideIcon("external-link", __iconNode$17);
-  const __iconNode$16 = [ [ "path", {
+  const ExternalLink = createLucideIcon("external-link", __iconNode$14);
+  const __iconNode$13 = [ [ "path", {
     d: "M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49",
     key: "ct8e1f"
   } ], [ "path", {
@@ -17306,8 +17306,8 @@
     d: "m2 2 20 20",
     key: "1ooewy"
   } ] ];
-  const EyeOff = createLucideIcon("eye-off", __iconNode$16);
-  const __iconNode$15 = [ [ "path", {
+  const EyeOff = createLucideIcon("eye-off", __iconNode$13);
+  const __iconNode$12 = [ [ "path", {
     d: "M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0",
     key: "1nclc0"
   } ], [ "circle", {
@@ -17316,8 +17316,8 @@
     r: "3",
     key: "1v7zrd"
   } ] ];
-  const Eye = createLucideIcon("eye", __iconNode$15);
-  const __iconNode$14 = [ [ "path", {
+  const Eye = createLucideIcon("eye", __iconNode$12);
+  const __iconNode$11 = [ [ "path", {
     d: "M14.5 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.8",
     key: "1kchwa"
   } ], [ "path", {
@@ -17333,30 +17333,16 @@
     d: "M7 17v5",
     key: "1yj1jh"
   } ] ];
-  const FileBox = createLucideIcon("file-box", __iconNode$14);
-  const __iconNode$13 = [ [ "path", {
-    d: "M14 22h4a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6",
-    key: "14cnrg"
-  } ], [ "path", {
-    d: "M14 2v5a1 1 0 0 0 1 1h5",
-    key: "wfsgrz"
-  } ], [ "path", {
-    d: "M5 14a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1 1 1 0 0 1 1 1v2a1 1 0 0 0 1 1",
-    key: "sr0ebq"
-  } ], [ "path", {
-    d: "M9 22a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1",
-    key: "w793db"
-  } ] ];
-  const FileBracesCorner = createLucideIcon("file-braces-corner", __iconNode$13);
-  const __iconNode$12 = [ [ "path", {
+  const FileBox = createLucideIcon("file-box", __iconNode$11);
+  const __iconNode$10 = [ [ "path", {
     d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
     key: "1oefj6"
   } ], [ "path", {
     d: "M14 2v5a1 1 0 0 0 1 1h5",
     key: "wfsgrz"
   } ] ];
-  const File = createLucideIcon("file", __iconNode$12);
-  const __iconNode$11 = [ [ "rect", {
+  const File = createLucideIcon("file", __iconNode$10);
+  const __iconNode$$ = [ [ "rect", {
     width: "18",
     height: "18",
     x: "3",
@@ -17385,16 +17371,16 @@
     d: "M17 16.5h4",
     key: "go4c1d"
   } ] ];
-  const Film = createLucideIcon("film", __iconNode$11);
-  const __iconNode$10 = [ [ "path", {
+  const Film = createLucideIcon("film", __iconNode$$);
+  const __iconNode$_ = [ [ "path", {
     d: "M9 13h6",
     key: "1uhe8q"
   } ], [ "path", {
     d: "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z",
     key: "1kt360"
   } ] ];
-  const FolderMinus = createLucideIcon("folder-minus", __iconNode$10);
-  const __iconNode$$ = [ [ "path", {
+  const FolderMinus = createLucideIcon("folder-minus", __iconNode$_);
+  const __iconNode$Z = [ [ "path", {
     d: "M12 10v6",
     key: "1bos4e"
   } ], [ "path", {
@@ -17404,13 +17390,13 @@
     d: "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z",
     key: "1kt360"
   } ] ];
-  const FolderPlus = createLucideIcon("folder-plus", __iconNode$$);
-  const __iconNode$_ = [ [ "path", {
+  const FolderPlus = createLucideIcon("folder-plus", __iconNode$Z);
+  const __iconNode$Y = [ [ "path", {
     d: "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z",
     key: "1kt360"
   } ] ];
-  const Folder = createLucideIcon("folder", __iconNode$_);
-  const __iconNode$Z = [ [ "circle", {
+  const Folder = createLucideIcon("folder", __iconNode$Y);
+  const __iconNode$X = [ [ "circle", {
     cx: "9",
     cy: "12",
     r: "1",
@@ -17441,8 +17427,8 @@
     r: "1",
     key: "f4zoj3"
   } ] ];
-  const GripVertical = createLucideIcon("grip-vertical", __iconNode$Z);
-  const __iconNode$Y = [ [ "path", {
+  const GripVertical = createLucideIcon("grip-vertical", __iconNode$X);
+  const __iconNode$W = [ [ "path", {
     d: "M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2",
     key: "1fvzgz"
   } ], [ "path", {
@@ -17455,8 +17441,8 @@
     d: "M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15",
     key: "1s1gnw"
   } ] ];
-  createLucideIcon("hand", __iconNode$Y);
-  const __iconNode$X = [ [ "path", {
+  createLucideIcon("hand", __iconNode$W);
+  const __iconNode$V = [ [ "path", {
     d: "M5 22h14",
     key: "ehvnwv"
   } ], [ "path", {
@@ -17469,8 +17455,8 @@
     d: "M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2",
     key: "1vvvr6"
   } ] ];
-  const Hourglass = createLucideIcon("hourglass", __iconNode$X);
-  const __iconNode$W = [ [ "path", {
+  const Hourglass = createLucideIcon("hourglass", __iconNode$V);
+  const __iconNode$U = [ [ "path", {
     d: "M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21",
     key: "9csbqa"
   } ], [ "path", {
@@ -17485,8 +17471,8 @@
     r: "2",
     key: "af1f0g"
   } ] ];
-  createLucideIcon("image-down", __iconNode$W);
-  const __iconNode$V = [ [ "path", {
+  createLucideIcon("image-down", __iconNode$U);
+  const __iconNode$T = [ [ "path", {
     d: "M16 5h6",
     key: "1vod17"
   } ], [ "path", {
@@ -17504,8 +17490,8 @@
     r: "2",
     key: "af1f0g"
   } ] ];
-  const ImagePlus = createLucideIcon("image-plus", __iconNode$V);
-  const __iconNode$U = [ [ "rect", {
+  const ImagePlus = createLucideIcon("image-plus", __iconNode$T);
+  const __iconNode$S = [ [ "rect", {
     width: "18",
     height: "18",
     x: "3",
@@ -17522,8 +17508,8 @@
     d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21",
     key: "1xmnt7"
   } ] ];
-  const Image$2 = createLucideIcon("image", __iconNode$U);
-  const __iconNode$T = [ [ "path", {
+  const Image$2 = createLucideIcon("image", __iconNode$S);
+  const __iconNode$R = [ [ "path", {
     d: "m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16",
     key: "9kzy35"
   } ], [ "path", {
@@ -17543,8 +17529,8 @@
     rx: "2",
     key: "1gvhby"
   } ] ];
-  const Images = createLucideIcon("images", __iconNode$T);
-  const __iconNode$S = [ [ "line", {
+  const Images = createLucideIcon("images", __iconNode$R);
+  const __iconNode$Q = [ [ "line", {
     x1: "19",
     x2: "10",
     y1: "4",
@@ -17563,8 +17549,8 @@
     y2: "20",
     key: "uljnxc"
   } ] ];
-  const Italic = createLucideIcon("italic", __iconNode$S);
-  const __iconNode$R = [ [ "path", {
+  const Italic = createLucideIcon("italic", __iconNode$Q);
+  const __iconNode$P = [ [ "path", {
     d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",
     key: "zw3jo"
   } ], [ "path", {
@@ -17574,21 +17560,21 @@
     d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",
     key: "kqbvx6"
   } ] ];
-  const Layers = createLucideIcon("layers", __iconNode$R);
-  const __iconNode$Q = [ [ "path", {
+  const Layers = createLucideIcon("layers", __iconNode$P);
+  const __iconNode$O = [ [ "path", {
     d: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",
     key: "1cjeqo"
   } ], [ "path", {
     d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
     key: "19qd67"
   } ] ];
-  const Link$1 = createLucideIcon("link", __iconNode$Q);
-  const __iconNode$P = [ [ "path", {
+  const Link$1 = createLucideIcon("link", __iconNode$O);
+  const __iconNode$N = [ [ "path", {
     d: "M21 12a9 9 0 1 1-6.219-8.56",
     key: "13zald"
   } ] ];
-  const LoaderCircle = createLucideIcon("loader-circle", __iconNode$P);
-  const __iconNode$O = [ [ "rect", {
+  const LoaderCircle = createLucideIcon("loader-circle", __iconNode$N);
+  const __iconNode$M = [ [ "rect", {
     width: "18",
     height: "11",
     x: "3",
@@ -17600,8 +17586,8 @@
     d: "M7 11V7a5 5 0 0 1 9.9-1",
     key: "1mm8w8"
   } ] ];
-  const LockOpen = createLucideIcon("lock-open", __iconNode$O);
-  const __iconNode$N = [ [ "rect", {
+  const LockOpen = createLucideIcon("lock-open", __iconNode$M);
+  const __iconNode$L = [ [ "rect", {
     width: "18",
     height: "11",
     x: "3",
@@ -17613,8 +17599,8 @@
     d: "M7 11V7a5 5 0 0 1 10 0v4",
     key: "fwvmzm"
   } ] ];
-  const Lock = createLucideIcon("lock", __iconNode$N);
-  const __iconNode$M = [ [ "path", {
+  const Lock = createLucideIcon("lock", __iconNode$L);
+  const __iconNode$K = [ [ "path", {
     d: "M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738",
     key: "fcdtly"
   } ], [ "circle", {
@@ -17629,8 +17615,8 @@
     d: "M19 15v6",
     key: "10aioa"
   } ] ];
-  const MapPinPlus = createLucideIcon("map-pin-plus", __iconNode$M);
-  const __iconNode$L = [ [ "path", {
+  const MapPinPlus = createLucideIcon("map-pin-plus", __iconNode$K);
+  const __iconNode$J = [ [ "path", {
     d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
     key: "1r0f0z"
   } ], [ "circle", {
@@ -17639,8 +17625,8 @@
     r: "3",
     key: "ilqhr7"
   } ] ];
-  const MapPin = createLucideIcon("map-pin", __iconNode$L);
-  const __iconNode$K = [ [ "path", {
+  const MapPin = createLucideIcon("map-pin", __iconNode$J);
+  const __iconNode$I = [ [ "path", {
     d: "M15 3h6v6",
     key: "1q9fwt"
   } ], [ "path", {
@@ -17653,8 +17639,8 @@
     d: "M9 21H3v-6",
     key: "wtvkvv"
   } ] ];
-  const Maximize2 = createLucideIcon("maximize-2", __iconNode$K);
-  const __iconNode$J = [ [ "path", {
+  const Maximize2 = createLucideIcon("maximize-2", __iconNode$I);
+  const __iconNode$H = [ [ "path", {
     d: "M4 5h16",
     key: "1tepv9"
   } ], [ "path", {
@@ -17664,8 +17650,8 @@
     d: "M4 19h16",
     key: "1djgab"
   } ] ];
-  createLucideIcon("menu", __iconNode$J);
-  const __iconNode$I = [ [ "path", {
+  createLucideIcon("menu", __iconNode$H);
+  const __iconNode$G = [ [ "path", {
     d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719",
     key: "1sd12s"
   } ], [ "path", {
@@ -17678,8 +17664,8 @@
     d: "M16 12h.01",
     key: "1l6xoz"
   } ] ];
-  const MessageCircleMore = createLucideIcon("message-circle-more", __iconNode$I);
-  const __iconNode$H = [ [ "path", {
+  const MessageCircleMore = createLucideIcon("message-circle-more", __iconNode$G);
+  const __iconNode$F = [ [ "path", {
     d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
     key: "18887p"
   } ], [ "path", {
@@ -17692,8 +17678,8 @@
     d: "M7 7h8",
     key: "af5zfr"
   } ] ];
-  const MessageSquareText = createLucideIcon("message-square-text", __iconNode$H);
-  const __iconNode$G = [ [ "path", {
+  const MessageSquareText = createLucideIcon("message-square-text", __iconNode$F);
+  const __iconNode$E = [ [ "path", {
     d: "m14 10 7-7",
     key: "oa77jy"
   } ], [ "path", {
@@ -17706,13 +17692,13 @@
     d: "M4 14h6v6",
     key: "rmj7iw"
   } ] ];
-  const Minimize2 = createLucideIcon("minimize-2", __iconNode$G);
-  const __iconNode$F = [ [ "path", {
+  const Minimize2 = createLucideIcon("minimize-2", __iconNode$E);
+  const __iconNode$D = [ [ "path", {
     d: "M5 12h14",
     key: "1ays0h"
   } ] ];
-  const Minus = createLucideIcon("minus", __iconNode$F);
-  const __iconNode$E = [ [ "rect", {
+  const Minus = createLucideIcon("minus", __iconNode$D);
+  const __iconNode$C = [ [ "rect", {
     width: "20",
     height: "14",
     x: "2",
@@ -17732,13 +17718,13 @@
     y2: "21",
     key: "vw1qmm"
   } ] ];
-  const Monitor = createLucideIcon("monitor", __iconNode$E);
-  const __iconNode$D = [ [ "path", {
+  const Monitor = createLucideIcon("monitor", __iconNode$C);
+  const __iconNode$B = [ [ "path", {
     d: "M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z",
     key: "edeuup"
   } ] ];
-  createLucideIcon("mouse-pointer-2", __iconNode$D);
-  const __iconNode$C = [ [ "path", {
+  createLucideIcon("mouse-pointer-2", __iconNode$B);
+  const __iconNode$A = [ [ "path", {
     d: "M14 4.1 12 6",
     key: "ita8i4"
   } ], [ "path", {
@@ -17754,8 +17740,8 @@
     d: "M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z",
     key: "s0h3yz"
   } ] ];
-  createLucideIcon("mouse-pointer-click", __iconNode$C);
-  const __iconNode$B = [ [ "path", {
+  createLucideIcon("mouse-pointer-click", __iconNode$A);
+  const __iconNode$z = [ [ "path", {
     d: "M9 18V5l12-2v13",
     key: "1jmyc2"
   } ], [ "circle", {
@@ -17769,8 +17755,8 @@
     r: "3",
     key: "1hluhg"
   } ] ];
-  const Music = createLucideIcon("music", __iconNode$B);
-  const __iconNode$A = [ [ "path", {
+  const Music = createLucideIcon("music", __iconNode$z);
+  const __iconNode$y = [ [ "path", {
     d: "M11 7 6 2",
     key: "1jwth8"
   } ], [ "path", {
@@ -17783,37 +17769,8 @@
     d: "m8.5 4.5 2.148-2.148a1.205 1.205 0 0 1 1.704 0l7.296 7.296a1.205 1.205 0 0 1 0 1.704l-7.592 7.592a3.615 3.615 0 0 1-5.112 0l-3.888-3.888a3.615 3.615 0 0 1 0-5.112L5.67 7.33",
     key: "1nk1rd"
   } ] ];
-  const PaintBucket = createLucideIcon("paint-bucket", __iconNode$A);
-  const __iconNode$z = [ [ "path", {
-    d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z",
-    key: "e79jfc"
-  } ], [ "circle", {
-    cx: "13.5",
-    cy: "6.5",
-    r: ".5",
-    fill: "currentColor",
-    key: "1okk4w"
-  } ], [ "circle", {
-    cx: "17.5",
-    cy: "10.5",
-    r: ".5",
-    fill: "currentColor",
-    key: "f64h9f"
-  } ], [ "circle", {
-    cx: "6.5",
-    cy: "12.5",
-    r: ".5",
-    fill: "currentColor",
-    key: "qy21gx"
-  } ], [ "circle", {
-    cx: "8.5",
-    cy: "7.5",
-    r: ".5",
-    fill: "currentColor",
-    key: "fotxhn"
-  } ] ];
-  const Palette = createLucideIcon("palette", __iconNode$z);
-  const __iconNode$y = [ [ "path", {
+  const PaintBucket = createLucideIcon("paint-bucket", __iconNode$y);
+  const __iconNode$x = [ [ "path", {
     d: "M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z",
     key: "nt11vn"
   } ], [ "path", {
@@ -17828,24 +17785,24 @@
     r: "2",
     key: "xmgehs"
   } ] ];
-  createLucideIcon("pen-tool", __iconNode$y);
-  const __iconNode$x = [ [ "path", {
+  createLucideIcon("pen-tool", __iconNode$x);
+  const __iconNode$w = [ [ "path", {
     d: "M5 12h14",
     key: "1ays0h"
   } ], [ "path", {
     d: "M12 5v14",
     key: "s699le"
   } ] ];
-  const Plus = createLucideIcon("plus", __iconNode$x);
-  const __iconNode$w = [ [ "path", {
+  const Plus = createLucideIcon("plus", __iconNode$w);
+  const __iconNode$v = [ [ "path", {
     d: "m15 14 5-5-5-5",
     key: "12vg1m"
   } ], [ "path", {
     d: "M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13",
     key: "6uklza"
   } ] ];
-  createLucideIcon("redo-2", __iconNode$w);
-  const __iconNode$v = [ [ "path", {
+  createLucideIcon("redo-2", __iconNode$v);
+  const __iconNode$u = [ [ "path", {
     d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8",
     key: "v9h5vc"
   } ], [ "path", {
@@ -17858,8 +17815,8 @@
     d: "M8 16H3v5",
     key: "1cv678"
   } ] ];
-  const RefreshCw = createLucideIcon("refresh-cw", __iconNode$v);
-  const __iconNode$u = [ [ "path", {
+  const RefreshCw = createLucideIcon("refresh-cw", __iconNode$u);
+  const __iconNode$t = [ [ "path", {
     d: "M4 7V4h16v3",
     key: "9msm58"
   } ], [ "path", {
@@ -17875,8 +17832,8 @@
     d: "m20 15-5 5",
     key: "11p7ol"
   } ] ];
-  const RemoveFormatting = createLucideIcon("remove-formatting", __iconNode$u);
-  const __iconNode$t = [ [ "path", {
+  const RemoveFormatting = createLucideIcon("remove-formatting", __iconNode$t);
+  const __iconNode$s = [ [ "path", {
     d: "m17 2 4 4-4 4",
     key: "nntrym"
   } ], [ "path", {
@@ -17889,16 +17846,16 @@
     d: "M21 13v1a4 4 0 0 1-4 4H3",
     key: "1rx37r"
   } ] ];
-  const Repeat = createLucideIcon("repeat", __iconNode$t);
-  const __iconNode$s = [ [ "path", {
+  const Repeat = createLucideIcon("repeat", __iconNode$s);
+  const __iconNode$r = [ [ "path", {
     d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8",
     key: "1357e3"
   } ], [ "path", {
     d: "M3 3v5h5",
     key: "1xhq8a"
   } ] ];
-  createLucideIcon("rotate-ccw", __iconNode$s);
-  const __iconNode$r = [ [ "path", {
+  createLucideIcon("rotate-ccw", __iconNode$r);
+  const __iconNode$q = [ [ "path", {
     d: "m21 21-4.34-4.34",
     key: "14j7rj"
   } ], [ "circle", {
@@ -17907,8 +17864,8 @@
     r: "8",
     key: "4ej97u"
   } ] ];
-  const Search = createLucideIcon("search", __iconNode$r);
-  const __iconNode$q = [ [ "path", {
+  const Search = createLucideIcon("search", __iconNode$q);
+  const __iconNode$p = [ [ "path", {
     d: "M14 17H5",
     key: "gfn3mx"
   } ], [ "path", {
@@ -17925,8 +17882,8 @@
     r: "3",
     key: "dfmy0x"
   } ] ];
-  const Settings2 = createLucideIcon("settings-2", __iconNode$q);
-  const __iconNode$p = [ [ "path", {
+  const Settings2 = createLucideIcon("settings-2", __iconNode$p);
+  const __iconNode$o = [ [ "path", {
     d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
     key: "1i5ecw"
   } ], [ "circle", {
@@ -17935,8 +17892,8 @@
     r: "3",
     key: "1v7zrd"
   } ] ];
-  const Settings$1 = createLucideIcon("settings", __iconNode$p);
-  const __iconNode$o = [ [ "circle", {
+  const Settings$1 = createLucideIcon("settings", __iconNode$o);
+  const __iconNode$n = [ [ "circle", {
     cx: "18",
     cy: "5",
     r: "3",
@@ -17964,8 +17921,8 @@
     y2: "10.49",
     key: "1n3mei"
   } ] ];
-  const Share2 = createLucideIcon("share-2", __iconNode$o);
-  const __iconNode$n = [ [ "path", {
+  const Share2 = createLucideIcon("share-2", __iconNode$n);
+  const __iconNode$m = [ [ "path", {
     d: "M10 5H3",
     key: "1qgfaw"
   } ], [ "path", {
@@ -17993,8 +17950,8 @@
     d: "M8 12H3",
     key: "a7s4jb"
   } ] ];
-  const SlidersHorizontal = createLucideIcon("sliders-horizontal", __iconNode$n);
-  const __iconNode$m = [ [ "rect", {
+  const SlidersHorizontal = createLucideIcon("sliders-horizontal", __iconNode$m);
+  const __iconNode$l = [ [ "rect", {
     width: "14",
     height: "20",
     x: "5",
@@ -18006,8 +17963,8 @@
     d: "M12 18h.01",
     key: "mhygvu"
   } ] ];
-  const Smartphone = createLucideIcon("smartphone", __iconNode$m);
-  const __iconNode$l = [ [ "rect", {
+  const Smartphone = createLucideIcon("smartphone", __iconNode$l);
+  const __iconNode$k = [ [ "rect", {
     width: "18",
     height: "18",
     x: "3",
@@ -18021,24 +17978,24 @@
     d: "m8 16 8-8",
     key: "13b9ih"
   } ] ];
-  const SquareArrowUpRight = createLucideIcon("square-arrow-up-right", __iconNode$l);
-  const __iconNode$k = [ [ "path", {
+  const SquareArrowUpRight = createLucideIcon("square-arrow-up-right", __iconNode$k);
+  const __iconNode$j = [ [ "path", {
     d: "M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344",
     key: "2acyp4"
   } ], [ "path", {
     d: "m9 11 3 3L22 4",
     key: "1pflzl"
   } ] ];
-  const SquareCheckBig = createLucideIcon("square-check-big", __iconNode$k);
-  const __iconNode$j = [ [ "path", {
+  const SquareCheckBig = createLucideIcon("square-check-big", __iconNode$j);
+  const __iconNode$i = [ [ "path", {
     d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7",
     key: "1m0v6g"
   } ], [ "path", {
     d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",
     key: "ohrbg2"
   } ] ];
-  const SquarePen = createLucideIcon("square-pen", __iconNode$j);
-  const __iconNode$i = [ [ "rect", {
+  const SquarePen = createLucideIcon("square-pen", __iconNode$i);
+  const __iconNode$h = [ [ "rect", {
     width: "18",
     height: "18",
     x: "3",
@@ -18046,13 +18003,13 @@
     rx: "2",
     key: "afitv7"
   } ] ];
-  createLucideIcon("square", __iconNode$i);
-  const __iconNode$h = [ [ "path", {
+  createLucideIcon("square", __iconNode$h);
+  const __iconNode$g = [ [ "path", {
     d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
     key: "r04s7s"
   } ] ];
-  const Star = createLucideIcon("star", __iconNode$h);
-  const __iconNode$g = [ [ "path", {
+  const Star = createLucideIcon("star", __iconNode$g);
+  const __iconNode$f = [ [ "path", {
     d: "M16 4H9a3 3 0 0 0-2.83 4",
     key: "43sutm"
   } ], [ "path", {
@@ -18065,8 +18022,8 @@
     y2: "12",
     key: "1e0a9i"
   } ] ];
-  const Strikethrough = createLucideIcon("strikethrough", __iconNode$g);
-  const __iconNode$f = [ [ "rect", {
+  const Strikethrough = createLucideIcon("strikethrough", __iconNode$f);
+  const __iconNode$e = [ [ "rect", {
     width: "16",
     height: "20",
     x: "4",
@@ -18081,8 +18038,8 @@
     y2: "18",
     key: "1dp563"
   } ] ];
-  const Tablet = createLucideIcon("tablet", __iconNode$f);
-  const __iconNode$e = [ [ "path", {
+  const Tablet = createLucideIcon("tablet", __iconNode$e);
+  const __iconNode$d = [ [ "path", {
     d: "M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z",
     key: "vktsd0"
   } ], [ "circle", {
@@ -18092,8 +18049,8 @@
     fill: "currentColor",
     key: "kqv944"
   } ] ];
-  const Tag$1 = createLucideIcon("tag", __iconNode$e);
-  const __iconNode$d = [ [ "path", {
+  const Tag$1 = createLucideIcon("tag", __iconNode$d);
+  const __iconNode$c = [ [ "path", {
     d: "M21 5H3",
     key: "1fi0y6"
   } ], [ "path", {
@@ -18103,8 +18060,8 @@
     d: "M19 19H5",
     key: "vjpgq2"
   } ] ];
-  const TextAlignCenter = createLucideIcon("text-align-center", __iconNode$d);
-  const __iconNode$c = [ [ "path", {
+  const TextAlignCenter = createLucideIcon("text-align-center", __iconNode$c);
+  const __iconNode$b = [ [ "path", {
     d: "M21 5H3",
     key: "1fi0y6"
   } ], [ "path", {
@@ -18114,8 +18071,8 @@
     d: "M21 19H7",
     key: "4cu937"
   } ] ];
-  const TextAlignEnd = createLucideIcon("text-align-end", __iconNode$c);
-  const __iconNode$b = [ [ "path", {
+  const TextAlignEnd = createLucideIcon("text-align-end", __iconNode$b);
+  const __iconNode$a = [ [ "path", {
     d: "M3 5h18",
     key: "1u36vt"
   } ], [ "path", {
@@ -18125,8 +18082,8 @@
     d: "M3 19h18",
     key: "awlh7x"
   } ] ];
-  const TextAlignJustify = createLucideIcon("text-align-justify", __iconNode$b);
-  const __iconNode$a = [ [ "path", {
+  const TextAlignJustify = createLucideIcon("text-align-justify", __iconNode$a);
+  const __iconNode$9 = [ [ "path", {
     d: "M21 5H3",
     key: "1fi0y6"
   } ], [ "path", {
@@ -18136,8 +18093,8 @@
     d: "M17 19H3",
     key: "z6ezky"
   } ] ];
-  const TextAlignStart = createLucideIcon("text-align-start", __iconNode$a);
-  const __iconNode$9 = [ [ "path", {
+  const TextAlignStart = createLucideIcon("text-align-start", __iconNode$9);
+  const __iconNode$8 = [ [ "path", {
     d: "M10 11v6",
     key: "nco0om"
   } ], [ "path", {
@@ -18153,8 +18110,8 @@
     d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
     key: "e791ji"
   } ] ];
-  const Trash2 = createLucideIcon("trash-2", __iconNode$9);
-  const __iconNode$8 = [ [ "path", {
+  const Trash2 = createLucideIcon("trash-2", __iconNode$8);
+  const __iconNode$7 = [ [ "path", {
     d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6",
     key: "miytrc"
   } ], [ "path", {
@@ -18164,8 +18121,8 @@
     d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
     key: "e791ji"
   } ] ];
-  const Trash = createLucideIcon("trash", __iconNode$8);
-  const __iconNode$7 = [ [ "path", {
+  const Trash = createLucideIcon("trash", __iconNode$7);
+  const __iconNode$6 = [ [ "path", {
     d: "M12 4v16",
     key: "1654pz"
   } ], [ "path", {
@@ -18175,8 +18132,8 @@
     d: "M9 20h6",
     key: "s66wpe"
   } ] ];
-  createLucideIcon("type", __iconNode$7);
-  const __iconNode$6 = [ [ "path", {
+  createLucideIcon("type", __iconNode$6);
+  const __iconNode$5 = [ [ "path", {
     d: "M6 4v6a6 6 0 0 0 12 0V4",
     key: "9kb039"
   } ], [ "line", {
@@ -18186,16 +18143,16 @@
     y2: "20",
     key: "nun2al"
   } ] ];
-  const Underline = createLucideIcon("underline", __iconNode$6);
-  const __iconNode$5 = [ [ "path", {
+  const Underline = createLucideIcon("underline", __iconNode$5);
+  const __iconNode$4 = [ [ "path", {
     d: "M9 14 4 9l5-5",
     key: "102s5s"
   } ], [ "path", {
     d: "M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11",
     key: "f3b9sd"
   } ] ];
-  createLucideIcon("undo-2", __iconNode$5);
-  const __iconNode$4 = [ [ "path", {
+  createLucideIcon("undo-2", __iconNode$4);
+  const __iconNode$3 = [ [ "path", {
     d: "m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71",
     key: "yqzxt4"
   } ], [ "path", {
@@ -18226,8 +18183,8 @@
     y2: "16",
     key: "ox905f"
   } ] ];
-  const Unlink = createLucideIcon("unlink", __iconNode$4);
-  const __iconNode$3 = [ [ "path", {
+  const Unlink = createLucideIcon("unlink", __iconNode$3);
+  const __iconNode$2 = [ [ "path", {
     d: "M12 3v12",
     key: "1x0j5s"
   } ], [ "path", {
@@ -18237,33 +18194,7 @@
     d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",
     key: "ih7n3h"
   } ] ];
-  const Upload = createLucideIcon("upload", __iconNode$3);
-  const __iconNode$2 = [ [ "path", {
-    d: "m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72",
-    key: "ul74o6"
-  } ], [ "path", {
-    d: "m14 7 3 3",
-    key: "1r5n42"
-  } ], [ "path", {
-    d: "M5 6v4",
-    key: "ilb8ba"
-  } ], [ "path", {
-    d: "M19 14v4",
-    key: "blhpug"
-  } ], [ "path", {
-    d: "M10 2v2",
-    key: "7u0qdc"
-  } ], [ "path", {
-    d: "M7 8H3",
-    key: "zfb6yr"
-  } ], [ "path", {
-    d: "M21 16h-4",
-    key: "1cnmox"
-  } ], [ "path", {
-    d: "M11 3H9",
-    key: "1obp7u"
-  } ] ];
-  const WandSparkles = createLucideIcon("wand-sparkles", __iconNode$2);
+  const Upload = createLucideIcon("upload", __iconNode$2);
   const __iconNode$1 = [ [ "path", {
     d: "M18 6 6 18",
     key: "1bl5f8"
@@ -18271,7 +18202,7 @@
     d: "m6 6 12 12",
     key: "d8bk6v"
   } ] ];
-  const X$4 = createLucideIcon("x", __iconNode$1);
+  const X$2 = createLucideIcon("x", __iconNode$1);
   const __iconNode = [ [ "path", {
     d: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
     key: "1xq2db"
@@ -18306,7 +18237,7 @@
       ...props,
       children: [ children, jsxRuntimeExports.jsxs(DialogClose, {
         className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
-        children: [ jsxRuntimeExports.jsx(X$4, {
+        children: [ jsxRuntimeExports.jsx(X$2, {
           className: "h-4 w-4"
         }), jsxRuntimeExports.jsx("span", {
           className: "sr-only",
@@ -20889,7 +20820,7 @@
     })
   }));
   TooltipContent.displayName = Content2$3.displayName;
-  const g$5 = yalogica_happyvr_global;
+  const g$7 = yalogica_happyvr_global;
   const useTableStore = create$b(set => ({
     columns: [],
     items: [],
@@ -20978,14 +20909,14 @@
             data.search = search;
           }
           try {
-            const url = new URL(`${g$5.api.url}/virtualtours`, window.location.href);
+            const url = new URL(`${g$7.api.url}/virtualtours`, window.location.href);
             for (const [key, value] of new URLSearchParams(data)) {
               url.searchParams.set(key, value);
             }
             const response = await fetch(url.href, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               },
               cache: "no-store",
@@ -21032,10 +20963,10 @@
           let newMapId = 0;
           layout.setLoading(true);
           try {
-            const response = await fetch(`${g$5.api.url}/virtualtours/${id}/copy`, {
+            const response = await fetch(`${g$7.api.url}/virtualtours/${id}/copy`, {
               method: "POST",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "POST"
               },
               cache: "no-store"
@@ -21059,10 +20990,10 @@
             return;
           }
           try {
-            const response = await fetch(`${g$5.api.url}/virtualtours/${newMapId}`, {
+            const response = await fetch(`${g$7.api.url}/virtualtours/${newMapId}`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               },
               cache: "no-store"
@@ -21091,10 +21022,10 @@
           const layout = useLayoutStore$2.getState();
           layout.setLoading(true);
           try {
-            const response = await fetch(`${g$5.api.url}/virtualtours/${id}`, {
+            const response = await fetch(`${g$7.api.url}/virtualtours/${id}`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "DELETE"
               },
               cache: "no-store"
@@ -21121,7 +21052,7 @@
     LayerType["Group"] = "group";
     LayerType["Object"] = "object";
   })(LayerType$1 || (LayerType$1 = {}));
-  var ControlSlotType$1;
+  var ControlSlotType$p;
   (function(ControlSlotType) {
     ControlSlotType["TopLeft"] = "tl";
     ControlSlotType["Top"] = "t";
@@ -21131,133 +21062,168 @@
     ControlSlotType["BottomLeft"] = "bl";
     ControlSlotType["Bottom"] = "b";
     ControlSlotType["BottomRight"] = "br";
-  })(ControlSlotType$1 || (ControlSlotType$1 = {}));
-  var ControlPropertyKind$1;
+  })(ControlSlotType$p || (ControlSlotType$p = {}));
+  var ControlPropertyKind$p;
   (function(ControlPropertyKind) {
     ControlPropertyKind["Image"] = "image";
     ControlPropertyKind["Link"] = "link";
-  })(ControlPropertyKind$1 || (ControlPropertyKind$1 = {}));
-  function m$a(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var c = e.length;
-      for (t = 0; t < c; t++) e[t] && (o = m$a(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  })(ControlPropertyKind$p || (ControlPropertyKind$p = {}));
+  function r$q(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$q(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function A$9() {
-    for (var e, t, o = 0, r = "", c = arguments.length; o < c; o++) (e = arguments[o]) && (t = m$a(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$n() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$q(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var u$c;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(u$c || (u$c = {}));
-  var f$c;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(f$c || (f$c = {}));
-  const N$8 = {
+  var ControlSlotType$o;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$o || (ControlSlotType$o = {}));
+  var ControlPropertyKind$o;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$o || (ControlPropertyKind$o = {}));
+  const meta$o = {
     type: "SceneTitle",
     name: "Scene Title",
     description: "Shows the current scene title",
     createInitialProperties: () => ({
-      slot: u$c.BottomLeft,
+      slot: ControlSlotType$o.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, S$6 = e => {
-    const {api: t, style: o, hoverStyle: r, className: c} = e, [a] = reactExports.useState(() => t.generateId()), [b, g] = reactExports.useState(""), [y, h] = reactExports.useState(""), [d, p] = reactExports.useState();
-    return reactExports.useLayoutEffect(() => {
-      const s = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+  };
+  const SceneTitle$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sceneTitle, setSceneTitle] = reactExports.useState();
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         padding: "5px 10px",
         "white-space": "nowrap",
         "user-select": "none",
         "text-shadow": "0.5px 0 0 currentColor"
       });
-      return g(s), () => {
-        t.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const s = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
-        color: o?.color,
-        "background-color": o?.background,
-        "backdrop-filter": o?.background ? "blur(4px)" : void 0,
-        "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-        opacity: o?.opacity,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: r?.color,
-          "background-color": r?.background,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return h(s), () => {
-        t.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, o, r ]), reactExports.useLayoutEffect(() => {
-      const s = t.sceneApi.getActive();
-      s && p(s.name);
-    }, [ t ]), reactExports.useEffect(() => {
-      const s = [];
-      return s.push(t.on("scene:show", ({sceneId: n}) => {
-        const v = t.sceneApi.get(n);
-        p(v?.name);
-      })), () => {
-        s.forEach(n => n());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      const scene = api.sceneApi.getActive();
+      if (scene) {
+        setSceneTitle(scene.name);
+      }
+    }, [ api ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        setSceneTitle(scene?.name);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), d ? jsxRuntimeExports.jsx("div", {
-      className: A$9("hvr-control", b, y, c),
-      children: d
-    }) : null;
+    }, [ api ]);
+    if (!sceneTitle) return null;
+    return jsxRuntimeExports.jsx("div", {
+      className: clsx$n("hvr-control", baseClassName, styleClassName, className),
+      children: sceneTitle
+    });
   };
-  function b$a(e) {
-    var t, s, o = "";
-    if (typeof e == "string" || typeof e == "number") o += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var n = e.length;
-      for (t = 0; t < n; t++) e[t] && (s = b$a(e[t])) && (o && (o += " "), o += s);
-    } else for (s in e) e[s] && (o && (o += " "), o += s);
-    return o;
+  function r$p(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$p(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function S$5() {
-    for (var e, t, s = 0, o = "", n = arguments.length; s < n; s++) (e = arguments[s]) && (t = b$a(e)) && (o && (o += " "), 
-    o += t);
-    return o;
+  function clsx$m() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$p(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$c;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(d$c || (d$c = {}));
-  var m$9;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(m$9 || (m$9 = {}));
-  const w$a = {
+  var ControlSlotType$n;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$n || (ControlSlotType$n = {}));
+  var ControlPropertyKind$n;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$n || (ControlPropertyKind$n = {}));
+  const meta$n = {
     type: "SceneCounter",
     name: "Scene Counter",
     description: "Shows current scene number out of total",
     createInitialProperties: () => ({
-      slot: d$c.BottomLeft,
+      slot: ControlSlotType$n.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, B$f = e => {
-    const {api: t, style: s, hoverStyle: o, className: n} = e, [a] = reactExports.useState(() => t.generateId()), [g, y] = reactExports.useState(""), [h, v] = reactExports.useState(""), [x, p] = reactExports.useState(0), [A, u] = reactExports.useState(0);
-    return reactExports.useLayoutEffect(() => {
-      const r = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+  };
+  const SceneCounter$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sceneIndex, setSceneIndex] = reactExports.useState(0);
+    const [sceneCount, setSceneCount] = reactExports.useState(0);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         padding: "5px 10px",
         "white-space": "nowrap",
@@ -21265,76 +21231,93 @@
         "text-shadow": "0.5px 0 0 currentColor",
         "pointer-events": "none"
       });
-      return y(r), () => {
-        t.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const r = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
-        color: s?.color,
-        "background-color": s?.background,
-        "backdrop-filter": s?.background ? "blur(4px)" : void 0,
-        "border-radius": s?.borderRadius ? `${s.borderRadius}px` : void 0,
-        opacity: s?.opacity,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return v(r), () => {
-        t.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, s, o ]), reactExports.useEffect(() => {
-      const r = [], l = t.sceneApi.getActive();
-      if (l) {
-        const c = t.sceneApi.getIndex(l.id) ?? -1;
-        p(c + 1);
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      const scene = api.sceneApi.getActive();
+      if (scene) {
+        const index = api.sceneApi.getIndex(scene.id) ?? -1;
+        setSceneIndex(index + 1);
       }
-      return u(t.sceneApi.size()), r.push(t.on("scene:add", () => {
-        u(t.sceneApi.size());
-      })), r.push(t.on("scene:remove", () => {
-        u(t.sceneApi.size());
-      })), r.push(t.on("scene:show", ({sceneId: c}) => {
-        const k = t.sceneApi.getIndex(c) ?? -1;
-        p(k + 1);
-      })), () => {
-        r.forEach(c => c());
+      setSceneCount(api.sceneApi.size());
+      cleanups.push(api.on("scene:add", () => {
+        setSceneCount(api.sceneApi.size());
+      }));
+      cleanups.push(api.on("scene:remove", () => {
+        setSceneCount(api.sceneApi.size());
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        const index = api.sceneApi.getIndex(sceneId) ?? -1;
+        setSceneIndex(index + 1);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), jsxRuntimeExports.jsxs("div", {
-      className: S$5("hvr-control", g, h, n),
-      children: [ x, "/", A ]
+    }, [ api ]);
+    return jsxRuntimeExports.jsxs("div", {
+      className: clsx$m("hvr-control", baseClassName, styleClassName, className),
+      children: [ sceneIndex, "/", sceneCount ]
     });
   };
-  function p$a(e) {
-    var t, r, o = "";
-    if (typeof e == "string" || typeof e == "number") o += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var n = e.length;
-      for (t = 0; t < n; t++) e[t] && (r = p$a(e[t])) && (o && (o += " "), o += r);
-    } else for (r in e) e[r] && (o && (o += " "), o += r);
-    return o;
+  function r$o(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$o(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function k$5() {
-    for (var e, t, r = 0, o = "", n = arguments.length; r < n; r++) (e = arguments[r]) && (t = p$a(e)) && (o && (o += " "), 
-    o += t);
-    return o;
+  function clsx$l() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$o(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var l$6;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(l$6 || (l$6 = {}));
-  var u$b;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(u$b || (u$b = {}));
-  const N$7 = {
+  var ControlSlotType$m;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$m || (ControlSlotType$m = {}));
+  var ControlPropertyKind$m;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$m || (ControlPropertyKind$m = {}));
+  const meta$m = {
     type: "SceneNav",
     name: "Scene Navigation",
     description: "Navigates between scenes in a loop",
     createInitialProperties: () => ({
-      slot: l$6.BottomRight,
+      slot: ControlSlotType$m.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -21344,11 +21327,15 @@
         background: "#000"
       }
     })
-  }, A$8 = e => {
-    const {api: t, style: r, hoverStyle: o, className: n} = e, [a] = reactExports.useState(() => t.generateId()), [h, g] = reactExports.useState(""), [b, v] = reactExports.useState("");
+  };
+  const SceneNav$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "flex",
         "flex-direction": "row",
         gap: "5px",
@@ -21369,44 +21356,52 @@
           }
         }
       });
-      return g(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return v(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, r, o ]);
-    const f = () => {
-      const i = t.sceneApi.getPrev(true);
-      i && t.sceneApi.show(i.id);
-    }, m = () => {
-      const i = t.sceneApi.getNext(true);
-      i && t.sceneApi.show(i.id);
+    }, [ api, id, style, hoverStyle ]);
+    const goPrevScene = () => {
+      const scene = api.sceneApi.getPrev(true);
+      if (scene) {
+        void api.sceneApi.show(scene.id);
+      }
+    };
+    const goNextScene = () => {
+      const scene = api.sceneApi.getNext(true);
+      if (scene) {
+        void api.sceneApi.show(scene.id);
+      }
     };
     return jsxRuntimeExports.jsxs("div", {
-      className: k$5("hvr-control", h, b, n),
+      className: clsx$l("hvr-control", baseClassName, styleClassName, className),
       children: [ jsxRuntimeExports.jsx("button", {
         type: "button",
         "aria-label": "Go to previous scene",
         title: "Go to previous scene",
-        onClick: f,
+        onClick: goPrevScene,
         children: jsxRuntimeExports.jsx("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -21425,7 +21420,7 @@
         type: "button",
         "aria-label": "Go to next scene",
         title: "Go to next scene",
-        onClick: m,
+        onClick: goNextScene,
         children: jsxRuntimeExports.jsx("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -21443,313 +21438,321 @@
       }) ]
     });
   };
-  function J$5(e) {
-    var t, r, n = "";
-    if (typeof e == "string" || typeof e == "number") n += e; else if (typeof e == "object") if (Array.isArray(e)) {
+  function r$1$5(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
       var o = e.length;
-      for (t = 0; t < o; t++) e[t] && (r = J$5(e[t])) && (n && (n += " "), n += r);
-    } else for (r in e) e[r] && (n && (n += " "), n += r);
+      for (t = 0; t < o; t++) e[t] && (f = r$1$5(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function A$7() {
-    for (var e, t, r = 0, n = "", o = arguments.length; r < o; r++) (e = arguments[r]) && (t = J$5(e)) && (n && (n += " "), 
+  function clsx$k() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$1$5(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
-  var ot$3 = {
+  var r$n = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, f$b = function(e) {
-    return typeof e == "string" ? e.length > 0 : typeof e == "number";
-  }, c$4 = function(e, t, r) {
-    return t === void 0 && (t = 0), r === void 0 && (r = Math.pow(10, t)), Math.round(r * e) / r + 0;
-  }, d$b = function(e, t, r) {
-    return t === void 0 && (t = 0), r === void 0 && (r = 1), e > r ? r : e > t ? e : t;
-  }, Q$4 = function(e) {
-    return (e = isFinite(e) ? e % 360 : 0) > 0 ? e : e + 360;
-  }, V$4 = function(e) {
+  }, t$1$5 = function(r) {
+    return "string" == typeof r ? r.length > 0 : "number" == typeof r;
+  }, n$6 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
+  }, e$6 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
+  }, u$6 = function(r) {
+    return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
+  }, a$6 = function(r) {
     return {
-      r: d$b(e.r, 0, 255),
-      g: d$b(e.g, 0, 255),
-      b: d$b(e.b, 0, 255),
-      a: d$b(e.a)
+      r: e$6(r.r, 0, 255),
+      g: e$6(r.g, 0, 255),
+      b: e$6(r.b, 0, 255),
+      a: e$6(r.a)
     };
-  }, S$4 = function(e) {
+  }, o$1$5 = function(r) {
     return {
-      r: c$4(e.r),
-      g: c$4(e.g),
-      b: c$4(e.b),
-      a: c$4(e.a, 3)
+      r: n$6(r.r),
+      g: n$6(r.g),
+      b: n$6(r.b),
+      a: n$6(r.a, 3)
     };
-  }, it$5 = /^#([0-9a-f]{3,8})$/i, N$6 = function(e) {
-    var t = e.toString(16);
+  }, i$6 = /^#([0-9a-f]{3,8})$/i, s$6 = function(r) {
+    var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
-  }, T$3 = function(e) {
-    var t = e.r, r = e.g, n = e.b, o = e.a, i = Math.max(t, r, n), a = i - Math.min(t, r, n), s = a ? i === t ? (r - n) / a : i === r ? 2 + (n - t) / a : 4 + (t - r) / a : 0;
+  }, h$6 = function(r) {
+    var t = r.r, n = r.g, e = r.b, u = r.a, a = Math.max(t, n, e), o = a - Math.min(t, n, e), i = o ? a === t ? (n - e) / o : a === n ? 2 + (e - t) / o : 4 + (t - n) / o : 0;
     return {
-      h: 60 * (s < 0 ? s + 6 : s),
-      s: i ? a / i * 100 : 0,
-      v: i / 255 * 100,
-      a: o
+      h: 60 * (i < 0 ? i + 6 : i),
+      s: a ? o / a * 100 : 0,
+      v: a / 255 * 100,
+      a: u
     };
-  }, U$5 = function(e) {
-    var t = e.h, r = e.s, n = e.v, o = e.a;
-    t = t / 360 * 6, r /= 100, n /= 100;
-    var i = Math.floor(t), a = n * (1 - r), s = n * (1 - (t - i) * r), h = n * (1 - (1 - t + i) * r), g = i % 6;
+  }, b$6 = function(r) {
+    var t = r.h, n = r.s, e = r.v, u = r.a;
+    t = t / 360 * 6, n /= 100, e /= 100;
+    var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
     return {
-      r: 255 * [ n, s, a, a, h, n ][g],
-      g: 255 * [ h, n, n, s, a, a ][g],
-      b: 255 * [ a, a, h, n, n, s ][g],
-      a: o
+      r: 255 * [ e, i, o, o, s, e ][h],
+      g: 255 * [ s, e, e, i, o, o ][h],
+      b: 255 * [ o, o, s, e, e, i ][h],
+      a: u
     };
-  }, z$6 = function(e) {
+  }, g$6 = function(r) {
     return {
-      h: Q$4(e.h),
-      s: d$b(e.s, 0, 100),
-      l: d$b(e.l, 0, 100),
-      a: d$b(e.a)
+      h: u$6(r.h),
+      s: e$6(r.s, 0, 100),
+      l: e$6(r.l, 0, 100),
+      a: e$6(r.a)
     };
-  }, q$5 = function(e) {
+  }, d$6 = function(r) {
     return {
-      h: c$4(e.h),
-      s: c$4(e.s),
-      l: c$4(e.l),
-      a: c$4(e.a, 3)
+      h: n$6(r.h),
+      s: n$6(r.s),
+      l: n$6(r.l),
+      a: n$6(r.a, 3)
     };
-  }, C$8 = function(e) {
-    return U$5((r = (t = e).s, {
+  }, f$6 = function(r) {
+    return b$6((n = (t = r).s, {
       h: t.h,
-      s: (r *= ((n = t.l) < 50 ? n : 100 - n) / 100) > 0 ? 2 * r / (n + r) * 100 : 0,
-      v: n + r,
+      s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
+      v: e + n,
       a: t.a
     }));
-    var t, r, n;
-  }, x$4 = function(e) {
+    var t, n, e;
+  }, c$6 = function(r) {
     return {
-      h: (t = T$3(e)).h,
-      s: (o = (200 - (r = t.s)) * (n = t.v) / 100) > 0 && o < 200 ? r * n / 100 / (o <= 100 ? o : 200 - o) * 100 : 0,
-      l: o / 2,
+      h: (t = h$6(r)).h,
+      s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
+      l: u / 2,
       a: t.a
     };
-    var t, r, n, o;
-  }, at$4 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, st$5 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ut$5 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ct$4 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, $$8 = {
-    string: [ [ function(e) {
-      var t = it$5.exec(e);
-      return t ? (e = t[1]).length <= 4 ? {
-        r: parseInt(e[0] + e[0], 16),
-        g: parseInt(e[1] + e[1], 16),
-        b: parseInt(e[2] + e[2], 16),
-        a: e.length === 4 ? c$4(parseInt(e[3] + e[3], 16) / 255, 2) : 1
-      } : e.length === 6 || e.length === 8 ? {
-        r: parseInt(e.substr(0, 2), 16),
-        g: parseInt(e.substr(2, 2), 16),
-        b: parseInt(e.substr(4, 2), 16),
-        a: e.length === 8 ? c$4(parseInt(e.substr(6, 2), 16) / 255, 2) : 1
+    var t, n, e, u;
+  }, l$6 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$6 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$6 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$6 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$6 = {
+    string: [ [ function(r) {
+      var t = i$6.exec(r);
+      return t ? (r = t[1]).length <= 4 ? {
+        r: parseInt(r[0] + r[0], 16),
+        g: parseInt(r[1] + r[1], 16),
+        b: parseInt(r[2] + r[2], 16),
+        a: 4 === r.length ? n$6(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+      } : 6 === r.length || 8 === r.length ? {
+        r: parseInt(r.substr(0, 2), 16),
+        g: parseInt(r.substr(2, 2), 16),
+        b: parseInt(r.substr(4, 2), 16),
+        a: 8 === r.length ? n$6(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
-    }, "hex" ], [ function(e) {
-      var t = ut$5.exec(e) || ct$4.exec(e);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : V$4({
+    }, "hex" ], [ function(r) {
+      var t = v$6.exec(r) || m$6.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$6({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
-        a: t[7] === void 0 ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
+        a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = at$4.exec(e) || st$5.exec(e);
-      if (!t) return null;
-      var r, n, o = z$6({
-        h: (r = t[1], n = t[2], n === void 0 && (n = "deg"), Number(r) * (ot$3[n] || 1)),
-        s: Number(t[3]),
-        l: Number(t[4]),
-        a: t[5] === void 0 ? 1 : Number(t[5]) / (t[6] ? 100 : 1)
+    }, "rgb" ], [ function(t) {
+      var n = l$6.exec(t) || p$6.exec(t);
+      if (!n) return null;
+      var e, u, a = g$6({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$n[u] || 1)),
+        s: Number(n[3]),
+        l: Number(n[4]),
+        a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return C$8(o);
+      return f$6(a);
     }, "hsl" ] ],
-    object: [ [ function(e) {
-      var t = e.r, r = e.g, n = e.b, o = e.a, i = o === void 0 ? 1 : o;
-      return f$b(t) && f$b(r) && f$b(n) ? V$4({
-        r: Number(t),
-        g: Number(r),
-        b: Number(n),
+    object: [ [ function(r) {
+      var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
+      return t$1$5(n) && t$1$5(e) && t$1$5(u) ? a$6({
+        r: Number(n),
+        g: Number(e),
+        b: Number(u),
         a: Number(i)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = e.h, r = e.s, n = e.l, o = e.a, i = o === void 0 ? 1 : o;
-      if (!f$b(t) || !f$b(r) || !f$b(n)) return null;
-      var a = z$6({
-        h: Number(t),
-        s: Number(r),
-        l: Number(n),
-        a: Number(i)
+    }, "rgb" ], [ function(r) {
+      var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
+      if (!t$1$5(n) || !t$1$5(e) || !t$1$5(u)) return null;
+      var i = g$6({
+        h: Number(n),
+        s: Number(e),
+        l: Number(u),
+        a: Number(o)
       });
-      return C$8(a);
-    }, "hsl" ], [ function(e) {
-      var t = e.h, r = e.s, n = e.v, o = e.a, i = o === void 0 ? 1 : o;
-      if (!f$b(t) || !f$b(r) || !f$b(n)) return null;
-      var a = function(s) {
+      return f$6(i);
+    }, "hsl" ], [ function(r) {
+      var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
+      if (!t$1$5(n) || !t$1$5(a) || !t$1$5(o)) return null;
+      var h = function(r) {
         return {
-          h: Q$4(s.h),
-          s: d$b(s.s, 0, 100),
-          v: d$b(s.v, 0, 100),
-          a: d$b(s.a)
+          h: u$6(r.h),
+          s: e$6(r.s, 0, 100),
+          v: e$6(r.v, 0, 100),
+          a: e$6(r.a)
         };
       }({
-        h: Number(t),
-        s: Number(r),
-        v: Number(n),
-        a: Number(i)
+        h: Number(n),
+        s: Number(a),
+        v: Number(o),
+        a: Number(s)
       });
-      return U$5(a);
+      return b$6(h);
     }, "hsv" ] ]
-  }, K$5 = function(e, t) {
-    for (var r = 0; r < t.length; r++) {
-      var n = t[r][0](e);
-      if (n) return [ n, t[r][1] ];
+  }, N$6 = function(r, t) {
+    for (var n = 0; n < t.length; n++) {
+      var e = t[n][0](r);
+      if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, lt$4 = function(e) {
-    return typeof e == "string" ? K$5(e.trim(), $$8.string) : typeof e == "object" && e !== null ? K$5(e, $$8.object) : [ null, void 0 ];
-  }, R$a = function(e, t) {
-    var r = x$4(e);
+  }, x$6 = function(r) {
+    return "string" == typeof r ? N$6(r.trim(), y$6.string) : "object" == typeof r && null !== r ? N$6(r, y$6.object) : [ null, void 0 ];
+  }, M$6 = function(r, t) {
+    var n = c$6(r);
     return {
-      h: r.h,
-      s: d$b(r.s + 100 * t, 0, 100),
-      l: r.l,
-      a: r.a
+      h: n.h,
+      s: e$6(n.s + 100 * t, 0, 100),
+      l: n.l,
+      a: n.a
     };
-  }, I$6 = function(e) {
-    return (299 * e.r + 587 * e.g + 114 * e.b) / 1e3 / 255;
-  }, O$4 = function(e, t) {
-    var r = x$4(e);
+  }, H$7 = function(r) {
+    return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
+  }, $$6 = function(r, t) {
+    var n = c$6(r);
     return {
-      h: r.h,
-      s: r.s,
-      l: d$b(r.l + 100 * t, 0, 100),
-      a: r.a
+      h: n.h,
+      s: n.s,
+      l: e$6(n.l + 100 * t, 0, 100),
+      a: n.a
     };
   }, j$7 = function() {
-    function e(t) {
-      this.parsed = lt$4(t)[0], this.rgba = this.parsed || {
+    function r(r) {
+      this.parsed = x$6(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
         a: 1
       };
     }
-    return e.prototype.isValid = function() {
-      return this.parsed !== null;
-    }, e.prototype.brightness = function() {
-      return c$4(I$6(this.rgba), 2);
-    }, e.prototype.isDark = function() {
-      return I$6(this.rgba) < .5;
-    }, e.prototype.isLight = function() {
-      return I$6(this.rgba) >= .5;
-    }, e.prototype.toHex = function() {
-      return t = S$4(this.rgba), r = t.r, n = t.g, o = t.b, a = (i = t.a) < 1 ? N$6(c$4(255 * i)) : "", 
-      "#" + N$6(r) + N$6(n) + N$6(o) + a;
-      var t, r, n, o, i, a;
-    }, e.prototype.toRgb = function() {
-      return S$4(this.rgba);
-    }, e.prototype.toRgbString = function() {
-      return t = S$4(this.rgba), r = t.r, n = t.g, o = t.b, (i = t.a) < 1 ? "rgba(" + r + ", " + n + ", " + o + ", " + i + ")" : "rgb(" + r + ", " + n + ", " + o + ")";
-      var t, r, n, o, i;
-    }, e.prototype.toHsl = function() {
-      return q$5(x$4(this.rgba));
-    }, e.prototype.toHslString = function() {
-      return t = q$5(x$4(this.rgba)), r = t.h, n = t.s, o = t.l, (i = t.a) < 1 ? "hsla(" + r + ", " + n + "%, " + o + "%, " + i + ")" : "hsl(" + r + ", " + n + "%, " + o + "%)";
-      var t, r, n, o, i;
-    }, e.prototype.toHsv = function() {
-      return t = T$3(this.rgba), {
-        h: c$4(t.h),
-        s: c$4(t.s),
-        v: c$4(t.v),
-        a: c$4(t.a, 3)
+    return r.prototype.isValid = function() {
+      return null !== this.parsed;
+    }, r.prototype.brightness = function() {
+      return n$6(H$7(this.rgba), 2);
+    }, r.prototype.isDark = function() {
+      return H$7(this.rgba) < .5;
+    }, r.prototype.isLight = function() {
+      return H$7(this.rgba) >= .5;
+    }, r.prototype.toHex = function() {
+      return r = o$1$5(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$6(n$6(255 * a)) : "", 
+      "#" + s$6(t) + s$6(e) + s$6(u) + i;
+      var r, t, e, u, a, i;
+    }, r.prototype.toRgb = function() {
+      return o$1$5(this.rgba);
+    }, r.prototype.toRgbString = function() {
+      return r = o$1$5(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      var r, t, n, e, u;
+    }, r.prototype.toHsl = function() {
+      return d$6(c$6(this.rgba));
+    }, r.prototype.toHslString = function() {
+      return r = d$6(c$6(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      var r, t, n, e, u;
+    }, r.prototype.toHsv = function() {
+      return r = h$6(this.rgba), {
+        h: n$6(r.h),
+        s: n$6(r.s),
+        v: n$6(r.v),
+        a: n$6(r.a, 3)
       };
-      var t;
-    }, e.prototype.invert = function() {
-      return p$9({
-        r: 255 - (t = this.rgba).r,
-        g: 255 - t.g,
-        b: 255 - t.b,
-        a: t.a
-      });
-      var t;
-    }, e.prototype.saturate = function(t) {
-      return t === void 0 && (t = .1), p$9(R$a(this.rgba, t));
-    }, e.prototype.desaturate = function(t) {
-      return t === void 0 && (t = .1), p$9(R$a(this.rgba, -t));
-    }, e.prototype.grayscale = function() {
-      return p$9(R$a(this.rgba, -1));
-    }, e.prototype.lighten = function(t) {
-      return t === void 0 && (t = .1), p$9(O$4(this.rgba, t));
-    }, e.prototype.darken = function(t) {
-      return t === void 0 && (t = .1), p$9(O$4(this.rgba, -t));
-    }, e.prototype.rotate = function(t) {
-      return t === void 0 && (t = 15), this.hue(this.hue() + t);
-    }, e.prototype.alpha = function(t) {
-      return typeof t == "number" ? p$9({
-        r: (r = this.rgba).r,
-        g: r.g,
-        b: r.b,
-        a: t
-      }) : c$4(this.rgba.a, 3);
       var r;
-    }, e.prototype.hue = function(t) {
-      var r = x$4(this.rgba);
-      return typeof t == "number" ? p$9({
-        h: t,
-        s: r.s,
-        l: r.l,
+    }, r.prototype.invert = function() {
+      return w$6({
+        r: 255 - (r = this.rgba).r,
+        g: 255 - r.g,
+        b: 255 - r.b,
         a: r.a
-      }) : c$4(r.h);
-    }, e.prototype.isEqual = function(t) {
-      return this.toHex() === p$9(t).toHex();
-    }, e;
-  }(), p$9 = function(e) {
-    return e instanceof j$7 ? e : new j$7(e);
-  }, W$5 = [], dt$4 = function(e) {
-    e.forEach(function(t) {
-      W$5.indexOf(t) < 0 && (t(j$7, $$8), W$5.push(t));
+      });
+      var r;
+    }, r.prototype.saturate = function(r) {
+      return void 0 === r && (r = .1), w$6(M$6(this.rgba, r));
+    }, r.prototype.desaturate = function(r) {
+      return void 0 === r && (r = .1), w$6(M$6(this.rgba, -r));
+    }, r.prototype.grayscale = function() {
+      return w$6(M$6(this.rgba, -1));
+    }, r.prototype.lighten = function(r) {
+      return void 0 === r && (r = .1), w$6($$6(this.rgba, r));
+    }, r.prototype.darken = function(r) {
+      return void 0 === r && (r = .1), w$6($$6(this.rgba, -r));
+    }, r.prototype.rotate = function(r) {
+      return void 0 === r && (r = 15), this.hue(this.hue() + r);
+    }, r.prototype.alpha = function(r) {
+      return "number" == typeof r ? w$6({
+        r: (t = this.rgba).r,
+        g: t.g,
+        b: t.b,
+        a: r
+      }) : n$6(this.rgba.a, 3);
+      var t;
+    }, r.prototype.hue = function(r) {
+      var t = c$6(this.rgba);
+      return "number" == typeof r ? w$6({
+        h: r,
+        s: t.s,
+        l: t.l,
+        a: t.a
+      }) : n$6(t.h);
+    }, r.prototype.isEqual = function(r) {
+      return this.toHex() === w$6(r).toHex();
+    }, r;
+  }(), w$6 = function(r) {
+    return r instanceof j$7 ? r : new j$7(r);
+  }, S$4 = [], k$5 = function(r) {
+    r.forEach(function(r) {
+      S$4.indexOf(r) < 0 && (r(j$7, y$6), S$4.push(r));
     });
-  }, M$c = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, B$e = function(e) {
-    return .2126 * M$c(e.r) + .7152 * M$c(e.g) + .0722 * M$c(e.b);
   };
-  function ht$4(e) {
-    e.prototype.luminance = function() {
-      return t = B$e(this.rgba), (r = 2) === void 0 && (r = 0), n === void 0 && (n = Math.pow(10, r)), 
-      Math.round(n * t) / n + 0;
-      var t, r, n;
-    }, e.prototype.contrast = function(t) {
-      t === void 0 && (t = "#FFF");
-      var r, n, o, i, a, s, h, g = t instanceof e ? t : new e(t);
-      return i = this.rgba, a = g.toRgb(), s = B$e(i), h = B$e(a), r = s > h ? (s + .05) / (h + .05) : (h + .05) / (s + .05), 
-      (n = 2) === void 0 && (n = 0), o === void 0 && (o = Math.pow(10, n)), Math.floor(o * r) / o + 0;
-    }, e.prototype.isReadable = function(t, r) {
-      return t === void 0 && (t = "#FFF"), r === void 0 && (r = {}), this.contrast(t) >= (s = (a = (n = r).size) === void 0 ? "normal" : a, 
-      (i = (o = n.level) === void 0 ? "AA" : o) === "AAA" && s === "normal" ? 7 : i === "AA" && s === "large" ? 3 : 4.5);
-      var n, o, i, a, s;
+  var o$7 = function(o) {
+    var t = o / 255;
+    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+  }, t$7 = function(t) {
+    return .2126 * o$7(t.r) + .7152 * o$7(t.g) + .0722 * o$7(t.b);
+  };
+  function a11yPlugin$3(o) {
+    o.prototype.luminance = function() {
+      return o = t$7(this.rgba), void 0 === (r = 2) && (r = 0), void 0 === n && (n = Math.pow(10, r)), 
+      Math.round(n * o) / n + 0;
+      var o, r, n;
+    }, o.prototype.contrast = function(r) {
+      void 0 === r && (r = "#FFF");
+      var n, a, i, e, v, u, d, c = r instanceof o ? r : new o(r);
+      return e = this.rgba, v = c.toRgb(), u = t$7(e), d = t$7(v), n = u > d ? (u + .05) / (d + .05) : (d + .05) / (u + .05), 
+      void 0 === (a = 2) && (a = 0), void 0 === i && (i = Math.pow(10, a)), Math.floor(i * n) / i + 0;
+    }, o.prototype.isReadable = function(o, t) {
+      return void 0 === o && (o = "#FFF"), void 0 === t && (t = {}), this.contrast(o) >= (e = void 0 === (i = (r = t).size) ? "normal" : i, 
+      "AAA" === (a = void 0 === (n = r.level) ? "AA" : n) && "normal" === e ? 7 : "AA" === a && "large" === e ? 3 : 4.5);
+      var r, n, a, i, e;
     };
   }
-  var l$5;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(l$5 || (l$5 = {}));
-  var G$2;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(G$2 || (G$2 = {}));
-  dt$4([ ht$4 ]);
-  const gt$4 = {
+  var ControlSlotType$l;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$l || (ControlSlotType$l = {}));
+  var ControlPropertyKind$l;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$l || (ControlPropertyKind$l = {}));
+  k$5([ a11yPlugin$3 ]);
+  const meta$l = {
     type: "SceneListNav",
     name: "Scene List Navigation",
     description: "Shows/hides a list of scenes for navigation",
     createInitialProperties: () => ({
-      slot: l$5.BottomLeft,
+      slot: ControlSlotType$l.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -21759,52 +21762,61 @@
         background: "#000"
       }
     })
-  }, pt$4 = {
-    [l$5.TopLeft]: {
+  };
+  const dropPosition$1 = {
+    [ControlSlotType$l.TopLeft]: {
       bottom: "-5px",
       left: 0,
       transform: "translate(0, 100%)"
     },
-    [l$5.Top]: {
+    [ControlSlotType$l.Top]: {
       bottom: "-5px",
       left: "50%",
       transform: "translate(-50%, 100%)"
     },
-    [l$5.TopRight]: {
+    [ControlSlotType$l.TopRight]: {
       bottom: "-5px",
       right: 0,
       transform: "translate(0%, 100%)"
     },
-    [l$5.Left]: {
+    [ControlSlotType$l.Left]: {
       top: "50%",
       right: "-5px",
       transform: "translate(100%, -50%)"
     },
-    [l$5.Right]: {
+    [ControlSlotType$l.Right]: {
       top: "50%",
       left: "-5px",
       transform: "translate(-100%, -50%)"
     },
-    [l$5.BottomLeft]: {
+    [ControlSlotType$l.BottomLeft]: {
       top: "-5px",
       left: 0,
       transform: "translate(0, -100%)"
     },
-    [l$5.Bottom]: {
+    [ControlSlotType$l.Bottom]: {
       top: "-5px",
       left: "50%",
       transform: "translate(-50%, -100%)"
     },
-    [l$5.BottomRight]: {
+    [ControlSlotType$l.BottomRight]: {
       top: "-5px",
       right: 0,
       transform: "translate(0, -100%)"
     }
-  }, vt$5 = e => {
-    const {api: t, slot: r, style: n, hoverStyle: o, className: i} = e, [a] = reactExports.useState(() => t.generateId()), [s, h] = reactExports.useState(""), [g, X] = reactExports.useState(""), [Y, w] = reactExports.useState([]), [H, Z] = reactExports.useState(false), [_, F] = reactExports.useState(null), tt = reactExports.useRef(null);
+  };
+  const SceneListNav$1 = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [scenes, setScenes] = reactExports.useState([]);
+    const [sceneListVisible, setSceneListVisible] = reactExports.useState(false);
+    const [activeSceneId, setActiveSceneId] = reactExports.useState(null);
+    const rootRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const u = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -21822,34 +21834,37 @@
           height: "100%"
         }
       });
-      return h(u), () => {
-        t.styleApi.removeStyle(u);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const u = n?.background ? p$9(n.background).darken(.13).toHex() : void 0, b = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const hoverBackground = style?.background ? w$6(style.background).darken(.13).toHex() : void 0;
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         },
         "& .hvr-scene-list": {
-          ...pt$4[r ?? l$5.BottomLeft],
+          ...dropPosition$1[slot ?? ControlSlotType$l.BottomLeft],
           position: "absolute",
           width: "max-content",
           "max-height": "250px",
           overflow: "auto",
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
           "border-radius": "5px",
           "z-index": 1,
           transition: "opacity .3s ease",
@@ -21865,7 +21880,7 @@
             width: "5px"
           },
           "&::-webkit-scrollbar-thumb": {
-            background: u ?? "transparent",
+            background: hoverBackground ?? "transparent",
             "border-radius": "5px"
           },
           "& ul": {
@@ -21880,42 +21895,49 @@
             "border-radius": "5px",
             cursor: "pointer",
             "&.active, &:hover": {
-              "background-color": o?.background ?? u ?? "transparent",
-              color: o?.color
+              "background-color": hoverStyle?.background ?? hoverBackground ?? "transparent",
+              color: hoverStyle?.color
             }
           }
         }
       });
-      return X(b), () => {
-        t.styleApi.removeStyle(b);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, r, n, o ]), reactExports.useEffect(() => {
-      const u = [];
-      w(t.sceneApi.getList());
-      const b = t.sceneApi.getActive();
-      return b && F(b.id), u.push(t.on("scene:add", ({sceneId: v}) => {
-        const k = t.sceneApi.get(v);
-        k && w(L => [ ...L, k ]);
-      })), u.push(t.on("scene:remove", ({sceneId: v}) => {
-        w(k => k.filter(L => L.id !== v));
-      })), u.push(t.on("scene:show", ({sceneId: v}) => {
-        F(v);
-      })), () => {
-        u.forEach(v => v());
+    }, [ api, id, slot, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setScenes(api.sceneApi.getList());
+      const activeScene = api.sceneApi.getActive();
+      if (activeScene) setActiveSceneId(activeScene.id);
+      cleanups.push(api.on("scene:add", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        if (scene) setScenes(prev => [ ...prev, scene ]);
+      }));
+      cleanups.push(api.on("scene:remove", ({sceneId: sceneId}) => {
+        setScenes(prev => prev.filter(scene => scene.id !== sceneId));
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        setActiveSceneId(sceneId);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]);
-    const et = () => Z(u => !u), E = u => {
-      t.sceneApi.show(u);
+    }, [ api ]);
+    const toggleSceneList = () => setSceneListVisible(v => !v);
+    const showScene = sceneId => {
+      void api.sceneApi.show(sceneId);
     };
     return jsxRuntimeExports.jsxs("div", {
-      ref: tt,
-      className: A$7("hvr-control", s, g, i),
+      ref: rootRef,
+      className: clsx$k("hvr-control", baseClassName, styleClassName, className),
       children: [ jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-expanded": H,
+        "aria-expanded": sceneListVisible,
         "aria-label": "Show/hide scene list",
         title: "Show/hide scene list",
-        onClick: et,
+        onClick: toggleSceneList,
         children: jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -21935,423 +21957,434 @@
           }) ]
         })
       }), jsxRuntimeExports.jsx("div", {
-        className: A$7("hvr-scene-list", H && "visible"),
+        className: clsx$k("hvr-scene-list", sceneListVisible && "visible"),
         children: jsxRuntimeExports.jsx("ul", {
-          children: Y.map(u => jsxRuntimeExports.jsx("li", {
+          children: scenes.map(scene => jsxRuntimeExports.jsx("li", {
             role: "button",
             tabIndex: 0,
-            className: A$7(u.id === _ && "active"),
-            onClick: () => E(u.id),
-            onKeyDown: b => {
-              (b.key === "Enter" || b.key === " ") && (b.preventDefault(), E(u.id));
+            className: clsx$k(scene.id === activeSceneId && "active"),
+            onClick: () => showScene(scene.id),
+            onKeyDown: e => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                showScene(scene.id);
+              }
             },
-            children: u.name
-          }, u.id))
+            children: scene.name
+          }, scene.id))
         })
       }) ]
     });
   };
-  function it$4(e) {
-    var t, i, n = "";
-    if (typeof e == "string" || typeof e == "number") n += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var s = e.length;
-      for (t = 0; t < s; t++) e[t] && (i = it$4(e[t])) && (n && (n += " "), n += i);
-    } else for (i in e) e[i] && (n && (n += " "), n += i);
+  function r$2$2(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$2$2(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function ht$3() {
-    for (var e, t, i = 0, n = "", s = arguments.length; i < s; i++) (e = arguments[i]) && (t = it$4(e)) && (n && (n += " "), 
+  function clsx$j() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$2$2(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
-  var ut$4 = {
+  var r$1$4 = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, y$a = function(e) {
-    return typeof e == "string" ? e.length > 0 : typeof e == "number";
-  }, u$a = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = Math.pow(10, t)), Math.round(i * e) / i + 0;
-  }, d$a = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = 1), e > i ? i : e > t ? e : t;
-  }, nt$3 = function(e) {
-    return (e = isFinite(e) ? e % 360 : 0) > 0 ? e : e + 360;
-  }, q$4 = function(e) {
+  }, t$2$2 = function(r) {
+    return "string" == typeof r ? r.length > 0 : "number" == typeof r;
+  }, n$1$3 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
+  }, e$1$3 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
+  }, u$1$2 = function(r) {
+    return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
+  }, a$1$2 = function(r) {
     return {
-      r: d$a(e.r, 0, 255),
-      g: d$a(e.g, 0, 255),
-      b: d$a(e.b, 0, 255),
-      a: d$a(e.a)
+      r: e$1$3(r.r, 0, 255),
+      g: e$1$3(r.g, 0, 255),
+      b: e$1$3(r.b, 0, 255),
+      a: e$1$3(r.a)
     };
-  }, R$9 = function(e) {
+  }, o$2$2 = function(r) {
     return {
-      r: u$a(e.r),
-      g: u$a(e.g),
-      b: u$a(e.b),
-      a: u$a(e.a, 3)
+      r: n$1$3(r.r),
+      g: n$1$3(r.g),
+      b: n$1$3(r.b),
+      a: n$1$3(r.a, 3)
     };
-  }, ct$3 = /^#([0-9a-f]{3,8})$/i, M$b = function(e) {
-    var t = e.toString(16);
+  }, i$1$3 = /^#([0-9a-f]{3,8})$/i, s$5 = function(r) {
+    var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
-  }, st$4 = function(e) {
-    var t = e.r, i = e.g, n = e.b, s = e.a, r = Math.max(t, i, n), o = r - Math.min(t, i, n), a = o ? r === t ? (i - n) / o : r === i ? 2 + (n - t) / o : 4 + (t - i) / o : 0;
+  }, h$1$2 = function(r) {
+    var t = r.r, n = r.g, e = r.b, u = r.a, a = Math.max(t, n, e), o = a - Math.min(t, n, e), i = o ? a === t ? (n - e) / o : a === n ? 2 + (e - t) / o : 4 + (t - n) / o : 0;
     return {
-      h: 60 * (a < 0 ? a + 6 : a),
-      s: r ? o / r * 100 : 0,
-      v: r / 255 * 100,
-      a: s
+      h: 60 * (i < 0 ? i + 6 : i),
+      s: a ? o / a * 100 : 0,
+      v: a / 255 * 100,
+      a: u
     };
-  }, rt$2 = function(e) {
-    var t = e.h, i = e.s, n = e.v, s = e.a;
-    t = t / 360 * 6, i /= 100, n /= 100;
-    var r = Math.floor(t), o = n * (1 - i), a = n * (1 - (t - r) * i), l = n * (1 - (1 - t + r) * i), h = r % 6;
+  }, b$5 = function(r) {
+    var t = r.h, n = r.s, e = r.v, u = r.a;
+    t = t / 360 * 6, n /= 100, e /= 100;
+    var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
     return {
-      r: 255 * [ n, a, o, o, l, n ][h],
-      g: 255 * [ l, n, n, a, o, o ][h],
-      b: 255 * [ o, o, l, n, n, a ][h],
-      a: s
+      r: 255 * [ e, i, o, o, s, e ][h],
+      g: 255 * [ s, e, e, i, o, o ][h],
+      b: 255 * [ o, o, s, e, e, i ][h],
+      a: u
     };
-  }, Y$2 = function(e) {
+  }, g$5 = function(r) {
     return {
-      h: nt$3(e.h),
-      s: d$a(e.s, 0, 100),
-      l: d$a(e.l, 0, 100),
-      a: d$a(e.a)
+      h: u$1$2(r.h),
+      s: e$1$3(r.s, 0, 100),
+      l: e$1$3(r.l, 0, 100),
+      a: e$1$3(r.a)
     };
-  }, _$4 = function(e) {
+  }, d$5 = function(r) {
     return {
-      h: u$a(e.h),
-      s: u$a(e.s),
-      l: u$a(e.l),
-      a: u$a(e.a, 3)
+      h: n$1$3(r.h),
+      s: n$1$3(r.s),
+      l: n$1$3(r.l),
+      a: n$1$3(r.a, 3)
     };
-  }, J$4 = function(e) {
-    return rt$2((i = (t = e).s, {
+  }, f$1$2 = function(r) {
+    return b$5((n = (t = r).s, {
       h: t.h,
-      s: (i *= ((n = t.l) < 50 ? n : 100 - n) / 100) > 0 ? 2 * i / (n + i) * 100 : 0,
-      v: n + i,
+      s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
+      v: e + n,
       a: t.a
     }));
-    var t, i, n;
-  }, A$6 = function(e) {
+    var t, n, e;
+  }, c$1$2 = function(r) {
     return {
-      h: (t = st$4(e)).h,
-      s: (s = (200 - (i = t.s)) * (n = t.v) / 100) > 0 && s < 200 ? i * n / 100 / (s <= 100 ? s : 200 - s) * 100 : 0,
-      l: s / 2,
+      h: (t = h$1$2(r)).h,
+      s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
+      l: u / 2,
       a: t.a
     };
-    var t, i, n, s;
-  }, dt$3 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, mt$2 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, pt$3 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ft$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, C$7 = {
-    string: [ [ function(e) {
-      var t = ct$3.exec(e);
-      return t ? (e = t[1]).length <= 4 ? {
-        r: parseInt(e[0] + e[0], 16),
-        g: parseInt(e[1] + e[1], 16),
-        b: parseInt(e[2] + e[2], 16),
-        a: e.length === 4 ? u$a(parseInt(e[3] + e[3], 16) / 255, 2) : 1
-      } : e.length === 6 || e.length === 8 ? {
-        r: parseInt(e.substr(0, 2), 16),
-        g: parseInt(e.substr(2, 2), 16),
-        b: parseInt(e.substr(4, 2), 16),
-        a: e.length === 8 ? u$a(parseInt(e.substr(6, 2), 16) / 255, 2) : 1
+    var t, n, e, u;
+  }, l$5 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$1$2 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$5 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$5 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$5 = {
+    string: [ [ function(r) {
+      var t = i$1$3.exec(r);
+      return t ? (r = t[1]).length <= 4 ? {
+        r: parseInt(r[0] + r[0], 16),
+        g: parseInt(r[1] + r[1], 16),
+        b: parseInt(r[2] + r[2], 16),
+        a: 4 === r.length ? n$1$3(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+      } : 6 === r.length || 8 === r.length ? {
+        r: parseInt(r.substr(0, 2), 16),
+        g: parseInt(r.substr(2, 2), 16),
+        b: parseInt(r.substr(4, 2), 16),
+        a: 8 === r.length ? n$1$3(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
-    }, "hex" ], [ function(e) {
-      var t = pt$3.exec(e) || ft$2.exec(e);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : q$4({
+    }, "hex" ], [ function(r) {
+      var t = v$5.exec(r) || m$5.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$1$2({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
-        a: t[7] === void 0 ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
+        a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = dt$3.exec(e) || mt$2.exec(e);
-      if (!t) return null;
-      var i, n, s = Y$2({
-        h: (i = t[1], n = t[2], n === void 0 && (n = "deg"), Number(i) * (ut$4[n] || 1)),
-        s: Number(t[3]),
-        l: Number(t[4]),
-        a: t[5] === void 0 ? 1 : Number(t[5]) / (t[6] ? 100 : 1)
+    }, "rgb" ], [ function(t) {
+      var n = l$5.exec(t) || p$1$2.exec(t);
+      if (!n) return null;
+      var e, u, a = g$5({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$1$4[u] || 1)),
+        s: Number(n[3]),
+        l: Number(n[4]),
+        a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return J$4(s);
+      return f$1$2(a);
     }, "hsl" ] ],
-    object: [ [ function(e) {
-      var t = e.r, i = e.g, n = e.b, s = e.a, r = s === void 0 ? 1 : s;
-      return y$a(t) && y$a(i) && y$a(n) ? q$4({
-        r: Number(t),
-        g: Number(i),
-        b: Number(n),
-        a: Number(r)
+    object: [ [ function(r) {
+      var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
+      return t$2$2(n) && t$2$2(e) && t$2$2(u) ? a$1$2({
+        r: Number(n),
+        g: Number(e),
+        b: Number(u),
+        a: Number(i)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = e.h, i = e.s, n = e.l, s = e.a, r = s === void 0 ? 1 : s;
-      if (!y$a(t) || !y$a(i) || !y$a(n)) return null;
-      var o = Y$2({
-        h: Number(t),
-        s: Number(i),
-        l: Number(n),
-        a: Number(r)
+    }, "rgb" ], [ function(r) {
+      var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
+      if (!t$2$2(n) || !t$2$2(e) || !t$2$2(u)) return null;
+      var i = g$5({
+        h: Number(n),
+        s: Number(e),
+        l: Number(u),
+        a: Number(o)
       });
-      return J$4(o);
-    }, "hsl" ], [ function(e) {
-      var t = e.h, i = e.s, n = e.v, s = e.a, r = s === void 0 ? 1 : s;
-      if (!y$a(t) || !y$a(i) || !y$a(n)) return null;
-      var o = function(a) {
+      return f$1$2(i);
+    }, "hsl" ], [ function(r) {
+      var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
+      if (!t$2$2(n) || !t$2$2(a) || !t$2$2(o)) return null;
+      var h = function(r) {
         return {
-          h: nt$3(a.h),
-          s: d$a(a.s, 0, 100),
-          v: d$a(a.v, 0, 100),
-          a: d$a(a.a)
+          h: u$1$2(r.h),
+          s: e$1$3(r.s, 0, 100),
+          v: e$1$3(r.v, 0, 100),
+          a: e$1$3(r.a)
         };
       }({
-        h: Number(t),
-        s: Number(i),
-        v: Number(n),
-        a: Number(r)
+        h: Number(n),
+        s: Number(a),
+        v: Number(o),
+        a: Number(s)
       });
-      return rt$2(o);
+      return b$5(h);
     }, "hsv" ] ]
-  }, K$4 = function(e, t) {
-    for (var i = 0; i < t.length; i++) {
-      var n = t[i][0](e);
-      if (n) return [ n, t[i][1] ];
+  }, N$5 = function(r, t) {
+    for (var n = 0; n < t.length; n++) {
+      var e = t[n][0](r);
+      if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, vt$4 = function(e) {
-    return typeof e == "string" ? K$4(e.trim(), C$7.string) : typeof e == "object" && e !== null ? K$4(e, C$7.object) : [ null, void 0 ];
-  }, $$7 = function(e, t) {
-    var i = A$6(e);
+  }, x$5 = function(r) {
+    return "string" == typeof r ? N$5(r.trim(), y$5.string) : "object" == typeof r && null !== r ? N$5(r, y$5.object) : [ null, void 0 ];
+  }, M$5 = function(r, t) {
+    var n = c$1$2(r);
     return {
-      h: i.h,
-      s: d$a(i.s + 100 * t, 0, 100),
-      l: i.l,
-      a: i.a
+      h: n.h,
+      s: e$1$3(n.s + 100 * t, 0, 100),
+      l: n.l,
+      a: n.a
     };
-  }, z$5 = function(e) {
-    return (299 * e.r + 587 * e.g + 114 * e.b) / 1e3 / 255;
-  }, Q$3 = function(e, t) {
-    var i = A$6(e);
+  }, H$6 = function(r) {
+    return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
+  }, $$5 = function(r, t) {
+    var n = c$1$2(r);
     return {
-      h: i.h,
-      s: i.s,
-      l: d$a(i.l + 100 * t, 0, 100),
-      a: i.a
+      h: n.h,
+      s: n.s,
+      l: e$1$3(n.l + 100 * t, 0, 100),
+      a: n.a
     };
-  }, X$3 = function() {
-    function e(t) {
-      this.parsed = vt$4(t)[0], this.rgba = this.parsed || {
+  }, j$6 = function() {
+    function r(r) {
+      this.parsed = x$5(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
         a: 1
       };
     }
-    return e.prototype.isValid = function() {
-      return this.parsed !== null;
-    }, e.prototype.brightness = function() {
-      return u$a(z$5(this.rgba), 2);
-    }, e.prototype.isDark = function() {
-      return z$5(this.rgba) < .5;
-    }, e.prototype.isLight = function() {
-      return z$5(this.rgba) >= .5;
-    }, e.prototype.toHex = function() {
-      return t = R$9(this.rgba), i = t.r, n = t.g, s = t.b, o = (r = t.a) < 1 ? M$b(u$a(255 * r)) : "", 
-      "#" + M$b(i) + M$b(n) + M$b(s) + o;
-      var t, i, n, s, r, o;
-    }, e.prototype.toRgb = function() {
-      return R$9(this.rgba);
-    }, e.prototype.toRgbString = function() {
-      return t = R$9(this.rgba), i = t.r, n = t.g, s = t.b, (r = t.a) < 1 ? "rgba(" + i + ", " + n + ", " + s + ", " + r + ")" : "rgb(" + i + ", " + n + ", " + s + ")";
-      var t, i, n, s, r;
-    }, e.prototype.toHsl = function() {
-      return _$4(A$6(this.rgba));
-    }, e.prototype.toHslString = function() {
-      return t = _$4(A$6(this.rgba)), i = t.h, n = t.s, s = t.l, (r = t.a) < 1 ? "hsla(" + i + ", " + n + "%, " + s + "%, " + r + ")" : "hsl(" + i + ", " + n + "%, " + s + "%)";
-      var t, i, n, s, r;
-    }, e.prototype.toHsv = function() {
-      return t = st$4(this.rgba), {
-        h: u$a(t.h),
-        s: u$a(t.s),
-        v: u$a(t.v),
-        a: u$a(t.a, 3)
+    return r.prototype.isValid = function() {
+      return null !== this.parsed;
+    }, r.prototype.brightness = function() {
+      return n$1$3(H$6(this.rgba), 2);
+    }, r.prototype.isDark = function() {
+      return H$6(this.rgba) < .5;
+    }, r.prototype.isLight = function() {
+      return H$6(this.rgba) >= .5;
+    }, r.prototype.toHex = function() {
+      return r = o$2$2(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$5(n$1$3(255 * a)) : "", 
+      "#" + s$5(t) + s$5(e) + s$5(u) + i;
+      var r, t, e, u, a, i;
+    }, r.prototype.toRgb = function() {
+      return o$2$2(this.rgba);
+    }, r.prototype.toRgbString = function() {
+      return r = o$2$2(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      var r, t, n, e, u;
+    }, r.prototype.toHsl = function() {
+      return d$5(c$1$2(this.rgba));
+    }, r.prototype.toHslString = function() {
+      return r = d$5(c$1$2(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      var r, t, n, e, u;
+    }, r.prototype.toHsv = function() {
+      return r = h$1$2(this.rgba), {
+        h: n$1$3(r.h),
+        s: n$1$3(r.s),
+        v: n$1$3(r.v),
+        a: n$1$3(r.a, 3)
       };
-      var t;
-    }, e.prototype.invert = function() {
-      return m$8({
-        r: 255 - (t = this.rgba).r,
-        g: 255 - t.g,
-        b: 255 - t.b,
-        a: t.a
+      var r;
+    }, r.prototype.invert = function() {
+      return w$5({
+        r: 255 - (r = this.rgba).r,
+        g: 255 - r.g,
+        b: 255 - r.b,
+        a: r.a
       });
+      var r;
+    }, r.prototype.saturate = function(r) {
+      return void 0 === r && (r = .1), w$5(M$5(this.rgba, r));
+    }, r.prototype.desaturate = function(r) {
+      return void 0 === r && (r = .1), w$5(M$5(this.rgba, -r));
+    }, r.prototype.grayscale = function() {
+      return w$5(M$5(this.rgba, -1));
+    }, r.prototype.lighten = function(r) {
+      return void 0 === r && (r = .1), w$5($$5(this.rgba, r));
+    }, r.prototype.darken = function(r) {
+      return void 0 === r && (r = .1), w$5($$5(this.rgba, -r));
+    }, r.prototype.rotate = function(r) {
+      return void 0 === r && (r = 15), this.hue(this.hue() + r);
+    }, r.prototype.alpha = function(r) {
+      return "number" == typeof r ? w$5({
+        r: (t = this.rgba).r,
+        g: t.g,
+        b: t.b,
+        a: r
+      }) : n$1$3(this.rgba.a, 3);
       var t;
-    }, e.prototype.saturate = function(t) {
-      return t === void 0 && (t = .1), m$8($$7(this.rgba, t));
-    }, e.prototype.desaturate = function(t) {
-      return t === void 0 && (t = .1), m$8($$7(this.rgba, -t));
-    }, e.prototype.grayscale = function() {
-      return m$8($$7(this.rgba, -1));
-    }, e.prototype.lighten = function(t) {
-      return t === void 0 && (t = .1), m$8(Q$3(this.rgba, t));
-    }, e.prototype.darken = function(t) {
-      return t === void 0 && (t = .1), m$8(Q$3(this.rgba, -t));
-    }, e.prototype.rotate = function(t) {
-      return t === void 0 && (t = 15), this.hue(this.hue() + t);
-    }, e.prototype.alpha = function(t) {
-      return typeof t == "number" ? m$8({
-        r: (i = this.rgba).r,
-        g: i.g,
-        b: i.b,
-        a: t
-      }) : u$a(this.rgba.a, 3);
-      var i;
-    }, e.prototype.hue = function(t) {
-      var i = A$6(this.rgba);
-      return typeof t == "number" ? m$8({
-        h: t,
-        s: i.s,
-        l: i.l,
-        a: i.a
-      }) : u$a(i.h);
-    }, e.prototype.isEqual = function(t) {
-      return this.toHex() === m$8(t).toHex();
-    }, e;
-  }(), m$8 = function(e) {
-    return e instanceof X$3 ? e : new X$3(e);
-  }, Z$3 = [], bt$3 = function(e) {
-    e.forEach(function(t) {
-      Z$3.indexOf(t) < 0 && (t(X$3, C$7), Z$3.push(t));
+    }, r.prototype.hue = function(r) {
+      var t = c$1$2(this.rgba);
+      return "number" == typeof r ? w$5({
+        h: r,
+        s: t.s,
+        l: t.l,
+        a: t.a
+      }) : n$1$3(t.h);
+    }, r.prototype.isEqual = function(r) {
+      return this.toHex() === w$5(r).toHex();
+    }, r;
+  }(), w$5 = function(r) {
+    return r instanceof j$6 ? r : new j$6(r);
+  }, S$3 = [], k$4 = function(r) {
+    r.forEach(function(r) {
+      S$3.indexOf(r) < 0 && (r(j$6, y$5), S$3.push(r));
     });
-  }, D$4 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, W$4 = function(e) {
-    return .2126 * D$4(e.r) + .7152 * D$4(e.g) + .0722 * D$4(e.b);
   };
-  function gt$3(e) {
-    e.prototype.luminance = function() {
-      return t = W$4(this.rgba), (i = 2) === void 0 && (i = 0), n === void 0 && (n = Math.pow(10, i)), 
-      Math.round(n * t) / n + 0;
-      var t, i, n;
-    }, e.prototype.contrast = function(t) {
-      t === void 0 && (t = "#FFF");
-      var i, n, s, r, o, a, l, h = t instanceof e ? t : new e(t);
-      return r = this.rgba, o = h.toRgb(), a = W$4(r), l = W$4(o), i = a > l ? (a + .05) / (l + .05) : (l + .05) / (a + .05), 
-      (n = 2) === void 0 && (n = 0), s === void 0 && (s = Math.pow(10, n)), Math.floor(s * i) / s + 0;
-    }, e.prototype.isReadable = function(t, i) {
-      return t === void 0 && (t = "#FFF"), i === void 0 && (i = {}), this.contrast(t) >= (a = (o = (n = i).size) === void 0 ? "normal" : o, 
-      (r = (s = n.level) === void 0 ? "AA" : s) === "AAA" && a === "normal" ? 7 : r === "AA" && a === "large" ? 3 : 4.5);
-      var n, s, r, o, a;
+  var o$1$4 = function(o) {
+    var t = o / 255;
+    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+  }, t$1$4 = function(t) {
+    return .2126 * o$1$4(t.r) + .7152 * o$1$4(t.g) + .0722 * o$1$4(t.b);
+  };
+  function a11yPlugin$2(o) {
+    o.prototype.luminance = function() {
+      return o = t$1$4(this.rgba), void 0 === (r = 2) && (r = 0), void 0 === n && (n = Math.pow(10, r)), 
+      Math.round(n * o) / n + 0;
+      var o, r, n;
+    }, o.prototype.contrast = function(r) {
+      void 0 === r && (r = "#FFF");
+      var n, a, i, e, v, u, d, c = r instanceof o ? r : new o(r);
+      return e = this.rgba, v = c.toRgb(), u = t$1$4(e), d = t$1$4(v), n = u > d ? (u + .05) / (d + .05) : (d + .05) / (u + .05), 
+      void 0 === (a = 2) && (a = 0), void 0 === i && (i = Math.pow(10, a)), Math.floor(i * n) / i + 0;
+    }, o.prototype.isReadable = function(o, t) {
+      return void 0 === o && (o = "#FFF"), void 0 === t && (t = {}), this.contrast(o) >= (e = void 0 === (i = (r = t).size) ? "normal" : i, 
+      "AAA" === (a = void 0 === (n = r.level) ? "AA" : n) && "normal" === e ? 7 : "AA" === a && "large" === e ? 3 : 4.5);
+      var r, n, a, i, e;
     };
   }
-  var f$a = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = 1), e > i ? i : e > t ? e : t;
-  }, H$5 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, P$6 = function(e) {
-    return 255 * (e > .0031308 ? 1.055 * Math.pow(e, 1 / 2.4) - .055 : 12.92 * e);
-  }, O$3 = 96.422, B$d = 100, j$6 = 82.521, yt$2 = function(e) {
-    var t, i, n = {
-      x: .9555766 * (t = e).x + -.0230393 * t.y + .0631636 * t.z,
-      y: -.0282895 * t.x + 1.0099416 * t.y + .0210077 * t.z,
-      z: .0122982 * t.x + -.020483 * t.y + 1.3299098 * t.z
+  var t$6 = function(t, a, n) {
+    return void 0 === a && (a = 0), void 0 === n && (n = 1), t > n ? n : t > a ? t : a;
+  }, a$5 = function(t) {
+    var a = t / 255;
+    return a < .04045 ? a / 12.92 : Math.pow((a + .055) / 1.055, 2.4);
+  }, n$5 = function(t) {
+    return 255 * (t > .0031308 ? 1.055 * Math.pow(t, 1 / 2.4) - .055 : 12.92 * t);
+  }, r$m = 96.422, o$6 = 100, u$5 = 82.521, e$5 = function(a) {
+    var r, o, u = {
+      x: .9555766 * (r = a).x + -.0230393 * r.y + .0631636 * r.z,
+      y: -.0282895 * r.x + 1.0099416 * r.y + .0210077 * r.z,
+      z: .0122982 * r.x + -.020483 * r.y + 1.3299098 * r.z
     };
-    return i = {
-      r: P$6(.032404542 * n.x - .015371385 * n.y - .004985314 * n.z),
-      g: P$6(-.00969266 * n.x + .018760108 * n.y + 41556e-8 * n.z),
-      b: P$6(556434e-9 * n.x - .002040259 * n.y + .010572252 * n.z),
-      a: e.a
+    return o = {
+      r: n$5(.032404542 * u.x - .015371385 * u.y - .004985314 * u.z),
+      g: n$5(-.00969266 * u.x + .018760108 * u.y + 41556e-8 * u.z),
+      b: n$5(556434e-9 * u.x - .002040259 * u.y + .010572252 * u.z),
+      a: a.a
     }, {
-      r: f$a(i.r, 0, 255),
-      g: f$a(i.g, 0, 255),
-      b: f$a(i.b, 0, 255),
-      a: f$a(i.a)
+      r: t$6(o.r, 0, 255),
+      g: t$6(o.g, 0, 255),
+      b: t$6(o.b, 0, 255),
+      a: t$6(o.a)
     };
-  }, Et$3 = function(e) {
-    var t = H$5(e.r), i = H$5(e.g), n = H$5(e.b);
-    return function(s) {
+  }, i$5 = function(n) {
+    var e = a$5(n.r), i = a$5(n.g), p = a$5(n.b);
+    return function(a) {
       return {
-        x: f$a(s.x, 0, O$3),
-        y: f$a(s.y, 0, B$d),
-        z: f$a(s.z, 0, j$6),
-        a: f$a(s.a)
+        x: t$6(a.x, 0, r$m),
+        y: t$6(a.y, 0, o$6),
+        z: t$6(a.z, 0, u$5),
+        a: t$6(a.a)
       };
-    }(function(s) {
+    }(function(t) {
       return {
-        x: 1.0478112 * s.x + .0228866 * s.y + -.050127 * s.z,
-        y: .0295424 * s.x + .9904844 * s.y + -.0170491 * s.z,
-        z: -.0092345 * s.x + .0150436 * s.y + .7521316 * s.z,
-        a: s.a
+        x: 1.0478112 * t.x + .0228866 * t.y + -.050127 * t.z,
+        y: .0295424 * t.x + .9904844 * t.y + -.0170491 * t.z,
+        z: -.0092345 * t.x + .0150436 * t.y + .7521316 * t.z,
+        a: t.a
       };
     }({
-      x: 100 * (.4124564 * t + .3575761 * i + .1804375 * n),
-      y: 100 * (.2126729 * t + .7151522 * i + .072175 * n),
-      z: 100 * (.0193339 * t + .119192 * i + .9503041 * n),
-      a: e.a
+      x: 100 * (.4124564 * e + .3575761 * i + .1804375 * p),
+      y: 100 * (.2126729 * e + .7151522 * i + .072175 * p),
+      z: 100 * (.0193339 * e + .119192 * i + .9503041 * p),
+      a: n.a
     }));
-  }, I$5 = 216 / 24389, L$4 = 24389 / 27, tt$3 = function(e) {
-    var t = Et$3(e), i = t.x / O$3, n = t.y / B$d, s = t.z / j$6;
-    return i = i > I$5 ? Math.cbrt(i) : (L$4 * i + 16) / 116, {
-      l: 116 * (n = n > I$5 ? Math.cbrt(n) : (L$4 * n + 16) / 116) - 16,
-      a: 500 * (i - n),
-      b: 200 * (n - (s = s > I$5 ? Math.cbrt(s) : (L$4 * s + 16) / 116)),
-      alpha: t.a
+  }, p$5 = 216 / 24389, h$5 = 24389 / 27, f$5 = function(t) {
+    var a = i$5(t), n = a.x / r$m, e = a.y / o$6, f = a.z / u$5;
+    return n = n > p$5 ? Math.cbrt(n) : (h$5 * n + 16) / 116, {
+      l: 116 * (e = e > p$5 ? Math.cbrt(e) : (h$5 * e + 16) / 116) - 16,
+      a: 500 * (n - e),
+      b: 200 * (e - (f = f > p$5 ? Math.cbrt(f) : (h$5 * f + 16) / 116)),
+      alpha: a.a
     };
-  }, Lt$2 = function(e, t, i) {
-    var n, s = tt$3(e), r = tt$3(t);
-    return function(o) {
-      var a = (o.l + 16) / 116, l = o.a / 500 + a, h = a - o.b / 200;
-      return yt$2({
-        x: (Math.pow(l, 3) > I$5 ? Math.pow(l, 3) : (116 * l - 16) / L$4) * O$3,
-        y: (o.l > 8 ? Math.pow((o.l + 16) / 116, 3) : o.l / L$4) * B$d,
-        z: (Math.pow(h, 3) > I$5 ? Math.pow(h, 3) : (116 * h - 16) / L$4) * j$6,
-        a: o.alpha
+  }, c$5 = function(a, n, i) {
+    var c, y = f$5(a), x = f$5(n);
+    return function(t) {
+      var a = (t.l + 16) / 116, n = t.a / 500 + a, i = a - t.b / 200;
+      return e$5({
+        x: (Math.pow(n, 3) > p$5 ? Math.pow(n, 3) : (116 * n - 16) / h$5) * r$m,
+        y: (t.l > 8 ? Math.pow((t.l + 16) / 116, 3) : t.l / h$5) * o$6,
+        z: (Math.pow(i, 3) > p$5 ? Math.pow(i, 3) : (116 * i - 16) / h$5) * u$5,
+        a: t.alpha
       });
     }({
-      l: f$a((n = {
-        l: s.l * (1 - i) + r.l * i,
-        a: s.a * (1 - i) + r.a * i,
-        b: s.b * (1 - i) + r.b * i,
-        alpha: s.alpha * (1 - i) + r.alpha * i
+      l: t$6((c = {
+        l: y.l * (1 - i) + x.l * i,
+        a: y.a * (1 - i) + x.a * i,
+        b: y.b * (1 - i) + x.b * i,
+        alpha: y.alpha * (1 - i) + x.alpha * i
       }).l, 0, 400),
-      a: n.a,
-      b: n.b,
-      alpha: f$a(n.alpha)
+      a: c.a,
+      b: c.b,
+      alpha: t$6(c.alpha)
     });
   };
-  function xt$3(e) {
-    function t(i, n, s) {
-      s === void 0 && (s = 5);
-      for (var r = [], o = 1 / (s - 1), a = 0; a <= s - 1; a++) r.push(i.mix(n, o * a));
+  function mixPlugin$1(t) {
+    function a(t, a, n) {
+      void 0 === n && (n = 5);
+      for (var r = [], o = 1 / (n - 1), u = 0; u <= n - 1; u++) r.push(t.mix(a, o * u));
       return r;
     }
-    e.prototype.mix = function(i, n) {
-      n === void 0 && (n = .5);
-      var s = i instanceof e ? i : new e(i), r = Lt$2(this.toRgb(), s.toRgb(), n);
-      return new e(r);
-    }, e.prototype.tints = function(i) {
-      return t(this, "#fff", i);
-    }, e.prototype.shades = function(i) {
-      return t(this, "#000", i);
-    }, e.prototype.tones = function(i) {
-      return t(this, "#808080", i);
+    t.prototype.mix = function(a, n) {
+      void 0 === n && (n = .5);
+      var r = a instanceof t ? a : new t(a), o = c$5(this.toRgb(), r.toRgb(), n);
+      return new t(o);
+    }, t.prototype.tints = function(t) {
+      return a(this, "#fff", t);
+    }, t.prototype.shades = function(t) {
+      return a(this, "#000", t);
+    }, t.prototype.tones = function(t) {
+      return a(this, "#808080", t);
     };
   }
-  var F$5;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(F$5 || (F$5 = {}));
-  var et$2;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(et$2 || (et$2 = {}));
-  bt$3([ gt$3, xt$3 ]);
-  const St$3 = {
+  var ControlSlotType$k;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$k || (ControlSlotType$k = {}));
+  var ControlPropertyKind$k;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$k || (ControlPropertyKind$k = {}));
+  k$4([ a11yPlugin$2, mixPlugin$1 ]);
+  const meta$k = {
     type: "SceneThumbsNav",
     name: "Scene Thumbs Navigation",
     description: "Shows/hides scene thumbnails for navigation",
     createInitialProperties: () => ({
-      slot: F$5.Bottom,
+      slot: ControlSlotType$k.Bottom,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -22362,7 +22395,7 @@
       }
     })
   };
-  let p$8 = class p {
+  let SceneSlider$1 = class SceneSlider {
     static SLIDER_HEIGHT=100;
     static WHEEL_SENSITIVITY=.8;
     static RESISTANCE_STRENGTH=.01;
@@ -22389,53 +22422,65 @@
     activeSceneId=null;
     resizeObserver=null;
     cleanups=[];
-    constructor(t, i, n) {
-      this.api = i, this.id = n, this.rootElement = t, this.sliderElement = document.createElement("div"), 
-      this.trackElement = document.createElement("div"), this.listElement = document.createElement("div"), 
-      this.trackElement.append(this.listElement), this.sliderElement.append(this.trackElement), 
-      t.append(this.sliderElement), this.applyStyles(), this.bind(), this.initResizeObserver();
+    constructor(root, api, id) {
+      this.api = api;
+      this.id = id;
+      this.rootElement = root;
+      this.sliderElement = document.createElement("div");
+      this.trackElement = document.createElement("div");
+      this.listElement = document.createElement("div");
+      this.trackElement.append(this.listElement);
+      this.sliderElement.append(this.trackElement);
+      root.append(this.sliderElement);
+      this.applyStyles();
+      this.bind();
+      this.initResizeObserver();
     }
-    setTheme(t) {
-      let i = "transparent";
-      if (t?.background) {
-        const s = m$8(t.background);
-        i = (s.isDark() ? s.mix("#ffffff", .13) : s.mix("#000000", .13)).toHex();
+    setTheme(style) {
+      let thumbBackground = "transparent";
+      if (style?.background) {
+        const baseColor = w$5(style.background);
+        thumbBackground = (baseColor.isDark() ? baseColor.mix("#ffffff", .13) : baseColor.mix("#000000", .13)).toHex();
       }
-      const n = this.sliderElement.style;
-      n.setProperty("--hvr-panel-color", t?.color || "transparent"), n.setProperty("--hvr-panel-bg", t?.background || "transparent"), 
-      n.setProperty("--hvr-panel-radius", t?.borderRadius ? `${t.borderRadius}px` : "0"), 
-      n.setProperty("--hvr-thumb-bg", i), n.setProperty("--hvr-thumb-active", t?.color || "transparent");
+      const el = this.sliderElement.style;
+      el.setProperty("--hvr-panel-color", style?.color || "transparent");
+      el.setProperty("--hvr-panel-bg", style?.background || "transparent");
+      el.setProperty("--hvr-panel-radius", style?.borderRadius ? `${style.borderRadius}px` : "0");
+      el.setProperty("--hvr-thumb-bg", thumbBackground);
+      el.setProperty("--hvr-thumb-active", style?.color || "transparent");
     }
     applyStyles() {
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           ".hvr-controls-body": {
             transition: "bottom 0.3s ease-out"
           }
         });
-        this.rootElement.classList.add(t), this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.rootElement.classList.add(cls);
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           ".hvr-controls-body": {
-            bottom: `${p.SLIDER_HEIGHT}px`
+            bottom: `${SceneSlider.SLIDER_HEIGHT}px`
           }
         });
-        this.rootElementSliderVisibleCls = t, this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.rootElementSliderVisibleCls = cls;
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           "--hvr-ui-id": this.id,
           transition: "bottom 0.3s ease-out",
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: `-${p.SLIDER_HEIGHT}px`,
-          height: `${p.SLIDER_HEIGHT}px`,
+          bottom: `-${SceneSlider.SLIDER_HEIGHT}px`,
+          height: `${SceneSlider.SLIDER_HEIGHT}px`,
           color: "var(--hvr-panel-color, transparent)",
           "background-color": "var(--hvr-panel-bg, transparent)",
           "box-sizing": "border-box",
@@ -22480,167 +22525,280 @@
             }
           }
         });
-        this.sliderElement.classList.add(t), this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.sliderElement.classList.add(cls);
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
     }
     bind() {
-      this.sliderElement.addEventListener("pointerdown", this.onPointerDown), this.sliderElement.addEventListener("wheel", this.onWheel, {
+      this.sliderElement.addEventListener("pointerdown", this.onPointerDown);
+      this.sliderElement.addEventListener("wheel", this.onWheel, {
         passive: false
-      }), this.listElement.addEventListener("click", this.onSlideClick), this.cleanups.push(() => {
-        this.sliderElement.removeEventListener("pointerdown", this.onPointerDown), this.sliderElement.removeEventListener("wheel", this.onWheel), 
-        this.listElement.removeEventListener("click", this.onSlideClick), document.removeEventListener("pointermove", this.onPointerMove), 
-        document.removeEventListener("pointerup", this.onPointerUp), document.removeEventListener("pointercancel", this.onPointerUp);
+      });
+      this.listElement.addEventListener("click", this.onSlideClick);
+      this.cleanups.push(() => {
+        this.sliderElement.removeEventListener("pointerdown", this.onPointerDown);
+        this.sliderElement.removeEventListener("wheel", this.onWheel);
+        this.listElement.removeEventListener("click", this.onSlideClick);
+        document.removeEventListener("pointermove", this.onPointerMove);
+        document.removeEventListener("pointerup", this.onPointerUp);
+        document.removeEventListener("pointercancel", this.onPointerUp);
       });
     }
     initResizeObserver() {
       this.resizeObserver = new ResizeObserver(() => {
         this.updateLayout();
-      }), this.resizeObserver.observe(this.sliderElement);
+      });
+      this.resizeObserver.observe(this.sliderElement);
     }
-    clamp(t, i, n) {
-      return Math.min(Math.max(t, i), n);
+    clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
     }
     getListElementLeft() {
-      const t = window.getComputedStyle(this.listElement);
-      return parseFloat(t.left) || 0;
+      const style = window.getComputedStyle(this.listElement);
+      return parseFloat(style.left) || 0;
     }
-    setListElementLeft(t) {
-      this.listElement.style.left = `${t}px`;
+    setListElementLeft(left) {
+      this.listElement.style.left = `${left}px`;
     }
-    snapToBoundaries(t = true) {
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
+    snapToBoundaries(animate = true) {
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
       this.isAnimating = false;
-      const i = this.trackElement.offsetWidth, n = this.listElement.offsetWidth;
-      if (n <= i) {
-        t && (this.listElement.style.transition = "left 0.3s ease-out"), this.setListElementLeft(0);
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      if (listWidth <= trackWidth) {
+        if (animate) {
+          this.listElement.style.transition = "left 0.3s ease-out";
+        }
+        this.setListElementLeft(0);
         return;
       }
-      const s = i - n, r = 0, o = this.getListElementLeft(), a = this.clamp(o, s, r);
-      t && (this.listElement.style.transition = "left 0.3s ease-out"), this.setListElementLeft(a);
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      const currentLeft = this.getListElementLeft();
+      const clamped = this.clamp(currentLeft, minLeft, maxLeft);
+      if (animate) {
+        this.listElement.style.transition = "left 0.3s ease-out";
+      }
+      this.setListElementLeft(clamped);
     }
-    startMomentum(t) {
-      if (Math.abs(t) < .3) {
+    startMomentum(initialVelocity) {
+      if (Math.abs(initialVelocity) < .3) {
         this.snapToBoundaries();
         return;
       }
-      this.isAnimating = true, this.listElement.style.transition = "none";
-      const i = Date.now(), n = this.getListElementLeft(), s = () => {
+      this.isAnimating = true;
+      this.listElement.style.transition = "none";
+      const startTime = Date.now();
+      const startLeftPos = this.getListElementLeft();
+      const animate = () => {
         if (!this.isAnimating) return;
-        const r = Date.now() - i, o = Math.exp(-r / 100), a = t * 100 * (1 - o), l = n + a;
-        this.setListElementLeft(l);
-        const h = this.trackElement.offsetWidth, E = this.listElement.offsetWidth;
-        if (E <= h) {
-          this.isAnimating = false, this.snapToBoundaries();
+        const elapsed = Date.now() - startTime;
+        const decay = Math.exp(-elapsed / 100);
+        const delta = initialVelocity * 100 * (1 - decay);
+        const newLeft = startLeftPos + delta;
+        this.setListElementLeft(newLeft);
+        const trackWidth = this.trackElement.offsetWidth;
+        const listWidth = this.listElement.offsetWidth;
+        if (listWidth <= trackWidth) {
+          this.isAnimating = false;
+          this.snapToBoundaries();
           return;
         }
-        const v = h - E, N = 0, b = t * o;
-        if (l >= N && b > -.1 || l <= v && b < .1 || Math.abs(b) < .05) {
-          this.isAnimating = false, this.snapToBoundaries();
+        const minLeft = trackWidth - listWidth;
+        const maxLeft = 0;
+        const currentVelocity = initialVelocity * decay;
+        if (newLeft >= maxLeft && currentVelocity > -.1 || newLeft <= minLeft && currentVelocity < .1 || Math.abs(currentVelocity) < .05) {
+          this.isAnimating = false;
+          this.snapToBoundaries();
           return;
         }
-        this.momentumAnimationId = requestAnimationFrame(s);
+        this.momentumAnimationId = requestAnimationFrame(animate);
       };
-      this.momentumAnimationId = requestAnimationFrame(s);
+      this.momentumAnimationId = requestAnimationFrame(animate);
     }
     updateLayout() {
-      const t = this.trackElement.offsetWidth, i = this.listElement.offsetWidth;
-      this.isDraggable = i > t, this.listElement.style.left = this.isDraggable ? this.listElement.style.left : "auto", 
-      this.activeSceneId && this.goToScene(this.activeSceneId);
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      this.isDraggable = listWidth > trackWidth;
+      this.listElement.style.left = this.isDraggable ? this.listElement.style.left : "auto";
+      if (this.activeSceneId) {
+        this.goToScene(this.activeSceneId);
+      }
     }
-    onPointerDown=t => {
-      t.button !== 0 && t.pointerType !== "touch" || this.isDraggable && (this.isAnimating = false, 
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
-      this.pointerId = t.pointerId, this.startX = t.clientX, this.startLeft = this.getListElementLeft(), 
-      this.lastMoveX = t.clientX, this.lastMoveTime = Date.now(), this.suppressClick = false, 
-      document.addEventListener("pointermove", this.onPointerMove), document.addEventListener("pointerup", this.onPointerUp), 
-      document.addEventListener("pointercancel", this.onPointerUp));
+    onPointerDown=e => {
+      if (e.button !== 0 && e.pointerType !== "touch") return;
+      if (!this.isDraggable) return;
+      this.isAnimating = false;
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
+      this.pointerId = e.pointerId;
+      this.startX = e.clientX;
+      this.startLeft = this.getListElementLeft();
+      this.lastMoveX = e.clientX;
+      this.lastMoveTime = Date.now();
+      this.suppressClick = false;
+      document.addEventListener("pointermove", this.onPointerMove);
+      document.addEventListener("pointerup", this.onPointerUp);
+      document.addEventListener("pointercancel", this.onPointerUp);
     };
-    onPointerMove=t => {
-      if (this.pointerId !== t.pointerId || Math.abs(t.clientX - this.startX) < p.DRAG_THRESHOLD) return;
-      this.isDragging || (this.isDragging = true, this.suppressClick = true, this.listElement.style.transition = "none", 
-      this.sliderElement.setPointerCapture(t.pointerId));
-      const n = t.clientX - this.startX;
-      this.setListElementLeft(this.startLeft + n);
-      const s = Date.now(), r = s - this.lastMoveTime;
-      r > 0 && (this.velocity = (t.clientX - this.lastMoveX) / r), this.lastMoveX = t.clientX, 
-      this.lastMoveTime = s;
+    onPointerMove=e => {
+      if (this.pointerId !== e.pointerId) return;
+      const distance = Math.abs(e.clientX - this.startX);
+      if (distance < SceneSlider.DRAG_THRESHOLD) return;
+      if (!this.isDragging) {
+        this.isDragging = true;
+        this.suppressClick = true;
+        this.listElement.style.transition = "none";
+        this.sliderElement.setPointerCapture(e.pointerId);
+      }
+      const deltaX = e.clientX - this.startX;
+      this.setListElementLeft(this.startLeft + deltaX);
+      const now = Date.now();
+      const dt = now - this.lastMoveTime;
+      if (dt > 0) {
+        this.velocity = (e.clientX - this.lastMoveX) / dt;
+      }
+      this.lastMoveX = e.clientX;
+      this.lastMoveTime = now;
     };
-    onPointerUp=t => {
-      if (this.pointerId !== t.pointerId) return;
-      this.isDragging = false, this.pointerId = null, this.sliderElement.hasPointerCapture(t.pointerId) && this.sliderElement.releasePointerCapture(t.pointerId), 
-      document.removeEventListener("pointermove", this.onPointerMove), document.removeEventListener("pointerup", this.onPointerUp), 
+    onPointerUp=e => {
+      if (this.pointerId !== e.pointerId) return;
+      this.isDragging = false;
+      this.pointerId = null;
+      if (this.sliderElement.hasPointerCapture(e.pointerId)) {
+        this.sliderElement.releasePointerCapture(e.pointerId);
+      }
+      document.removeEventListener("pointermove", this.onPointerMove);
+      document.removeEventListener("pointerup", this.onPointerUp);
       document.removeEventListener("pointercancel", this.onPointerUp);
-      const i = this.velocity;
-      this.velocity = 0, this.startMomentum(i);
+      const v = this.velocity;
+      this.velocity = 0;
+      this.startMomentum(v);
     };
-    onWheel=t => {
-      if (this.isDragging || this.isAnimating || !this.isDraggable) return;
-      const i = this.trackElement.offsetWidth, n = this.listElement.offsetWidth;
-      if (n <= i) return;
-      t.preventDefault();
-      const s = t.deltaX || -t.deltaY, r = this.getListElementLeft(), o = i - n, a = 0;
-      let l = r - s * p.WHEEL_SENSITIVITY, h = 1;
-      l > a ? h = 1 / (1 + (l - a) * p.RESISTANCE_STRENGTH) : l < o && (h = 1 / (1 + (o - l) * p.RESISTANCE_STRENGTH)), 
-      l = r - s * p.WHEEL_SENSITIVITY * h, this.listElement.style.transition = "none", 
-      this.setListElementLeft(l);
-      const E = l > a || l < o;
-      this.wheelEndTimer && clearTimeout(this.wheelEndTimer), E && (this.wheelEndTimer = window.setTimeout(() => {
-        this.wheelEndTimer = null, this.snapToBoundaries(true);
-      }, 100));
+    onWheel=e => {
+      if (this.isDragging || this.isAnimating) return;
+      if (!this.isDraggable) return;
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      if (listWidth <= trackWidth) return;
+      e.preventDefault();
+      const delta = e.deltaX || -e.deltaY;
+      const currentLeft = this.getListElementLeft();
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      let newLeft = currentLeft - delta * SceneSlider.WHEEL_SENSITIVITY;
+      let resistanceFactor = 1;
+      if (newLeft > maxLeft) {
+        const over = newLeft - maxLeft;
+        resistanceFactor = 1 / (1 + over * SceneSlider.RESISTANCE_STRENGTH);
+      } else if (newLeft < minLeft) {
+        const over = minLeft - newLeft;
+        resistanceFactor = 1 / (1 + over * SceneSlider.RESISTANCE_STRENGTH);
+      }
+      newLeft = currentLeft - delta * SceneSlider.WHEEL_SENSITIVITY * resistanceFactor;
+      this.listElement.style.transition = "none";
+      this.setListElementLeft(newLeft);
+      const needsSnap = newLeft > maxLeft || newLeft < minLeft;
+      if (this.wheelEndTimer) clearTimeout(this.wheelEndTimer);
+      if (needsSnap) {
+        this.wheelEndTimer = window.setTimeout(() => {
+          this.wheelEndTimer = null;
+          this.snapToBoundaries(true);
+        }, 100);
+      }
     };
-    onSlideClick=t => {
+    onSlideClick=e => {
       if (this.suppressClick) {
         this.suppressClick = false;
         return;
       }
-      const i = t.target;
-      i.hasAttribute("data-id") && this.api.sceneApi.show(i.getAttribute("data-id"));
-    };
-    setVisible(t) {
-      this.sliderElement.classList.toggle("visible", t), this.rootElement.classList.toggle(this.rootElementSliderVisibleCls, t), 
-      t && this.activeSceneId && this.goToScene(this.activeSceneId);
-    }
-    addScene(t) {
-      const i = document.createElement("div");
-      if (i.dataset.id = t.id, t.image?.id) {
-        const n = new URL(`${t.id}/${t.image.id}/thumb.jpg`, this.api.getResourceUrl("assets")).href;
-        i.style.backgroundImage = `url("${n}")`;
+      const el = e.target;
+      if (el.hasAttribute("data-id")) {
+        void this.api.sceneApi.show(el.getAttribute("data-id"));
       }
-      this.listElement.append(i), this.updateLayout();
+    };
+    setVisible(isVisible) {
+      this.sliderElement.classList.toggle("visible", isVisible);
+      this.rootElement.classList.toggle(this.rootElementSliderVisibleCls, isVisible);
+      if (isVisible && this.activeSceneId) {
+        this.goToScene(this.activeSceneId);
+      }
     }
-    removeScene(t) {
-      this.listElement.querySelector(`[data-id="${t}"]`)?.remove(), this.updateLayout();
+    addScene(scene) {
+      const slide = document.createElement("div");
+      slide.dataset.id = scene.id;
+      if (scene.image?.id) {
+        const thumbUrl = new URL(`${scene.id}/${scene.image.id}/thumb.jpg`, this.api.getResourceUrl("assets")).href;
+        slide.style.backgroundImage = `url("${thumbUrl}")`;
+      }
+      this.listElement.append(slide);
+      this.updateLayout();
     }
-    setActiveScene(t) {
-      this.listElement.querySelectorAll("[data-id]").forEach(n => {
-        n.classList.remove("active");
+    removeScene(sceneId) {
+      const slide = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      slide?.remove();
+      this.updateLayout();
+    }
+    setActiveScene(sceneId) {
+      this.listElement.querySelectorAll("[data-id]").forEach(slide2 => {
+        slide2.classList.remove("active");
       });
-      const i = this.listElement.querySelector(`[data-id="${t}"]`);
-      i && (i.classList.add("active"), this.activeSceneId = t, this.goToScene(t));
+      const slide = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      if (slide) {
+        slide.classList.add("active");
+        this.activeSceneId = sceneId;
+        this.goToScene(sceneId);
+      }
     }
-    goToScene(t) {
+    goToScene(sceneId) {
       if (!this.isDraggable) return;
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
       this.isAnimating = false;
-      const i = this.listElement.querySelector(`[data-id="${t}"]`);
-      if (!i) return;
-      const n = i.offsetLeft, s = i.offsetWidth, r = this.trackElement.offsetWidth, o = r / 2, a = -(n + s / 2 - o), l = this.listElement.offsetWidth, h = r - l, v = this.clamp(a, h, 0);
-      this.listElement.style.transition = "left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)", 
-      this.setListElementLeft(v);
+      const targetScene = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      if (!targetScene) return;
+      const slideOffsetLeft = targetScene.offsetLeft;
+      const slideWidth = targetScene.offsetWidth;
+      const trackWidth = this.trackElement.offsetWidth;
+      const trackCenter = trackWidth / 2;
+      const desiredLeft = -(slideOffsetLeft + slideWidth / 2 - trackCenter);
+      const listWidth = this.listElement.offsetWidth;
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      const clampedLeft = this.clamp(desiredLeft, minLeft, maxLeft);
+      this.listElement.style.transition = "left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      this.setListElementLeft(clampedLeft);
     }
     destroy() {
-      this.momentumAnimationId && cancelAnimationFrame(this.momentumAnimationId), this.wheelEndTimer && clearTimeout(this.wheelEndTimer), 
-      this.resizeObserver && (this.resizeObserver.disconnect(), this.resizeObserver = null), 
-      this.cleanups.forEach(t => t()), this.sliderElement.remove();
+      if (this.momentumAnimationId) cancelAnimationFrame(this.momentumAnimationId);
+      if (this.wheelEndTimer) clearTimeout(this.wheelEndTimer);
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+        this.resizeObserver = null;
+      }
+      this.cleanups.forEach(clean => clean());
+      this.sliderElement.remove();
     }
   };
-  const wt$3 = e => {
-    const {api: t, slot: i, style: n, hoverStyle: s, className: r} = e, [o] = reactExports.useState(() => t.generateId()), [a, l] = reactExports.useState(""), [h, E] = reactExports.useState(""), [v, N] = reactExports.useState(false), b = reactExports.useRef(null);
+  const SceneThumbsNav$1 = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sliderVisible, setSliderVisible] = reactExports.useState(false);
+    const sliderRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const c = t.styleApi.applyStyle({
-        "--hvr-ui-id": o,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -22658,65 +22816,80 @@
           height: "100%"
         }
       });
-      return l(c), () => {
-        t.styleApi.removeStyle(c);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, o ]), reactExports.useLayoutEffect(() => {
-      const c = t.styleApi.applyStyle({
-        "--hvr-ui-id": o,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: s?.color,
-          "background-color": s?.background,
-          "border-radius": s?.borderRadius ? `${s.borderRadius}px` : void 0,
-          opacity: s?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return E(c), () => {
-        t.styleApi.removeStyle(c);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, o, n, s ]), reactExports.useEffect(() => {
-      const c = t.getControlContainer(), S = new p$8(c, t, o);
-      return S.setTheme(n), b.current = S, () => {
-        S.destroy(), b.current = null;
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const root = api.getControlContainer();
+      const slider = new SceneSlider$1(root, api, id);
+      slider.setTheme(style);
+      sliderRef.current = slider;
+      return () => {
+        slider.destroy();
+        sliderRef.current = null;
       };
-    }, [ t, o, i ]), reactExports.useEffect(() => {
-      const c = b.current;
-      if (!c) return;
-      t.sceneApi.getList().forEach(g => c.addScene(g));
-      const U = t.sceneApi.getActive();
-      U && c.setActiveScene(U.id);
-      const w = [];
-      return w.push(t.on("scene:add", ({sceneId: g}) => {
-        const G = t.sceneApi.get(g);
-        G && c.addScene(G);
-      })), w.push(t.on("scene:remove", ({sceneId: g}) => {
-        c.removeScene(g);
-      })), w.push(t.on("scene:show", ({sceneId: g}) => {
-        c.setActiveScene(g);
-      })), () => {
-        w.forEach(g => g());
+    }, [ api, id, slot ]);
+    reactExports.useEffect(() => {
+      const slider = sliderRef.current;
+      if (!slider) return;
+      const scenes = api.sceneApi.getList();
+      scenes.forEach(scene => slider.addScene(scene));
+      const activeScene = api.sceneApi.getActive();
+      if (activeScene) slider.setActiveScene(activeScene.id);
+      const cleanups = [];
+      cleanups.push(api.on("scene:add", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        if (scene) slider.addScene(scene);
+      }));
+      cleanups.push(api.on("scene:remove", ({sceneId: sceneId}) => {
+        slider.removeScene(sceneId);
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        slider.setActiveScene(sceneId);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), reactExports.useEffect(() => {
-      b.current?.setTheme(n);
-    }, [ n ]), reactExports.useEffect(() => {
-      b.current?.setVisible(v);
-    }, [ v ]);
-    const ot = () => N(c => !c);
+    }, [ api ]);
+    reactExports.useEffect(() => {
+      sliderRef.current?.setTheme(style);
+    }, [ style ]);
+    reactExports.useEffect(() => {
+      sliderRef.current?.setVisible(sliderVisible);
+    }, [ sliderVisible ]);
+    const toggleSlider = () => setSliderVisible(v => !v);
     return jsxRuntimeExports.jsx("div", {
-      className: ht$3("hvr-control", a, h, r),
+      className: clsx$j("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-expanded": v,
+        "aria-expanded": sliderVisible,
         "aria-label": "Show/hide scene thumbnails",
         title: "Show/hide scene thumbnails",
-        onClick: ot,
+        onClick: toggleSlider,
         children: jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -22741,34 +22914,41 @@
       })
     });
   };
-  function m$7(t) {
-    var e, r, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var a = t.length;
-      for (e = 0; e < a; e++) t[e] && (r = m$7(t[e])) && (o && (o += " "), o += r);
-    } else for (r in t) t[r] && (o && (o += " "), o += r);
-    return o;
+  function r$l(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$l(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function M$a() {
-    for (var t, e, r = 0, o = "", a = arguments.length; r < a; r++) (t = arguments[r]) && (e = m$7(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$i() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$l(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$9;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(d$9 || (d$9 = {}));
-  var y$9;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(y$9 || (y$9 = {}));
-  const B$c = {
+  var ControlSlotType$j;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$j || (ControlSlotType$j = {}));
+  var ControlPropertyKind$j;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$j || (ControlPropertyKind$j = {}));
+  const meta$j = {
     type: "MuteToggle",
     name: "Mute Toggle",
     description: "Globally mutes/unmutes all tour audio",
     createInitialProperties: () => ({
-      slot: d$9.BottomRight,
+      slot: ControlSlotType$j.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -22778,11 +22958,16 @@
         background: "#000"
       }
     })
-  }, R$8 = t => {
-    const {api: e, style: r, hoverStyle: o, className: a} = t, [l] = reactExports.useState(() => e.generateId()), [b, f] = reactExports.useState(""), [v, k] = reactExports.useState(""), [n, p] = reactExports.useState(false);
+  };
+  const MuteToggle$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isMuted, setIsMuted] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const i = e.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -22800,48 +22985,54 @@
           }
         }
       });
-      return f(i), () => {
-        e.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, l ]), reactExports.useLayoutEffect(() => {
-      const i = e.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(i), () => {
-        e.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, l, r, o ]), reactExports.useEffect(() => {
-      const i = [];
-      return p(e.audioApi.isMuted()), i.push(e.on("audio:mute:change", ({isMuted: c}) => {
-        p(c);
-      })), () => {
-        i.forEach(c => c());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsMuted(api.audioApi.isMuted());
+      cleanups.push(api.on("audio:mute:change", ({isMuted: isMuted2}) => {
+        setIsMuted(isMuted2);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ e ]);
-    const x = () => {
-      e.audioApi.setMuted(!n);
+    }, [ api ]);
+    const toggleMute = () => {
+      api.audioApi.setMuted(!isMuted);
     };
     return jsxRuntimeExports.jsx("div", {
-      className: M$a("hvr-control", b, v, a),
+      className: clsx$i("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": n,
-        "aria-label": n ? "Unmute tour audio" : "Mute tour audio",
-        title: n ? "Unmute tour audio" : "Mute tour audio",
-        onClick: x,
-        children: n ? jsxRuntimeExports.jsxs("svg", {
+        "aria-pressed": isMuted,
+        "aria-label": isMuted ? "Unmute tour audio" : "Mute tour audio",
+        title: isMuted ? "Unmute tour audio" : "Mute tour audio",
+        onClick: toggleMute,
+        children: isMuted ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -22883,34 +23074,41 @@
       })
     });
   };
-  function v$6(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var l = e.length;
-      for (t = 0; t < l; t++) e[t] && (o = v$6(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$k(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$k(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function L$3() {
-    for (var e, t, o = 0, r = "", l = arguments.length; o < l; o++) (e = arguments[o]) && (t = v$6(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$h() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$k(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$8;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(d$8 || (d$8 = {}));
-  var f$9;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(f$9 || (f$9 = {}));
-  const F$4 = {
+  var ControlSlotType$i;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$i || (ControlSlotType$i = {}));
+  var ControlPropertyKind$i;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$i || (ControlPropertyKind$i = {}));
+  const meta$i = {
     type: "FullscreenToggle",
     name: "Fullscreen Toggle",
     description: "Toggles fullscreen mode on/off",
     createInitialProperties: () => ({
-      slot: d$8.BottomRight,
+      slot: ControlSlotType$i.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -22920,11 +23118,16 @@
         background: "#000"
       }
     })
-  }, M$9 = e => {
-    const {api: t, style: o, hoverStyle: r, className: l} = e, [a] = reactExports.useState(() => t.generateId()), [b, m] = reactExports.useState(""), [y, k] = reactExports.useState(""), [c, p] = reactExports.useState(false);
+  };
+  const FullscreenToggle$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isFullscreen, setIsFullscreen] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -22942,49 +23145,55 @@
           }
         }
       });
-      return m(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: o?.color,
-          "background-color": o?.background,
-          "backdrop-filter": o?.background ? "blur(4px)" : void 0,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: r?.color,
-          "background-color": r?.background,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, o, r ]), reactExports.useEffect(() => {
-      const i = [];
-      return p(t.viewportApi.isFullscreen()), i.push(t.on("viewport:fullscreen:change", ({isEnabled: u}) => {
-        p(u);
-      })), () => {
-        i.forEach(u => u());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsFullscreen(api.viewportApi.isFullscreen());
+      cleanups.push(api.on("viewport:fullscreen:change", ({isEnabled: isEnabled}) => {
+        setIsFullscreen(isEnabled);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]);
-    const w = () => {
-      t.viewportApi.toggleFullscreen();
+    }, [ api ]);
+    const toggleFullscreen = () => {
+      api.viewportApi.toggleFullscreen();
     };
     return jsxRuntimeExports.jsx("div", {
-      className: L$3("hvr-control", b, y, l),
+      className: clsx$h("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": c,
-        "aria-label": c ? "Exit fullscreen mode" : "Enter fullscreen mode",
+        "aria-pressed": isFullscreen,
+        "aria-label": isFullscreen ? "Exit fullscreen mode" : "Enter fullscreen mode",
         title: "Toggle fullscreen",
-        onClick: w,
-        children: c ? jsxRuntimeExports.jsxs("svg", {
+        onClick: toggleFullscreen,
+        children: isFullscreen ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -23026,34 +23235,41 @@
       })
     });
   };
-  function f$8(t) {
-    var o, r, e = "";
-    if (typeof t == "string" || typeof t == "number") e += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var i = t.length;
-      for (o = 0; o < i; o++) t[o] && (r = f$8(t[o])) && (e && (e += " "), e += r);
-    } else for (r in t) t[r] && (e && (e += " "), e += r);
-    return e;
+  function r$j(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$j(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function R$7() {
-    for (var t, o, r = 0, e = "", i = arguments.length; r < i; r++) (t = arguments[r]) && (o = f$8(t)) && (e && (e += " "), 
-    e += o);
-    return e;
+  function clsx$g() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$j(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var u$9;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(u$9 || (u$9 = {}));
-  var b$9;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(b$9 || (b$9 = {}));
-  const B$b = {
+  var ControlSlotType$h;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$h || (ControlSlotType$h = {}));
+  var ControlPropertyKind$h;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$h || (ControlPropertyKind$h = {}));
+  const meta$h = {
     type: "AutoRotateToggle",
     name: "Auto Rotate Toggle",
     description: "Toggles auto rotate mode on/off",
     createInitialProperties: () => ({
-      slot: u$9.BottomRight,
+      slot: ControlSlotType$h.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -23063,11 +23279,16 @@
         background: "#000"
       }
     })
-  }, E$2 = t => {
-    const {api: o, style: r, hoverStyle: e, className: i} = t, [n] = reactExports.useState(() => o.generateId()), [v, y] = reactExports.useState(""), [m, k] = reactExports.useState(""), [l, p] = reactExports.useState(false);
+  };
+  const AutoRotateToggle$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isEnabled, setIsEnabled] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": n,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -23085,53 +23306,59 @@
           }
         }
       });
-      return y(s), () => {
-        o.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, n ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": n,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: e?.color,
-          "background-color": e?.background,
-          "border-radius": e?.borderRadius ? `${e.borderRadius}px` : void 0,
-          opacity: e?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(s), () => {
-        o.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, n, r, e ]), reactExports.useEffect(() => {
-      const s = [];
-      return p(o.viewportApi.getOptions().autoRotate?.enabled ?? false), s.push(o.on("viewport:autorotate:change", ({isEnabled: d}) => {
-        p(d);
-      })), () => {
-        s.forEach(d => d());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsEnabled(api.viewportApi.getOptions().autoRotate?.enabled ?? false);
+      cleanups.push(api.on("viewport:autorotate:change", ({isEnabled: isEnabled2}) => {
+        setIsEnabled(isEnabled2);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ o ]);
-    const w = () => {
-      o.viewportApi.setOptions({
+    }, [ api ]);
+    const toggleAutoRotate = () => {
+      api.viewportApi.setOptions({
         autoRotate: {
-          enabled: !l
+          enabled: !isEnabled
         }
       });
     };
     return jsxRuntimeExports.jsx("div", {
-      className: R$7("hvr-control", v, m, i),
+      className: clsx$g("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": l,
-        "aria-label": l ? "Disable auto rotate" : "Enable auto rotate",
+        "aria-pressed": isEnabled,
+        "aria-label": isEnabled ? "Disable auto rotate" : "Enable auto rotate",
         title: "Toggle auto rotate",
-        onClick: w,
-        children: l ? jsxRuntimeExports.jsxs("svg", {
+        onClick: toggleAutoRotate,
+        children: isEnabled ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -23177,130 +23404,155 @@
       })
     });
   };
-  function v$5(r) {
-    var o, t, e = "";
-    if (typeof r == "string" || typeof r == "number") e += r; else if (typeof r == "object") if (Array.isArray(r)) {
-      var i = r.length;
-      for (o = 0; o < i; o++) r[o] && (t = v$5(r[o])) && (e && (e += " "), e += t);
-    } else for (t in r) r[t] && (e && (e += " "), e += t);
-    return e;
+  function r$i(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$i(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function b$8() {
-    for (var r, o, t = 0, e = "", i = arguments.length; t < i; t++) (r = arguments[t]) && (o = v$5(r)) && (e && (e += " "), 
-    e += o);
-    return e;
+  function clsx$f() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$i(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var g$4;
-  (function(r) {
-    r.TopLeft = "tl", r.Top = "t", r.TopRight = "tr", r.Left = "l", r.Right = "r", r.BottomLeft = "bl", 
-    r.Bottom = "b", r.BottomRight = "br";
-  })(g$4 || (g$4 = {}));
-  var u$8;
-  (function(r) {
-    r.Image = "image", r.Link = "link";
-  })(u$8 || (u$8 = {}));
-  const R$6 = {
+  var ControlSlotType$g;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$g || (ControlSlotType$g = {}));
+  var ControlPropertyKind$g;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$g || (ControlPropertyKind$g = {}));
+  const meta$g = {
     type: "VirtualTourLogo",
     name: "Virtual Tour Logo",
     description: "Displays a logo for the virtual tour",
-    editableProperties: [ u$8.Image, u$8.Link ],
+    editableProperties: [ ControlPropertyKind$g.Image, ControlPropertyKind$g.Link ],
     createInitialProperties: () => ({
-      slot: g$4.TopLeft,
+      slot: ControlSlotType$g.TopLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, w$9 = r => {
-    const {api: o, style: t, hoverStyle: e, className: i, image: n, link: a} = r, [l] = reactExports.useState(() => o.generateId()), [m, h] = reactExports.useState(""), [f, k] = reactExports.useState(""), [L, N] = reactExports.useState("");
-    if (reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+  };
+  const VirtualTourLogo$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className, image: image, link: link} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, opacity .3s ease",
         padding: "10px",
         "user-select": "none"
       });
-      return h(s), () => {
-        o.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
-        color: t?.color,
-        "background-color": t?.background,
-        "backdrop-filter": t?.background ? "blur(4px)" : void 0,
-        "border-radius": t?.borderRadius ? `${t.borderRadius}px` : void 0,
-        opacity: t?.opacity,
-        cursor: a ? "pointer" : "default",
-        "pointer-events": a ? "all" : "none",
-        "&:hover": a ? {
-          color: e?.color,
-          "background-color": e?.background,
-          "border-radius": e?.borderRadius ? `${e.borderRadius}px` : void 0,
-          opacity: e?.opacity
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
+        cursor: link ? "pointer" : "default",
+        "pointer-events": link ? "all" : "none",
+        "&:hover": link ? {
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         } : void 0
       });
-      return k(s), () => {
-        o.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l, t, e, a ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+    }, [ api, id, style, hoverStyle, link ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "block",
-        width: n?.size ? `${n.size}px` : "auto",
+        width: image?.size ? `${image.size}px` : "auto",
         height: "auto",
         "-webkit-user-drag": "none"
       });
-      return N(s), () => {
-        o.styleApi.removeStyle(s);
+      setImageClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l, n ]), !n?.url) return null;
-    const y = jsxRuntimeExports.jsx("img", {
-      className: L,
-      src: n.url,
+    }, [ api, id, image ]);
+    if (!image?.url) return null;
+    const img = jsxRuntimeExports.jsx("img", {
+      className: imageClassName,
+      src: image.url,
       alt: "Logo",
       draggable: false
     });
-    return a?.url ? jsxRuntimeExports.jsx("a", {
-      className: b$8("hvr-control", m, f, i),
-      href: a.url,
-      target: a.newWindow ? "_blank" : "_self",
-      rel: a.newWindow ? "noopener noreferrer" : void 0,
-      children: y
+    return link?.url ? jsxRuntimeExports.jsx("a", {
+      className: clsx$f("hvr-control", baseClassName, styleClassName, className),
+      href: link.url,
+      target: link.newWindow ? "_blank" : "_self",
+      rel: link.newWindow ? "noopener noreferrer" : void 0,
+      children: img
     }) : jsxRuntimeExports.jsx("div", {
-      className: b$8("hvr-control", m, f, i),
-      children: y
+      className: clsx$f("hvr-control", baseClassName, styleClassName, className),
+      children: img
     });
   };
-  function w$8(t) {
-    var e, n, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var s = t.length;
-      for (e = 0; e < s; e++) t[e] && (n = w$8(t[e])) && (o && (o += " "), o += n);
-    } else for (n in t) t[n] && (o && (o += " "), o += n);
-    return o;
+  function r$h(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$h(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function I$4() {
-    for (var t, e, n = 0, o = "", s = arguments.length; n < s; n++) (t = arguments[n]) && (e = w$8(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$e() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$h(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var h$6;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(h$6 || (h$6 = {}));
-  var b$7;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(b$7 || (b$7 = {}));
-  const D$3 = {
+  var ControlSlotType$f;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$f || (ControlSlotType$f = {}));
+  var ControlPropertyKind$f;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$f || (ControlPropertyKind$f = {}));
+  const meta$f = {
     type: "ZoomControls",
     name: "Zoom Controls",
     description: "Zoom scene in/out while holding the button",
     createInitialProperties: () => ({
-      slot: h$6.BottomRight,
+      slot: ControlSlotType$f.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -23310,11 +23562,18 @@
         background: "#000"
       }
     })
-  }, P$5 = 250, y$8 = 30, M$8 = t => {
-    const {api: e, style: n, hoverStyle: o, className: s} = t, [c] = reactExports.useState(() => e.generateId()), [k, x] = reactExports.useState(""), [L, R] = reactExports.useState(""), u = reactExports.useRef(null);
+  };
+  const HOLD_DELAY$1 = 250;
+  const TICK_MS$1 = 30;
+  const ZoomControls$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const holdRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": c,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "flex",
         "flex-direction": "row",
         gap: "5px",
@@ -23335,62 +23594,77 @@
           }
         }
       });
-      return x(r), () => {
-        e.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, c ]), reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": c,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return R(r), () => {
-        e.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, c, n, o ]), reactExports.useEffect(() => () => a(), []);
-    const m = r => {
-      if (!e.viewportApi.getViewpoint()) return;
-      const i = e.viewportApi.getOptions().zoom?.step ?? .1, d = Math.exp(-r * i * 6 * (y$8 / 1e3));
-      e.viewportApi.zoomBy({
-        factor: d
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => () => stopZoom(), []);
+    const applyZoomStep = dir => {
+      if (!api.viewportApi.getViewpoint()) return;
+      const step = api.viewportApi.getOptions().zoom?.step ?? .1;
+      const k = Math.exp(-dir * step * 6 * (TICK_MS$1 / 1e3));
+      void api.viewportApi.zoomBy({
+        factor: k
       });
-    }, A = (r, i) => {
-      r.preventDefault(), r.currentTarget.setPointerCapture(r.pointerId), a(), m(i), u.current = {
+    };
+    const handlePointerDown = (e, dir) => {
+      e.preventDefault();
+      e.currentTarget.setPointerCapture(e.pointerId);
+      stopZoom();
+      applyZoomStep(dir);
+      holdRef.current = {
         timeout: window.setTimeout(() => {
-          u.current = {
+          holdRef.current = {
             timeout: 0,
-            interval: window.setInterval(() => m(i), y$8)
+            interval: window.setInterval(() => applyZoomStep(dir), TICK_MS$1)
           };
-        }, P$5),
+        }, HOLD_DELAY$1),
         interval: 0
       };
-    }, a = () => {
-      const r = u.current;
-      u.current = null, r && (r.timeout && clearTimeout(r.timeout), r.interval && clearInterval(r.interval));
-    }, f = (r, i, d) => jsxRuntimeExports.jsx("button", {
+    };
+    const stopZoom = () => {
+      const hold = holdRef.current;
+      holdRef.current = null;
+      if (!hold) return;
+      if (hold.timeout) clearTimeout(hold.timeout);
+      if (hold.interval) clearInterval(hold.interval);
+    };
+    const zoomButton = (dir, label, icon) => jsxRuntimeExports.jsx("button", {
       type: "button",
-      "aria-label": i,
-      title: i,
-      onPointerDown: B => A(B, r),
-      onPointerUp: a,
-      onPointerCancel: a,
-      onLostPointerCapture: a,
-      children: d
+      "aria-label": label,
+      title: label,
+      onPointerDown: e => handlePointerDown(e, dir),
+      onPointerUp: stopZoom,
+      onPointerCancel: stopZoom,
+      onLostPointerCapture: stopZoom,
+      children: icon
     });
     return jsxRuntimeExports.jsxs("div", {
-      className: I$4("hvr-control", k, L, s),
-      children: [ f(1, "Zoom out", jsxRuntimeExports.jsx("svg", {
+      className: clsx$e("hvr-control", baseClassName, styleClassName, className),
+      children: [ zoomButton(1, "Zoom out", jsxRuntimeExports.jsx("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "24",
         height: "24",
@@ -23403,7 +23677,7 @@
         children: jsxRuntimeExports.jsx("path", {
           d: "M5 12h14"
         })
-      })), f(-1, "Zoom in", jsxRuntimeExports.jsxs("svg", {
+      })), zoomButton(-1, "Zoom in", jsxRuntimeExports.jsxs("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "24",
         height: "24",
@@ -23421,35 +23695,42 @@
       })) ]
     });
   };
-  function B$a(t) {
-    var e, s, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var u = t.length;
-      for (e = 0; e < u; e++) t[e] && (s = B$a(t[e])) && (o && (o += " "), o += s);
-    } else for (s in t) t[s] && (o && (o += " "), o += s);
-    return o;
+  function r$g(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$g(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function P$4() {
-    for (var t, e, s = 0, o = "", u = arguments.length; s < u; s++) (t = arguments[s]) && (e = B$a(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$d() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$g(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var w$7;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(w$7 || (w$7 = {}));
-  var k$4;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(k$4 || (k$4 = {}));
-  const _$3 = {
+  var ControlSlotType$e;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$e || (ControlSlotType$e = {}));
+  var ControlPropertyKind$e;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$e || (ControlPropertyKind$e = {}));
+  const meta$e = {
     type: "Compass",
     name: "Compass",
     description: "Shows where north is (scene northOffset, 0 if not set); click to look at north",
-    editableProperties: [ k$4.Image ],
+    editableProperties: [ ControlPropertyKind$e.Image ],
     createInitialProperties: () => ({
-      slot: w$7.TopRight,
+      slot: ControlSlotType$e.TopRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -23459,28 +23740,49 @@
         background: "#000"
       }
     })
-  }, V$3 = {
+  };
+  const needleSvgStyle$1 = {
     transformBox: "view-box",
     transformOrigin: "center"
-  }, C$6 = 600, U$4 = t => {
-    const {api: e, style: s, hoverStyle: o, className: u, image: p} = t, [a] = reactExports.useState(() => e.generateId()), [E, I] = reactExports.useState(""), [$, M] = reactExports.useState(""), [j, x] = reactExports.useState(""), h = !!p?.url, g = reactExports.useRef(0), R = reactExports.useRef(0), m = reactExports.useRef(0), A = reactExports.useRef(0), L = reactExports.useRef(null), y = (r, c = false) => {
-      R.current = r;
-      const n = L.current;
-      if (!n) return;
-      let i = (g.current - r - m.current) % 360;
-      i > 180 && (i -= 360), i < -180 && (i += 360), m.current += i;
-      const O = c || performance.now() < A.current;
-      c && (A.current = performance.now() + C$6), n.style.transition = O ? `transform ${C$6}ms ease` : "none", 
-      n.style.transform = `rotate(${m.current}deg)`;
-    }, N = r => {
-      L.current = r, r && y(R.current);
-    }, b = (r, c) => {
-      const n = r ? e.sceneApi.get(r) : void 0;
-      g.current = n?.northOffset ?? 0, y(c, true);
+  };
+  const NEEDLE_ANIM_MS$1 = 600;
+  const Compass$1 = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className, image: image} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    const hasImage = !!image?.url;
+    const northDegRef = reactExports.useRef(0);
+    const yawDegRef = reactExports.useRef(0);
+    const needleDegRef = reactExports.useRef(0);
+    const animateUntilRef = reactExports.useRef(0);
+    const needleRef = reactExports.useRef(null);
+    const applyRotation = (yawDeg, animate = false) => {
+      yawDegRef.current = yawDeg;
+      const el = needleRef.current;
+      if (!el) return;
+      let delta = (northDegRef.current - yawDeg - needleDegRef.current) % 360;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      needleDegRef.current += delta;
+      const smooth = animate || performance.now() < animateUntilRef.current;
+      if (animate) animateUntilRef.current = performance.now() + NEEDLE_ANIM_MS$1;
+      el.style.transition = smooth ? `transform ${NEEDLE_ANIM_MS$1}ms ease` : "none";
+      el.style.transform = `rotate(${needleDegRef.current}deg)`;
+    };
+    const setNeedleRef = el => {
+      needleRef.current = el;
+      if (el) applyRotation(yawDegRef.current);
+    };
+    const applyScene = (sceneId, yawDeg) => {
+      const scene = sceneId ? api.sceneApi.get(sceneId) : void 0;
+      northDegRef.current = scene?.northOffset ?? 0;
+      applyRotation(yawDeg, true);
     };
     reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -23498,36 +23800,40 @@
           }
         }
       });
-      return I(r), () => {
-        e.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, a ]), reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: s?.color,
-          "background-color": s?.background,
-          "backdrop-filter": s?.background ? "blur(4px)" : void 0,
-          "border-radius": s?.borderRadius != null ? `${s.borderRadius}px` : void 0,
-          opacity: s?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius != null ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return M(r), () => {
-        e.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, a, s, o ]), reactExports.useLayoutEffect(() => {
-      if (!h) {
-        x("");
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      if (!hasImage) {
+        setImageClassName("");
         return;
       }
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
           width: "auto",
           height: "auto",
@@ -23535,42 +23841,44 @@
         },
         "& img": {
           display: "block",
-          width: p?.size ? `${p.size}px` : "auto",
+          width: image?.size ? `${image.size}px` : "auto",
           height: "auto",
           "-webkit-user-drag": "none",
           "transform-box": "fill-box",
           "transform-origin": "center"
         }
       });
-      return x(r), () => {
-        e.styleApi.removeStyle(r);
-      };
-    }, [ e, a, p, h ]), reactExports.useEffect(() => {
-      const r = e.sceneApi.getActive();
-      b(r?.id ?? "", e.viewportApi.getViewpoint()?.yaw ?? 0);
-      const c = [ e.on("scene:show:start", ({sceneId: n, viewpoint: i}) => b(n, i.yaw ?? 0)), e.on("scene:show", ({sceneId: n}) => b(n, e.viewportApi.getViewpoint()?.yaw ?? 0)), e.on("viewport:view:change", ({viewpoint: n}) => y(n.yaw ?? 0)) ];
+      setImageClassName(cls);
       return () => {
-        c.forEach(n => n());
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e ]);
-    const D = () => {
-      e.viewportApi.lookAt({
+    }, [ api, id, image, hasImage ]);
+    reactExports.useEffect(() => {
+      const active = api.sceneApi.getActive();
+      applyScene(active?.id ?? "", api.viewportApi.getViewpoint()?.yaw ?? 0);
+      const offs = [ api.on("scene:show:start", ({sceneId: sceneId, viewpoint: viewpoint}) => applyScene(sceneId, viewpoint.yaw ?? 0)), api.on("scene:show", ({sceneId: sceneId}) => applyScene(sceneId, api.viewportApi.getViewpoint()?.yaw ?? 0)), api.on("viewport:view:change", ({viewpoint: viewpoint}) => applyRotation(viewpoint.yaw ?? 0)) ];
+      return () => {
+        offs.forEach(off => off());
+      };
+    }, [ api ]);
+    const lookNorth = () => {
+      void api.viewportApi.lookAt({
         viewpoint: {
-          yaw: g.current
+          yaw: northDegRef.current
         },
         duration: 1e3
       });
     };
     return jsxRuntimeExports.jsx("div", {
-      className: P$4("hvr-control", E, $, j, u),
+      className: clsx$d("hvr-control", baseClassName, styleClassName, imageClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
         "aria-label": "Look at north",
         title: "Look at north",
-        onClick: D,
-        children: h ? jsxRuntimeExports.jsx("img", {
-          ref: N,
-          src: p?.url,
+        onClick: lookNorth,
+        children: hasImage ? jsxRuntimeExports.jsx("img", {
+          ref: setNeedleRef,
+          src: image?.url,
           alt: "Compass",
           draggable: false
         }) : jsxRuntimeExports.jsxs("svg", {
@@ -23586,8 +23894,8 @@
             stroke: "currentColor",
             strokeWidth: "2"
           }), jsxRuntimeExports.jsxs("g", {
-            ref: N,
-            style: V$3,
+            ref: setNeedleRef,
+            style: needleSvgStyle$1,
             children: [ jsxRuntimeExports.jsx("path", {
               d: "M12 3.5 L14.3 12 L9.7 12 Z",
               fill: "currentColor"
@@ -23602,33 +23910,40 @@
       })
     });
   };
-  function y$7(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var a = e.length;
-      for (t = 0; t < a; t++) e[t] && (o = y$7(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$f(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$f(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function B$9() {
-    for (var e, t, o = 0, r = "", a = arguments.length; o < a; o++) (e = arguments[o]) && (t = y$7(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$c() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$f(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var h$5;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(h$5 || (h$5 = {}));
-  var p$7;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(p$7 || (p$7 = {}));
-  const $$6 = {
+  var ControlSlotType$d;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$d || (ControlSlotType$d = {}));
+  var ControlPropertyKind$d;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$d || (ControlPropertyKind$d = {}));
+  const meta$d = {
     type: "LoadingIndicator",
     name: "Loading Indicator",
     description: "Spinner shown while tour resources (tiles/textures) are loading",
-    editableProperties: [ p$7.Image ],
+    editableProperties: [ ControlPropertyKind$d.Image ],
     createInitialProperties: () => ({
       style: {
         color: "#fff",
@@ -23636,18 +23951,26 @@
         borderRadius: 4
       }
     })
-  }, z$4 = e => {
-    const {api: t, slot: o, style: r, hoverStyle: a, className: b, image: n} = e, [s] = reactExports.useState(() => t.generateId()), [v, k] = reactExports.useState(""), [w, x] = reactExports.useState(""), [L, f] = reactExports.useState(""), [u, I] = reactExports.useState(() => t.isLoading()), m = reactExports.useRef(null), g = !!n?.url;
-    return reactExports.useEffect(() => t.on("virtualtour:loading", ({isLoading: i}) => I(i)), [ t ]), 
+  };
+  const LoadingIndicator$1 = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className, image: image} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    const [isLoading, setIsLoading] = reactExports.useState(() => api.isLoading());
+    const spinnerRef = reactExports.useRef(null);
+    const hasImage = !!image?.url;
+    reactExports.useEffect(() => api.on("virtualtour:loading", ({isLoading: isLoading2}) => setIsLoading(isLoading2)), [ api ]);
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         width: "1lh",
         height: "1lh",
         padding: "5px",
         "pointer-events": "none",
-        ...!o && {
+        ...!slot && {
           position: "absolute",
           top: "50%",
           left: "50%",
@@ -23659,66 +23982,74 @@
           height: "100%"
         }
       });
-      return k(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, o, r ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
-        color: r?.color,
-        "background-color": r?.background,
-        "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-        "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-        opacity: r?.opacity,
+    }, [ api, id, slot, style ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: a?.color,
-          "background-color": a?.background,
-          "border-radius": a?.borderRadius ? `${a.borderRadius}px` : void 0,
-          opacity: a?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return x(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, r, a ]), reactExports.useLayoutEffect(() => {
-      if (!g) {
-        f("");
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      if (!hasImage) {
+        setImageClassName("");
         return;
       }
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         width: "auto",
         height: "auto",
         padding: "10px",
         "& img": {
           display: "block",
-          width: n?.size ? `${n.size}px` : "auto",
+          width: image?.size ? `${image.size}px` : "auto",
           height: "auto",
           "-webkit-user-drag": "none"
         }
       });
-      return f(i), () => {
-        t.styleApi.removeStyle(i);
+      setImageClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, n, g ]), reactExports.useLayoutEffect(() => {
-      const i = m.current;
-      if (!i || !u) return;
-      const R = i.animate([ {
+    }, [ api, id, image, hasImage ]);
+    reactExports.useLayoutEffect(() => {
+      const el = spinnerRef.current;
+      if (!el || !isLoading) return;
+      const anim = el.animate([ {
         transform: "rotate(0deg)"
       }, {
         transform: "rotate(360deg)"
       } ], {
         duration: 900,
-        iterations: 1 / 0,
+        iterations: Infinity,
         easing: "linear"
       });
-      return () => R.cancel();
-    }, [ u ]), u ? jsxRuntimeExports.jsx("div", {
-      className: B$9("hvr-control", v, w, L, b),
+      return () => anim.cancel();
+    }, [ isLoading ]);
+    if (!isLoading) return null;
+    return jsxRuntimeExports.jsx("div", {
+      className: clsx$c("hvr-control", baseClassName, styleClassName, imageClassName, className),
       children: jsxRuntimeExports.jsx("div", {
-        ref: m,
-        children: g ? jsxRuntimeExports.jsx("img", {
-          src: n?.url,
+        ref: spinnerRef,
+        children: hasImage ? jsxRuntimeExports.jsx("img", {
+          src: image?.url,
           alt: "Spinner",
           draggable: false
         }) : jsxRuntimeExports.jsx("svg", {
@@ -23736,7 +24067,7 @@
           })
         })
       })
-    }) : null;
+    });
   };
   var ControlWidgetType$1;
   (function(ControlWidgetType) {
@@ -23754,57 +24085,57 @@
     ControlWidgetType["LoadingIndicator"] = "LoadingIndicator";
   })(ControlWidgetType$1 || (ControlWidgetType$1 = {}));
   const controlWidgetRegistry$1 = {
-    [N$8.type]: {
-      component: S$6,
-      meta: N$8
+    [meta$o.type]: {
+      component: SceneTitle$1,
+      meta: meta$o
     },
-    [w$a.type]: {
-      component: B$f,
-      meta: w$a
+    [meta$n.type]: {
+      component: SceneCounter$1,
+      meta: meta$n
     },
-    [N$7.type]: {
-      component: A$8,
-      meta: N$7
+    [meta$m.type]: {
+      component: SceneNav$1,
+      meta: meta$m
     },
-    [gt$4.type]: {
-      component: vt$5,
-      meta: gt$4
+    [meta$l.type]: {
+      component: SceneListNav$1,
+      meta: meta$l
     },
-    [St$3.type]: {
-      component: wt$3,
-      meta: St$3,
+    [meta$k.type]: {
+      component: SceneThumbsNav$1,
+      meta: meta$k,
       pro: true
     },
-    [B$c.type]: {
-      component: R$8,
-      meta: B$c
+    [meta$j.type]: {
+      component: MuteToggle$1,
+      meta: meta$j
     },
-    [F$4.type]: {
-      component: M$9,
-      meta: F$4
+    [meta$i.type]: {
+      component: FullscreenToggle$1,
+      meta: meta$i
     },
-    [B$b.type]: {
-      component: E$2,
-      meta: B$b,
+    [meta$h.type]: {
+      component: AutoRotateToggle$1,
+      meta: meta$h,
       pro: true
     },
-    [R$6.type]: {
-      component: w$9,
-      meta: R$6,
+    [meta$g.type]: {
+      component: VirtualTourLogo$1,
+      meta: meta$g,
       pro: true
     },
-    [D$3.type]: {
-      component: M$8,
-      meta: D$3
+    [meta$f.type]: {
+      component: ZoomControls$1,
+      meta: meta$f
     },
-    [_$3.type]: {
-      component: U$4,
-      meta: _$3,
+    [meta$e.type]: {
+      component: Compass$1,
+      meta: meta$e,
       pro: true
     },
-    [$$6.type]: {
-      component: z$4,
-      meta: $$6
+    [meta$d.type]: {
+      component: LoadingIndicator$1,
+      meta: meta$d
     }
   };
   const controlWidgetList = Object.values(controlWidgetRegistry$1);
@@ -25163,6 +25494,16 @@
           layer.hidden = !layer.hidden;
         }));
       },
+      toggleLock: id => {
+        set(produce(draft => {
+          const layer = draft.layers.entities[id];
+          if (!layer) {
+            console.warn(`Layer with id ${id} doesn"t exist`);
+            return;
+          }
+          layer.lock = !layer.lock;
+        }));
+      },
       toggleTooltip: id => {
         set(produce(draft => {
           const layer = draft.layers.entities[id];
@@ -25227,6 +25568,14 @@
       parentId: void 0,
       pos: 0
     };
+  };
+  const isLayerLocked = (layers, id) => {
+    let current = layers[id];
+    while (current) {
+      if (current.lock) return true;
+      current = current.parentId ? layers[current.parentId] : void 0;
+    }
+    return false;
   };
   const useAppStore$1 = create$b(set => ({
     virtualTour: {
@@ -25623,140 +25972,146 @@
   const LITE_MAX_VIRTUALTOURS = 5;
   const LITE_MAX_SCENES = 5;
   const LITE_MAX_LAYERS_PER_SCENE = 5;
+  const DEFAULT_CONTEXT = "HappyVR PRO removes the limits and unlocks the full power of the builder.";
+  const PRO_FEATURES = [ "Unlimited Scenes & Layers", "Perspective Hotspots", "Tooltips with Rich Content", "Dynamic Attributes", "Handlebars Templates", "Custom JS & CSS" ];
+  const PLANS = {
+    annual: {
+      label: "Annual",
+      price: "$49 / year",
+      note: "All PRO features, updates & support"
+    },
+    lifetime: {
+      label: "Lifetime",
+      price: "$89 one-time",
+      note: "Pay once, keep PRO forever"
+    }
+  };
+  const buildCheckoutUrl = (plan, trial) => {
+    const base = g$7.data.upgrade_url;
+    const params = new URLSearchParams({
+      billing_cycle: plan
+    });
+    if (trial) {
+      params.set("trial", "true");
+    }
+    return `${base}${base.includes("?") ? "&" : "?"}${params.toString()}`;
+  };
   const DialogUpgradePro = ({featureText: featureText, onConfirm: onConfirm}) => {
     const {closeDialog: closeDialog} = useDialogStore();
+    const [plan, setPlan] = reactExports.useState("annual");
+    const checkoutUrl = trial => buildCheckoutUrl(plan, trial);
     const handleConfirm = () => {
       closeDialog();
       onConfirm?.();
-      window.location.href = g$5.data.upgrade_url;
+      window.location.href = checkoutUrl(true);
     };
     return jsxRuntimeExports.jsx(Dialog, {
       open: true,
       onOpenChange: open => !open && closeDialog(),
       children: jsxRuntimeExports.jsxs(DialogContent, {
+        className: "max-w-140 gap-0 p-7 sm:rounded-2xl",
         children: [ jsxRuntimeExports.jsxs(DialogHeader, {
-          children: [ jsxRuntimeExports.jsx(DialogTitle, {
-            className: "text-xl font-semibold leading-tight",
-            children: "Unlock premium features with HappyVR PRO ✨"
-          }), jsxRuntimeExports.jsx(DialogDescription, {}) ]
-        }), jsxRuntimeExports.jsxs("div", {
-          className: "my-4 text-sm text-muted-foreground flex flex-col gap-4",
-          children: [ featureText && jsxRuntimeExports.jsx("div", {
-            className: "flex items-start rounded-lg border border-purple-200 bg-purple-100/50 px-6 py-3 text-center",
-            children: jsxRuntimeExports.jsx("p", {
-              className: "text-sm font-medium leading-relaxed text-purple-900",
-              children: featureText
-            })
-          }), jsxRuntimeExports.jsx("p", {
-            className: "text-base font-medium text-gray-800",
-            children: "Why you should upgrade to HappyVR PRO?"
-          }), jsxRuntimeExports.jsxs("div", {
-            className: "flex flex-col gap-3",
-            children: [ jsxRuntimeExports.jsxs("div", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex items-center justify-center p-2.5 bg-linear-to-br from-purple-500 to-indigo-600 text-white rounded-xl shadow-md shrink-0",
-                children: jsxRuntimeExports.jsx(Layers, {
-                  size: 24
-                })
-              }), jsxRuntimeExports.jsx("p", {
-                className: "text-gray-700 leading-snug",
-                children: "Remove all limits on virtual tours, scenes, and layers. Place as many marker layers as your projects need."
-              }) ]
-            }), jsxRuntimeExports.jsxs("div", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex items-center justify-center p-2.5 bg-linear-to-br from-lime-500 to-green-600 text-white rounded-xl shadow-md shrink-0",
-                children: jsxRuntimeExports.jsx(Palette, {
-                  size: 24
-                })
-              }), jsxRuntimeExports.jsx("p", {
-                className: "text-gray-700 leading-snug",
-                children: "Apply custom CSS classes and design dynamic layouts with Handlebars templates to match your brand perfectly."
-              }) ]
-            }), jsxRuntimeExports.jsxs("div", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex items-center justify-center p-2.5 bg-linear-to-br from-sky-400 to-blue-500 text-white rounded-xl shadow-md shrink-0",
-                children: jsxRuntimeExports.jsx(FileBracesCorner, {
-                  size: 24
-                })
-              }), jsxRuntimeExports.jsx("p", {
-                className: "text-gray-700 leading-snug",
-                children: "Bring your virtual tour to life. Inject custom JavaScript into virtual tours and fully customize element behavior."
-              }) ]
-            }), jsxRuntimeExports.jsxs("div", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex items-center justify-center p-2.5 bg-linear-to-br from-indigo-500 to-purple-600 text-white rounded-xl shadow-md shrink-0",
-                children: jsxRuntimeExports.jsx(Music, {
-                  size: 24
-                })
-              }), jsxRuntimeExports.jsx("p", {
-                className: "text-gray-700 leading-snug",
-                children: "Add immersive audio and sound support. Attach background music or voice guidance to specific scenes and markers."
-              }) ]
-            }), jsxRuntimeExports.jsxs("div", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex items-center justify-center p-2.5 bg-linear-to-br from-pink-500 to-rose-600 text-white rounded-xl shadow-md shrink-0",
-                children: jsxRuntimeExports.jsx(WandSparkles, {
-                  size: 24
-                })
-              }), jsxRuntimeExports.jsx("p", {
-                className: "text-gray-700 leading-snug",
-                children: "Cinematic scene transitions. Create smooth, breathtaking animation effects when moving between positions and rooms."
-              }) ]
-            }) ]
-          }), jsxRuntimeExports.jsxs("ul", {
-            className: "flex flex-col gap-1 text-gray-600 text-sm",
-            children: [ jsxRuntimeExports.jsxs("li", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600",
-                children: jsxRuntimeExports.jsx(Check, {
-                  size: 12,
-                  strokeWidth: 3
-                })
-              }), jsxRuntimeExports.jsx("span", {
-                children: "Get priority help and support"
-              }) ]
-            }), jsxRuntimeExports.jsxs("li", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600",
-                children: jsxRuntimeExports.jsx(Check, {
-                  size: 12,
-                  strokeWidth: 3
-                })
-              }), jsxRuntimeExports.jsx("span", {
-                children: "7-day money back guarantee"
-              }) ]
-            }), jsxRuntimeExports.jsxs("li", {
-              className: "flex items-center gap-2",
-              children: [ jsxRuntimeExports.jsx("div", {
-                className: "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600",
-                children: jsxRuntimeExports.jsx(Check, {
-                  size: 12,
-                  strokeWidth: 3
-                })
-              }), jsxRuntimeExports.jsx("span", {
-                children: "Cancel your subscription anytime"
-              }) ]
-            }) ]
+          className: "gap-3",
+          children: [ jsxRuntimeExports.jsx("span", {
+            className: "inline-flex w-fit items-center rounded-full bg-[#f5f3ff] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#6d28d9]",
+            children: "✦ HappyVR PRO"
+          }), jsxRuntimeExports.jsxs(DialogTitle, {
+            className: "text-[22px] font-bold leading-snug tracking-tight",
+            children: [ "Unlock ", jsxRuntimeExports.jsx("em", {
+              className: "not-italic text-[#6d28d9]",
+              children: "premium features"
+            }), " with HappyVR PRO" ]
+          }), jsxRuntimeExports.jsx(DialogDescription, {
+            className: "text-[14.5px] leading-relaxed",
+            children: featureText ?? DEFAULT_CONTEXT
           }) ]
-        }), jsxRuntimeExports.jsxs(DialogFooter, {
-          className: "flex gap-2",
-          children: [ jsxRuntimeExports.jsx(Button$1, {
-            variant: "ghost",
-            className: "min-w-24",
-            onClick: closeDialog,
-            children: "Maybe later"
-          }), jsxRuntimeExports.jsx(Button$1, {
-            variant: "default",
-            className: "bg-linear-to-r from-[#2d73ed] to-[#b613f2] text-white font-medium",
-            onClick: handleConfirm,
-            children: "Upgrade to Pro"
+        }), jsxRuntimeExports.jsxs("div", {
+          className: "mt-5 flex flex-col gap-5",
+          children: [ jsxRuntimeExports.jsxs("div", {
+            className: "flex flex-col gap-2.5",
+            children: [ jsxRuntimeExports.jsx("p", {
+              className: "text-[12.5px] font-medium uppercase tracking-[0.08em] text-muted-foreground",
+              children: "Everything in Free, plus:"
+            }), jsxRuntimeExports.jsx("ul", {
+              className: "grid grid-cols-1 gap-x-4 gap-y-2 min-[480px]:grid-cols-2",
+              children: PRO_FEATURES.map(feature => jsxRuntimeExports.jsxs("li", {
+                className: "flex items-start gap-2 text-[13.5px] leading-snug text-gray-700",
+                children: [ jsxRuntimeExports.jsx(Check, {
+                  size: 14,
+                  strokeWidth: 3,
+                  className: "mt-0.5 shrink-0 text-[#16a34a]"
+                }), jsxRuntimeExports.jsx("span", {
+                  children: feature
+                }) ]
+              }, feature))
+            }) ]
+          }), jsxRuntimeExports.jsx("div", {
+            role: "radiogroup",
+            "aria-label": "Choose a plan",
+            className: "grid grid-cols-1 gap-3 sm:grid-cols-2",
+            children: Object.keys(PLANS).map(id => {
+              const p = PLANS[id];
+              const selected = plan === id;
+              return jsxRuntimeExports.jsxs("label", {
+                className: cn("relative cursor-pointer rounded-xl border p-3.5 transition-colors", selected ? "border-[#6d28d9] bg-[#f5f3ff]" : "border-gray-200 hover:border-gray-300"),
+                children: [ jsxRuntimeExports.jsx("input", {
+                  type: "radio",
+                  name: "hvr-pro-plan",
+                  className: "sr-only",
+                  checked: selected,
+                  onChange: () => setPlan(id)
+                }), id === "annual" && jsxRuntimeExports.jsx("span", {
+                  className: "absolute -top-2.5 right-3 rounded-full bg-[#6d28d9] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white",
+                  children: "Recommended"
+                }), jsxRuntimeExports.jsx("span", {
+                  className: "block text-sm font-semibold text-gray-900",
+                  children: p.label
+                }), jsxRuntimeExports.jsx("span", {
+                  className: "mt-1 block text-base font-bold text-gray-900",
+                  children: p.price
+                }), jsxRuntimeExports.jsx("span", {
+                  className: "mt-1 block text-xs text-muted-foreground",
+                  children: p.note
+                }) ]
+              }, id);
+            })
+          }), jsxRuntimeExports.jsxs("div", {
+            className: "flex flex-col gap-2",
+            children: [ jsxRuntimeExports.jsx(Button$1, {
+              className: "h-auto w-full rounded-xl bg-[#6d28d9] px-4 py-3.5 text-[15.5px] font-bold text-white hover:bg-[#5b21b6]",
+              onClick: handleConfirm,
+              children: "Try PRO free for 7 days"
+            }), jsxRuntimeExports.jsx("p", {
+              className: "text-center text-xs text-muted-foreground",
+              children: "No credit card required · Full PRO access · Cancel anytime"
+            }) ]
+          }), jsxRuntimeExports.jsxs("p", {
+            className: "text-center text-[13px] text-gray-600",
+            children: [ "Prefer to buy outright?", " ", jsxRuntimeExports.jsxs("a", {
+              href: checkoutUrl(false),
+              onClick: onConfirm,
+              className: "font-bold text-[#6d28d9] hover:underline",
+              children: [ "Get PRO - ", PLANS[plan].price ]
+            }) ]
+          }), jsxRuntimeExports.jsxs("p", {
+            className: "flex items-center justify-center gap-1.5 rounded-lg bg-[#ecfdf5] px-4 py-2.5 text-center text-[12.5px] text-[#065f46]",
+            children: [ jsxRuntimeExports.jsx(Check, {
+              size: 13,
+              strokeWidth: 3,
+              className: "shrink-0"
+            }), "After the trial, your virtual tours keep rendering exactly as configured." ]
+          }), jsxRuntimeExports.jsxs("p", {
+            className: "flex items-center justify-center gap-1.5 text-[12.5px] text-gray-500",
+            children: [ jsxRuntimeExports.jsx("span", {
+              className: "tracking-wide text-[#f59e0b]",
+              "aria-hidden": "true",
+              children: "★★★★★"
+            }), jsxRuntimeExports.jsxs("span", {
+              children: [ jsxRuntimeExports.jsx("b", {
+                className: "font-bold text-gray-900",
+                children: "5.0"
+              }), " on WordPress.org" ]
+            }) ]
           }) ]
         }) ]
       })
@@ -25871,11 +26226,11 @@
               if (!resultThumb.success || !resultThumb.thumb) {
                 throw new Error(resultThumb.error ?? "Thumb generation failed");
               }
-              const thumbResponse = await fetch(`${g$5.api.url}/virtualtours/${g$5.data.item_id}/scenes/${scene.id}/thumb`, {
+              const thumbResponse = await fetch(`${g$7.api.url}/virtualtours/${g$7.data.item_id}/scenes/${scene.id}/thumb`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
-                  "X-WP-Nonce": g$5.api.nonce,
+                  "X-WP-Nonce": g$7.api.nonce,
                   "X-HTTP-Method-Override": "PUT"
                 },
                 cache: "no-store",
@@ -25915,11 +26270,11 @@
                       worker.terminate();
                       reject(new Error(`Worker error: ${data.error}`));
                     } else {
-                      const uploadPromise = fetch(`${g$5.api.url}/virtualtours/${g$5.data.item_id}/scenes/${scene.id}/tiles`, {
+                      const uploadPromise = fetch(`${g$7.api.url}/virtualtours/${g$7.data.item_id}/scenes/${scene.id}/tiles`, {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
-                          "X-WP-Nonce": g$5.api.nonce,
+                          "X-WP-Nonce": g$7.api.nonce,
                           "X-HTTP-Method-Override": "PUT"
                         },
                         cache: "no-store",
@@ -26325,10 +26680,10 @@
       virtualTour: {
         load: async () => {
           try {
-            const response = await fetch(`${g$5.api.url}/virtualtours/${g$5.data.item_id}`, {
+            const response = await fetch(`${g$7.api.url}/virtualtours/${g$7.data.item_id}`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               },
               cache: "no-store"
@@ -26355,7 +26710,7 @@
                 id: generateId$1(),
                 type: ControlWidgetType$1.SceneTitle,
                 properties: {
-                  slot: ControlSlotType$1.BottomLeft,
+                  slot: ControlSlotType$p.BottomLeft,
                   style: {
                     color: "#fff",
                     background: "#00000070",
@@ -26366,7 +26721,7 @@
                 id: generateId$1(),
                 type: ControlWidgetType$1.SceneNav,
                 properties: {
-                  slot: ControlSlotType$1.BottomRight,
+                  slot: ControlSlotType$p.BottomRight,
                   style: {
                     color: "#fff",
                     background: "#00000070",
@@ -26380,7 +26735,7 @@
                 id: generateId$1(),
                 type: ControlWidgetType$1.ZoomControls,
                 properties: {
-                  slot: ControlSlotType$1.BottomRight,
+                  slot: ControlSlotType$p.BottomRight,
                   style: {
                     color: "#fff",
                     background: "#00000070",
@@ -26394,7 +26749,7 @@
                 id: generateId$1(),
                 type: ControlWidgetType$1.FullscreenToggle,
                 properties: {
-                  slot: ControlSlotType$1.BottomRight,
+                  slot: ControlSlotType$p.BottomRight,
                   style: {
                     color: "#fff",
                     background: "#00000070",
@@ -26445,16 +26800,16 @@
             const config = Service$1.virtualTour.getConfig();
             const cleanedConfig = cleanObject(config) ?? {};
             const data = {
-              id: g$5.data.item_id,
+              id: g$7.data.item_id,
               title: app.virtualTour.title,
               status: app.virtualTour.status,
               config: cleanedConfig
             };
-            const response = await fetch(`${g$5.api.url}/virtualtours/${g$5.data.item_id}`, {
+            const response = await fetch(`${g$7.api.url}/virtualtours/${g$7.data.item_id}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "PUT"
               },
               cache: "no-store",
@@ -26466,7 +26821,7 @@
             }
             const url = new URL(window.location.href);
             url.searchParams.set("action", "edit");
-            url.searchParams.set("id", g$5.data.item_id);
+            url.searchParams.set("id", g$7.data.item_id);
             window.history.pushState({}, "", url.toString());
             if (jsonData?.message) {
               toast.message(jsonData.message);
@@ -26492,11 +26847,11 @@
           }
           layout.setLoading(true);
           try {
-            const response = await fetch(`${g$5.api.url}/virtualtours/${g$5.data.item_id}/status/${status}`, {
+            const response = await fetch(`${g$7.api.url}/virtualtours/${g$7.data.item_id}/status/${status}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "PUT"
               },
               cache: "no-store"
@@ -26677,10 +27032,10 @@
           const iconPickerStore = useIconPickerStore.getState();
           let result = [];
           try {
-            const response = await fetch(`${g$5.api.url}/icons/sets`, {
+            const response = await fetch(`${g$7.api.url}/icons/sets`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               }
             });
@@ -26704,10 +27059,10 @@
         load: async set => {
           let result = [];
           try {
-            const response = await fetch(`${g$5.api.url}/icons/sets/${set}`, {
+            const response = await fetch(`${g$7.api.url}/icons/sets/${set}`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               }
             });
@@ -26775,10 +27130,10 @@
           const signalLoadTypes = abortLoadTypes.signal;
           layout.setLoading(true);
           try {
-            const response = await fetch(`${g$5.api.url}/permission-types`, {
+            const response = await fetch(`${g$7.api.url}/permission-types`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               },
               cache: "default",
@@ -26811,10 +27166,10 @@
           const signalLoadSettings = abortLoadSettings.signal;
           layout.setLoading(true);
           try {
-            const response = await fetch(`${g$5.api.url}/settings`, {
+            const response = await fetch(`${g$7.api.url}/settings`, {
               method: "GET",
               headers: {
-                "X-WP-Nonce": g$5.api.nonce,
+                "X-WP-Nonce": g$7.api.nonce,
                 "X-HTTP-Method-Override": "GET"
               },
               cache: "no-store",
@@ -26873,7 +27228,7 @@
   });
   const AppToolbar$2 = () => {
     const isLoading = useLayoutStore$2(s => s.isLoading);
-    const baseUrl = new URL(g$5.data.plugin_url, window.location.href);
+    const baseUrl = new URL(g$7.data.plugin_url, window.location.href);
     const logoUrl = new URL("assets/img/happyvr.png", baseUrl).href;
     return jsxRuntimeExports.jsxs("div", {
       className: "flex items-center gap-2",
@@ -27129,7 +27484,7 @@
     Search: Search,
     LookAt: SquareArrowUpRight,
     Refresh: RefreshCw,
-    X: X$4,
+    X: X$2,
     Check: Check,
     Minus: Minus,
     Plus: Plus,
@@ -28297,7 +28652,7 @@
     const status = useAppStore$1(s => s.virtualTour.status);
     const isLoading = useLayoutStore$1(s => s.isLoading);
     const isDirty = useLayoutStore$1(s => s.isDirty);
-    const baseUrl = new URL(g$5.data.plugin_url, window.location.href);
+    const baseUrl = new URL(g$7.data.plugin_url, window.location.href);
     const logoUrl = new URL("assets/img/happyvr.png", baseUrl).href;
     const switchToDraft = () => {
       void Service$1.virtualTour.setStatus(VirtualTourStatus$1.Draft);
@@ -28341,7 +28696,7 @@
     const status = useAppStore$1(s => s.virtualTour.status);
     const title = useAppStore$1(s => s.virtualTour.title);
     const setTitle = useAppStore$1(s => s.actions.virtualTour.setTitle);
-    const shortcode = `[happyvr id="${g$5.data.item_id}"]`;
+    const shortcode = `[happyvr id="${g$7.data.item_id}"]`;
     const [copied, setCopied] = reactExports.useState(false);
     const timerRef = reactExports.useRef(null);
     const copyToClipboard = reactExports.useCallback(() => {
@@ -28472,23 +28827,6 @@
           })
         }), jsxRuntimeExports.jsx(TooltipContent, {
           children: "Scenes & Layers"
-        }) ]
-      }), jsxRuntimeExports.jsxs(Tooltip, {
-        children: [ jsxRuntimeExports.jsx(TooltipTrigger, {
-          asChild: true,
-          children: jsxRuntimeExports.jsx(Button$1, {
-            variant: "sidebar",
-            size: "sidebar",
-            className: cn(leftPanelType === LeftPanelType.FloorPlan && "bg-sidebar-accent text-sidebar-accent-foreground"),
-            onClick: () => {
-              changeLeftPanel(LeftPanelType.FloorPlan);
-            },
-            children: jsxRuntimeExports.jsx(Icons.FloorPlan, {
-              size: 24
-            })
-          })
-        }), jsxRuntimeExports.jsx(TooltipContent, {
-          children: "Floor plan"
         }) ]
       }), jsxRuntimeExports.jsxs(Tooltip, {
         children: [ jsxRuntimeExports.jsx(TooltipTrigger, {
@@ -28765,13 +29103,13 @@
       return false;
     }
     at(index) {
-      const key = at$3(this.#keys, index);
+      const key = at$2(this.#keys, index);
       if (key !== void 0) {
         return this.get(key);
       }
     }
     entryAt(index) {
-      const key = at$3(this.#keys, index);
+      const key = at$2(this.#keys, index);
       if (key !== void 0) {
         return [ key, this.get(key) ];
       }
@@ -28780,7 +29118,7 @@
       return this.#keys.indexOf(key);
     }
     keyAt(index) {
-      return at$3(this.#keys, index);
+      return at$2(this.#keys, index);
     }
     from(key, offset) {
       const index = this.indexOf(key);
@@ -28927,14 +29265,14 @@
       return false;
     }
   };
-  function at$3(array, index) {
+  function at$2(array, index) {
     if ("at" in Array.prototype) {
       return Array.prototype.at.call(array, index);
     }
     const actualIndex = toSafeIndex(array, index);
     return actualIndex === -1 ? void 0 : array[actualIndex];
   }
-  __name$h(at$3, "at");
+  __name$h(at$2, "at");
   function toSafeIndex(array, index) {
     const length = array.length;
     const relativeIndex = toSafeInteger(index);
@@ -29710,21 +30048,21 @@
       }) ]
     });
   };
-  function St$2(e, t) {
+  function St$1(e, t) {
     const n = getComputedStyle(e), o = parseFloat(n.fontSize);
     return t * o;
   }
-  function vt$3(e, t) {
+  function vt$1(e, t) {
     const n = getComputedStyle(e.ownerDocument.documentElement), o = parseFloat(n.fontSize);
     return t * o;
   }
-  function bt$2(e) {
+  function bt$1(e) {
     return e / 100 * window.innerHeight;
   }
   function zt$1(e) {
     return e / 100 * window.innerWidth;
   }
-  function xt$2(e) {
+  function xt$1(e) {
     switch (typeof e) {
      case "number":
       return [ e, "px" ];
@@ -29738,7 +30076,7 @@
   }
   function ie$2({groupSize: e, panelElement: t, styleProp: n}) {
     let o;
-    const [i, s] = xt$2(n);
+    const [i, s] = xt$1(n);
     switch (s) {
      case "%":
       {
@@ -29754,19 +30092,19 @@
 
      case "rem":
       {
-        o = vt$3(t, i);
+        o = vt$1(t, i);
         break;
       }
 
      case "em":
       {
-        o = St$2(t, i);
+        o = St$1(t, i);
         break;
       }
 
      case "vh":
       {
-        o = bt$2(i);
+        o = bt$1(i);
         break;
       }
 
@@ -29778,7 +30116,7 @@
     }
     return o;
   }
-  function T$2(e) {
+  function T$1(e) {
     return parseFloat(e.toFixed(3));
   }
   function ne({group: e}) {
@@ -29808,7 +30146,7 @@
           panelElement: i,
           styleProp: s.collapsedSize
         });
-        u = T$2(c / n * 100);
+        u = T$1(c / n * 100);
       }
       let a;
       if (s.defaultSize !== void 0) {
@@ -29817,7 +30155,7 @@
           panelElement: i,
           styleProp: s.defaultSize
         });
-        a = T$2(c / n * 100);
+        a = T$1(c / n * 100);
       }
       let r = 0;
       if (s.minSize !== void 0) {
@@ -29826,7 +30164,7 @@
           panelElement: i,
           styleProp: s.minSize
         });
-        r = T$2(c / n * 100);
+        r = T$1(c / n * 100);
       }
       let l = 100;
       if (s.maxSize !== void 0) {
@@ -29835,7 +30173,7 @@
           panelElement: i,
           styleProp: s.maxSize
         });
-        l = T$2(c / n * 100);
+        l = T$1(c / n * 100);
       }
       return {
         groupResizeBehavior: s.groupResizeBehavior,
@@ -29849,17 +30187,17 @@
       };
     });
   }
-  function C$5(e, t = "Assertion error") {
+  function C$2(e, t = "Assertion error") {
     if (!e) throw Error(t);
   }
   function be(e, t) {
-    return Array.from(t).sort(e === "horizontal" ? Pt : wt$2);
+    return Array.from(t).sort(e === "horizontal" ? Pt : wt$1);
   }
   function Pt(e, t) {
     const n = e.element.offsetLeft - t.element.offsetLeft;
     return n !== 0 ? n : e.element.offsetWidth - t.element.offsetWidth;
   }
-  function wt$2(e, t) {
+  function wt$1(e, t) {
     const n = e.element.offsetTop - t.element.offsetTop;
     return n !== 0 ? n : e.element.offsetHeight - t.element.offsetHeight;
   }
@@ -29872,7 +30210,7 @@
       y: e.y >= t.top && e.y <= t.bottom ? 0 : Math.min(Math.abs(e.y - t.top), Math.abs(e.y - t.bottom))
     };
   }
-  function Lt$1({orientation: e, rects: t, targetRect: n}) {
+  function Lt({orientation: e, rects: t, targetRect: n}) {
     const o = {
       x: n.x + n.width / 2,
       y: n.y + n.height / 2
@@ -29882,7 +30220,7 @@
       const {x: a, y: r} = Je(o, u), l = e === "horizontal" ? a : r;
       l < s && (s = l, i = u);
     }
-    return C$5(i, "No rect found"), i;
+    return C$2(i, "No rect found"), i;
   }
   let fe;
   function Ct$1() {
@@ -29919,7 +30257,7 @@
 
                case 1:
                 {
-                  const w = S[0], M = Lt$1({
+                  const w = S[0], M = Lt({
                     orientation: n,
                     rects: [ h, y ],
                     targetRect: w.element.getBoundingClientRect()
@@ -30008,7 +30346,7 @@
     state: "inactive"
   };
   const ze = new Qe;
-  function B$8() {
+  function B$1() {
     return ee;
   }
   function Rt$1(e) {
@@ -30030,7 +30368,7 @@
       next: e
     });
   }
-  const Et$2 = e => e, ye = () => {}, et$1 = 1, tt$2 = 2, nt$2 = 4, ot$2 = 8, Ie = 3, ke = 12;
+  const Et$1 = e => e, ye = () => {}, et = 1, tt$1 = 2, nt$1 = 4, ot$1 = 8, Ie = 3, ke = 12;
   let de;
   function De() {
     return de === void 0 && (de = false, typeof window < "u" && (window.navigator.userAgent.includes("Chrome") || window.navigator.userAgent.includes("Firefox")) && (de = true)), 
@@ -30062,7 +30400,7 @@
        case "active":
         {
           if (e && De()) {
-            const s = (e & et$1) !== 0, u = (e & tt$2) !== 0, a = (e & nt$2) !== 0, r = (e & ot$2) !== 0;
+            const s = (e & et) !== 0, u = (e & tt$1) !== 0, a = (e & nt$1) !== 0, r = (e & ot$1) !== 0;
             if (s) return a ? "se-resize" : r ? "ne-resize" : "e-resize";
             if (u) return a ? "sw-resize" : r ? "nw-resize" : "w-resize";
             if (a) return "s-resize";
@@ -30079,7 +30417,7 @@
     if (e.defaultView === null || e.defaultView === void 0) return;
     let {prevStyle: t, styleSheet: n} = Te.get(e) ?? {};
     n === void 0 && (n = new e.defaultView.CSSStyleSheet, e.adoptedStyleSheets && (Object.isExtensible(e.adoptedStyleSheets) ? e.adoptedStyleSheets.push(n) : e.adoptedStyleSheets = [ ...e.adoptedStyleSheets, n ]));
-    const o = B$8();
+    const o = B$1();
     switch (o.state) {
      case "active":
      case "hover":
@@ -30105,37 +30443,37 @@
       styleSheet: n
     });
   }
-  let F$3 = new Map;
-  const it$3 = new Qe;
+  let F$1 = new Map;
+  const it$1 = new Qe;
   function kt$1(e) {
-    F$3 = new Map(F$3), F$3.delete(e);
+    F$1 = new Map(F$1), F$1.delete(e);
   }
   function Oe(e, t) {
-    for (const [n] of F$3) if (n.id === e) return n;
+    for (const [n] of F$1) if (n.id === e) return n;
   }
-  function H$4(e, t) {
-    for (const [n, o] of F$3) if (n.id === e) return o;
+  function H$5(e, t) {
+    for (const [n, o] of F$1) if (n.id === e) return o;
     if (t) throw Error(`Could not find data for Group with id ${e}`);
   }
-  function X$2() {
-    return F$3;
+  function X$1() {
+    return F$1;
   }
   function Pe(e, t) {
-    return it$3.addListener("groupChange", n => {
+    return it$1.addListener("groupChange", n => {
       n.group.id === e && t(n);
     });
   }
   function j$5(e, t, n) {
-    const o = F$3.get(e);
-    F$3 = new Map(F$3), F$3.set(e, t), it$3.emit("groupChange", {
+    const o = F$1.get(e);
+    F$1 = new Map(F$1), F$1.set(e, t), it$1.emit("groupChange", {
       group: e,
       isUserInteraction: n?.isUserInteraction === true,
       prev: o,
       next: t
     });
   }
-  function rt$1(e) {
-    const t = B$8();
+  function rt(e) {
+    const t = B$1();
     let n = false;
     switch (t.state) {
      case "active":
@@ -30143,7 +30481,7 @@
         cursorFlags: 0,
         state: "inactive"
       }), t.hitRegions.length > 0 && (xe(e), n = true, t.hitRegions.forEach(o => {
-        const i = H$4(o.group.id, true);
+        const i = H$5(o.group.id, true);
         j$5(o.group, i, {
           isUserInteraction: true
         });
@@ -30152,7 +30490,7 @@
     return n;
   }
   function Ge(e) {
-    e.defaultPrevented || rt$1(e.currentTarget);
+    e.defaultPrevented || rt(e.currentTarget);
   }
   function Dt(e, t, n) {
     let o, i = {
@@ -30191,7 +30529,7 @@
     };
     let o;
     for (;n.a.at(-1) === n.b.at(-1); ) o = n.a.pop(), n.b.pop();
-    C$5(o, "Stacking order can only be calculated for elements with a common ancestor");
+    C$2(o, "Stacking order can only be calculated for elements with a common ancestor");
     const i = {
       a: Fe(Ae(n.a)),
       b: Fe(Ae(n.b))
@@ -30212,7 +30550,7 @@
   }
   const Gt = /\b(?:position|zIndex|opacity|transform|webkitTransform|mixBlendMode|filter|webkitFilter|isolation)\b/;
   function At$1(e) {
-    const t = getComputedStyle(st$3(e) ?? e).display;
+    const t = getComputedStyle(st$1(e) ?? e).display;
     return t === "flex" || t === "inline-flex";
   }
   function Ft(e) {
@@ -30223,7 +30561,7 @@
     let t = e.length;
     for (;t--; ) {
       const n = e[t];
-      if (C$5(n, "Missing node"), Ft(n)) return n;
+      if (C$2(n, "Missing node"), Ft(n)) return n;
     }
     return null;
   }
@@ -30232,10 +30570,10 @@
   }
   function Ne(e) {
     const t = [];
-    for (;e; ) t.push(e), e = st$3(e);
+    for (;e; ) t.push(e), e = st$1(e);
     return t;
   }
-  function st$3(e) {
+  function st$1(e) {
     const {parentNode: t} = e;
     return Tt$1(t) ? t.host : t;
   }
@@ -30275,49 +30613,49 @@
     return true;
   }
   function k$3(e, t, n = 0) {
-    return Math.abs(T$2(e) - T$2(t)) <= n;
+    return Math.abs(T$1(e) - T$1(t)) <= n;
   }
-  function A$5(e, t) {
+  function A$1(e, t) {
     return k$3(e, t) ? 0 : e > t ? 1 : -1;
   }
-  function Z$2({overrideDisabledPanels: e, panelConstraints: t, prevSize: n, size: o}) {
+  function Z$1({overrideDisabledPanels: e, panelConstraints: t, prevSize: n, size: o}) {
     const {collapsedSize: i = 0, collapsible: s, disabled: u, maxSize: a = 100, minSize: r = 0} = t;
     if (u && !e) return n;
-    if (A$5(o, r) < 0) if (s) {
+    if (A$1(o, r) < 0) if (s) {
       const l = (i + r) / 2;
-      A$5(o, l) < 0 ? o = i : o = r;
+      A$1(o, l) < 0 ? o = i : o = r;
     } else o = r;
-    return o = Math.min(a, o), o = T$2(o), o;
+    return o = Math.min(a, o), o = T$1(o), o;
   }
   function le({delta: e, initialLayout: t, panelConstraints: n, pivotIndices: o, prevLayout: i, trigger: s}) {
     if (k$3(e, 0)) return t;
     const u = s === "imperative-api", a = Object.values(t), r = Object.values(i), l = [ ...a ], [c, m] = o;
-    C$5(c != null, "Invalid first pivot index"), C$5(m != null, "Invalid second pivot index");
+    C$2(c != null, "Invalid first pivot index"), C$2(m != null, "Invalid second pivot index");
     let p = 0;
     switch (s) {
      case "keyboard":
       {
         {
           const f = e < 0 ? m : c, d = n[f];
-          C$5(d, `Panel constraints not found for index ${f}`);
+          C$2(d, `Panel constraints not found for index ${f}`);
           const {collapsedSize: h = 0, collapsible: y, minSize: b = 0} = d;
           if (y) {
             const v = a[f];
-            if (C$5(v != null, `Previous layout not found for panel index ${f}`), k$3(v, h)) {
+            if (C$2(v != null, `Previous layout not found for panel index ${f}`), k$3(v, h)) {
               const g = b - v;
-              A$5(g, Math.abs(e)) > 0 && (e = e < 0 ? 0 - g : g);
+              A$1(g, Math.abs(e)) > 0 && (e = e < 0 ? 0 - g : g);
             }
           }
         }
         {
           const f = e < 0 ? c : m, d = n[f];
-          C$5(d, `No panel constraints found for index ${f}`);
+          C$2(d, `No panel constraints found for index ${f}`);
           const {collapsedSize: h = 0, collapsible: y, minSize: b = 0} = d;
           if (y) {
             const v = a[f];
-            if (C$5(v != null, `Previous layout not found for panel index ${f}`), k$3(v, b)) {
+            if (C$2(v != null, `Previous layout not found for panel index ${f}`), k$3(v, b)) {
               const g = v - h;
-              A$5(g, Math.abs(e)) > 0 && (e = e < 0 ? 0 - g : g);
+              A$1(g, Math.abs(e)) > 0 && (e = e < 0 ? 0 - g : g);
             }
           }
         }
@@ -30327,14 +30665,14 @@
      default:
       {
         const f = e < 0 ? m : c, d = n[f];
-        C$5(d, `Panel constraints not found for index ${f}`);
+        C$2(d, `Panel constraints not found for index ${f}`);
         const h = a[f], {collapsible: y, collapsedSize: b, minSize: v} = d;
-        if (y && A$5(h, v) < 0) if (e > 0) {
+        if (y && A$1(h, v) < 0) if (e > 0) {
           const g = v - b, w = g / 2, M = h + e;
-          A$5(M, v) < 0 && (e = A$5(e, w) <= 0 ? 0 : g);
+          A$1(M, v) < 0 && (e = A$1(e, w) <= 0 ? 0 : g);
         } else {
           const g = v - b, w = 100 - g / 2, M = h - e;
-          A$5(M, v) < 0 && (e = A$5(100 + e, w) > 0 ? 0 : -g);
+          A$1(M, v) < 0 && (e = A$1(100 + e, w) > 0 ? 0 : -g);
         }
         break;
       }
@@ -30344,8 +30682,8 @@
       let d = e < 0 ? m : c, h = 0;
       for (;;) {
         const b = a[d];
-        C$5(b != null, `Previous layout not found for panel index ${d}`);
-        const g = Z$2({
+        C$2(b != null, `Previous layout not found for panel index ${d}`);
+        const g = Z$1({
           overrideDisabledPanels: u,
           panelConstraints: n[d],
           prevSize: b,
@@ -30360,8 +30698,8 @@
       let d = e < 0 ? c : m;
       for (;d >= 0 && d < n.length; ) {
         const h = Math.abs(e) - Math.abs(p), y = a[d];
-        C$5(y != null, `Previous layout not found for panel index ${d}`);
-        const b = y - h, v = Z$2({
+        C$2(y != null, `Previous layout not found for panel index ${d}`);
+        const b = y - h, v = Z$1({
           overrideDisabledPanels: u,
           panelConstraints: n[d],
           prevSize: y,
@@ -30376,8 +30714,8 @@
     if ($t(r, l)) return i;
     {
       const f = e < 0 ? m : c, d = a[f];
-      C$5(d != null, `Previous layout not found for panel index ${f}`);
-      const h = d + p, y = Z$2({
+      C$2(d != null, `Previous layout not found for panel index ${f}`);
+      const h = d + p, y = Z$1({
         overrideDisabledPanels: u,
         panelConstraints: n[f],
         prevSize: d,
@@ -30387,8 +30725,8 @@
         let b = h - y, g = e < 0 ? m : c;
         for (;g >= 0 && g < n.length; ) {
           const w = l[g];
-          C$5(w != null, `Previous layout not found for panel index ${g}`);
-          const M = w + b, L = Z$2({
+          C$2(w != null, `Previous layout not found for panel index ${g}`);
+          const M = w + b, L = Z$1({
             overrideDisabledPanels: u,
             panelConstraints: n[g],
             prevSize: w,
@@ -30404,27 +30742,27 @@
     const z = Object.keys(i);
     return l.reduce((f, d, h) => (f[z[h]] = d, f), {});
   }
-  function W$3(e, t) {
+  function W$1(e, t) {
     if (Object.keys(e).length !== Object.keys(t).length) return false;
-    for (const n in e) if (t[n] === void 0 || A$5(e[n], t[n]) !== 0) return false;
+    for (const n in e) if (t[n] === void 0 || A$1(e[n], t[n]) !== 0) return false;
     return true;
   }
-  function K$3({layout: e, panelConstraints: t}) {
+  function K$1({layout: e, panelConstraints: t}) {
     const n = Object.values(e), o = [ ...n ], i = o.reduce((a, r) => a + r, 0);
     if (o.length !== t.length) throw Error(`Invalid ${t.length} panel layout: ${o.map(a => `${a}%`).join(", ")}`);
     if (!k$3(i, 100) && o.length > 0) for (let a = 0; a < t.length; a++) {
       const r = o[a];
-      C$5(r != null, `No layout data found for index ${a}`);
+      C$2(r != null, `No layout data found for index ${a}`);
       const l = 100 / i * r;
       o[a] = l;
     }
     let s = 0;
     for (let a = 0; a < t.length; a++) {
       const r = n[a];
-      C$5(r != null, `No layout data found for index ${a}`);
+      C$2(r != null, `No layout data found for index ${a}`);
       const l = o[a];
-      C$5(l != null, `No layout data found for index ${a}`);
-      const c = Z$2({
+      C$2(l != null, `No layout data found for index ${a}`);
+      const c = Z$1({
         overrideDisabledPanels: true,
         panelConstraints: t[a],
         prevSize: r,
@@ -30434,8 +30772,8 @@
     }
     if (!k$3(s, 0)) for (let a = 0; a < t.length; a++) {
       const r = o[a];
-      C$5(r != null, `No layout data found for index ${a}`);
-      const l = r + s, c = Z$2({
+      C$2(r != null, `No layout data found for index ${a}`);
+      const l = r + s, c = Z$1({
         overrideDisabledPanels: true,
         panelConstraints: t[a],
         prevSize: r,
@@ -30446,9 +30784,9 @@
     const u = Object.keys(e);
     return o.reduce((a, r, l) => (a[u[l]] = r, a), {});
   }
-  function at$2({groupId: e, panelId: t}) {
+  function at$1({groupId: e, panelId: t}) {
     const n = () => {
-      const r = X$2();
+      const r = X$1();
       for (const [l, {defaultLayoutDeferred: c, derivedPanelConstraints: m, layout: p, groupSize: S, separatorToPanels: z}] of r) if (l.id === e) return {
         defaultLayoutDeferred: c,
         derivedPanelConstraints: m,
@@ -30479,7 +30817,7 @@
         const h = l.slice(0, S).reduce((y, b) => y + c[b.id], 0);
         return {
           ...c,
-          [t]: T$2(100 - h)
+          [t]: T$1(100 - h)
         };
       }
       return le({
@@ -30498,11 +30836,11 @@
         panels: p.panels,
         prevLayout: z,
         derivedPanelConstraints: m
-      }), h = K$3({
+      }), h = K$1({
         layout: d,
         panelConstraints: m
       });
-      W$3(z, h) || j$5(p, {
+      W$1(z, h) || j$5(p, {
         defaultLayoutDeferred: c,
         derivedPanelConstraints: m,
         groupSize: S,
@@ -30540,19 +30878,19 @@
           groupSize: m,
           panelElement: c,
           styleProp: r
-        }), S = T$2(p / m * 100);
+        }), S = T$1(p / m * 100);
         a(S);
       }
     };
   }
   function _e(e) {
     if (e.defaultPrevented) return;
-    const t = X$2();
+    const t = X$1();
     we(e, t).forEach(o => {
       if (o.separator && !o.separator.disableDoubleClick) {
         const i = o.panels.find(s => s.panelConstraints.defaultSize !== void 0);
         if (i) {
-          const s = i.panelConstraints.defaultSize, u = at$2({
+          const s = i.panelConstraints.defaultSize, u = at$1({
             groupId: o.group.id,
             panelId: i.id
           });
@@ -30562,13 +30900,13 @@
     });
   }
   function pe(e) {
-    const t = X$2();
+    const t = X$1();
     for (const [n] of t) if (n.separators.some(o => o.element === e)) return n;
     throw Error("Could not find parent Group for separator element");
   }
-  function lt$3({groupId: e}) {
+  function lt$2({groupId: e}) {
     const t = () => {
-      const n = X$2();
+      const n = X$1();
       for (const [o, i] of n) if (o.id === e) return {
         group: o,
         ...i
@@ -30581,11 +30919,11 @@
         return n ? {} : o;
       },
       setLayout(n) {
-        const {defaultLayoutDeferred: o, derivedPanelConstraints: i, group: s, groupSize: u, layout: a, separatorToPanels: r} = t(), l = K$3({
+        const {defaultLayoutDeferred: o, derivedPanelConstraints: i, group: s, groupSize: u, layout: a, separatorToPanels: r} = t(), l = K$1({
           layout: n,
           panelConstraints: i
         });
-        return o ? a : (W$3(a, l) || j$5(s, {
+        return o ? a : (W$1(a, l) || j$5(s, {
           defaultLayoutDeferred: o,
           derivedPanelConstraints: i,
           groupSize: u,
@@ -30595,12 +30933,12 @@
       }
     };
   }
-  function U$3(e, t) {
-    const n = pe(e), o = H$4(n.id, true), i = n.separators.find(m => m.element === e);
-    C$5(i, "Matching separator not found");
+  function U$1(e, t) {
+    const n = pe(e), o = H$5(n.id, true), i = n.separators.find(m => m.element === e);
+    C$2(i, "Matching separator not found");
     const s = o.separatorToPanels.get(i);
-    C$5(s, "Matching panels not found");
-    const u = s.map(m => n.panels.indexOf(m)), r = lt$3({
+    C$2(s, "Matching panels not found");
+    const u = s.map(m => n.panels.indexOf(m)), r = lt$2({
       groupId: n.id
     }).getLayout(), l = le({
       delta: t,
@@ -30609,11 +30947,11 @@
       pivotIndices: u,
       prevLayout: r,
       trigger: "keyboard"
-    }), c = K$3({
+    }), c = K$1({
       layout: l,
       panelConstraints: o.derivedPanelConstraints
     });
-    W$3(r, c) || j$5(n, {
+    W$1(r, c) || j$5(n, {
       defaultLayoutDeferred: o.defaultLayoutDeferred,
       derivedPanelConstraints: o.derivedPanelConstraints,
       groupSize: o.groupSize,
@@ -30629,45 +30967,45 @@
     if (!n.disabled) switch (e.key) {
      case "ArrowDown":
       {
-        e.preventDefault(), n.orientation === "vertical" && U$3(t, 5);
+        e.preventDefault(), n.orientation === "vertical" && U$1(t, 5);
         break;
       }
 
      case "ArrowLeft":
       {
-        e.preventDefault(), n.orientation === "horizontal" && U$3(t, -5);
+        e.preventDefault(), n.orientation === "horizontal" && U$1(t, -5);
         break;
       }
 
      case "ArrowRight":
       {
-        e.preventDefault(), n.orientation === "horizontal" && U$3(t, 5);
+        e.preventDefault(), n.orientation === "horizontal" && U$1(t, 5);
         break;
       }
 
      case "ArrowUp":
       {
-        e.preventDefault(), n.orientation === "vertical" && U$3(t, -5);
+        e.preventDefault(), n.orientation === "vertical" && U$1(t, -5);
         break;
       }
 
      case "End":
       {
-        e.preventDefault(), U$3(t, 100);
+        e.preventDefault(), U$1(t, 100);
         break;
       }
 
      case "Enter":
       {
         e.preventDefault();
-        const o = pe(t), i = H$4(o.id, true), {derivedPanelConstraints: s, layout: u, separatorToPanels: a} = i, r = o.separators.find(p => p.element === t);
-        C$5(r, "Matching separator not found");
+        const o = pe(t), i = H$5(o.id, true), {derivedPanelConstraints: s, layout: u, separatorToPanels: a} = i, r = o.separators.find(p => p.element === t);
+        C$2(r, "Matching separator not found");
         const l = a.get(r);
-        C$5(l, "Matching panels not found");
+        C$2(l, "Matching panels not found");
         const c = l[0], m = s.find(p => p.panelId === c.id);
-        if (C$5(m, "Panel metadata not found"), m.collapsible) {
+        if (C$2(m, "Panel metadata not found"), m.collapsible) {
           const p = u[c.id], S = m.collapsedSize === p ? o.mutableState.expandedPanelSizes[c.id] ?? m.minSize : m.collapsedSize;
-          U$3(t, S - p);
+          U$1(t, S - p);
         }
         break;
       }
@@ -30676,7 +31014,7 @@
       {
         e.preventDefault();
         const i = pe(t).separators.map(r => r.element), s = Array.from(i).findIndex(r => r === e.currentTarget);
-        C$5(s !== null, "Index not found");
+        C$2(s !== null, "Index not found");
         const u = e.shiftKey ? s > 0 ? s - 1 : i.length - 1 : s + 1 < i.length ? s + 1 : 0;
         i[u].focus({
           preventScroll: true
@@ -30686,7 +31024,7 @@
 
      case "Home":
       {
-        e.preventDefault(), U$3(t, -100);
+        e.preventDefault(), U$1(t, -100);
         break;
       }
     }
@@ -30694,7 +31032,7 @@
   function je(e) {
     if (e.defaultPrevented) return;
     if (e.pointerType === "mouse" && e.button > 0) return;
-    const t = X$2(), n = we(e, t), o = new Map;
+    const t = X$1(), n = we(e, t), o = new Map;
     let i = false;
     n.forEach(s => {
       s.separator && (i || (i = true, s.separator.element.focus({
@@ -30714,7 +31052,7 @@
       state: "active"
     }), n.length && e.preventDefault();
   }
-  function ut$3({document: e, event: t, hitRegions: n, initialLayoutMap: o, mountedGroups: i, pointerDownAtPoint: s, prevCursorFlags: u}) {
+  function ut$1({document: e, event: t, hitRegions: n, initialLayoutMap: o, mountedGroups: i, pointerDownAtPoint: s, prevCursorFlags: u}) {
     let a = 0;
     n.forEach(l => {
       const {group: c, groupSize: m} = l, {orientation: p, panels: S} = c, {disableCursor: z} = c.mutableState;
@@ -30732,17 +31070,17 @@
           prevLayout: g,
           trigger: "mouse-or-touch"
         });
-        if (W$3(M, g)) {
+        if (W$1(M, g)) {
           if (f !== 0 && !z) switch (p) {
            case "horizontal":
             {
-              a |= f < 0 ? et$1 : tt$2;
+              a |= f < 0 ? et : tt$1;
               break;
             }
 
            case "vertical":
             {
-              a |= f < 0 ? nt$2 : ot$2;
+              a |= f < 0 ? nt$1 : ot$1;
               break;
             }
           }
@@ -30760,10 +31098,10 @@
     Mt$1(r), xe(e);
   }
   function He(e) {
-    const t = X$2(), n = B$8();
+    const t = X$1(), n = B$1();
     switch (n.state) {
      case "active":
-      ut$3({
+      ut$1({
         document: e.currentTarget,
         event: e,
         hitRegions: n.hitRegions,
@@ -30775,7 +31113,7 @@
   }
   function Ve(e) {
     if (e.defaultPrevented) return;
-    const t = B$8(), n = X$2();
+    const t = B$1(), n = X$1();
     switch (t.state) {
      case "active":
       {
@@ -30784,7 +31122,7 @@
             cursorFlags: 0,
             state: "inactive"
           }), t.hitRegions.forEach(o => {
-            const i = H$4(o.group.id, true);
+            const i = H$5(o.group.id, true);
             j$5(o.group, i, {
               isUserInteraction: true
             });
@@ -30795,7 +31133,7 @@
           const {element: i} = o.separator;
           i.hasPointerCapture?.(e.pointerId) || i.setPointerCapture?.(e.pointerId);
         }
-        ut$3({
+        ut$1({
           document: e.currentTarget,
           event: e,
           hitRegions: t.hitRegions,
@@ -30823,7 +31161,7 @@
     }
   }
   function Ue(e) {
-    if (e.relatedTarget instanceof HTMLIFrameElement) switch (B$8().state) {
+    if (e.relatedTarget instanceof HTMLIFrameElement) switch (B$1().state) {
      case "hover":
       te({
         cursorFlags: 0,
@@ -30834,19 +31172,19 @@
   function Be(e) {
     if (e.defaultPrevented) return;
     if (e.pointerType === "mouse" && e.button > 0) return;
-    rt$1(e.currentTarget) && e.preventDefault();
+    rt(e.currentTarget) && e.preventDefault();
   }
   function We(e) {
     let t = 0, n = 0;
     const o = {};
     for (const s of e) if (s.defaultSize !== void 0) {
       t++;
-      const u = T$2(s.defaultSize);
+      const u = T$1(s.defaultSize);
       n += u, o[s.panelId] = u;
     } else o[s.panelId] = void 0;
     const i = e.length - t;
     if (i !== 0) {
-      const s = T$2((100 - n) / i);
+      const s = T$1((100 - n) / i);
       for (const u of e) u.defaultSize === void 0 && (o[u.panelId] = s);
     }
     return o;
@@ -30858,7 +31196,7 @@
     const s = ne({
       group: e
     }), u = e.orientation === "horizontal" ? i.element.offsetWidth : i.element.offsetHeight, a = i.mutableValues.prevSize, r = {
-      asPercentage: T$2(u / s * 100),
+      asPercentage: T$1(u / s * 100),
       inPixels: u
     };
     i.mutableValues.prevSize = r, i.onResize(r, i.id, a);
@@ -30878,7 +31216,7 @@
        case "preserve-pixel-size":
         {
           u = true;
-          const S = p / 100 * n, z = T$2(S / t * 100);
+          const S = p / 100 * n, z = T$1(S / t * 100);
           a.set(m.id, z), i += z;
           break;
         }
@@ -30899,9 +31237,9 @@
       c[p] = m;
     }), s > 0) for (const m of r) {
       const p = o[m] ?? 0;
-      c[m] = T$2(p / s * l);
+      c[m] = T$1(p / s * l);
     } else {
-      const m = T$2(l / r.length);
+      const m = T$1(l / r.length);
       for (const p of r) c[p] = m;
     }
     return c;
@@ -30912,10 +31250,10 @@
     for (const i of n) if (!o.includes(i)) return false;
     return true;
   }
-  const J$3 = new Map;
+  const J$1 = new Map;
   function Bt(e) {
     let t = true;
-    C$5(e.element.ownerDocument.defaultView, "Cannot register an unmounted Group");
+    C$2(e.element.ownerDocument.defaultView, "Cannot register an unmounted Group");
     const n = e.element.ownerDocument.defaultView.ResizeObserver, o = new Set, i = new Set, s = new n(f => {
       for (const d of f) {
         const {borderBoxSize: h, target: y} = d;
@@ -30925,18 +31263,18 @@
               group: e
             });
             if (b === 0) return;
-            const v = H$4(e.id);
+            const v = H$5(e.id);
             if (!v) return;
             const g = ve(e), w = v.defaultLayoutDeferred ? We(g) : v.layout, M = Vt$1({
               group: e,
               nextGroupSize: b,
               prevGroupSize: v.groupSize,
               prevLayout: w
-            }), L = K$3({
+            }), L = K$1({
               layout: M,
               panelConstraints: g
             });
-            if (!v.defaultLayoutDeferred && W$3(v.layout, L) && Ht(v.derivedPanelConstraints, g) && v.groupSize === b) return;
+            if (!v.defaultLayoutDeferred && W$1(v.layout, L) && Ht(v.derivedPanelConstraints, g) && v.groupSize === b) return;
             j$5(e, {
               defaultLayoutDeferred: false,
               derivedPanelConstraints: g,
@@ -30949,7 +31287,7 @@
       }
     });
     s.observe(e.element), e.panels.forEach(f => {
-      C$5(!o.has(f.id), `Panel ids must be unique; id "${f.id}" was used more than once`), 
+      C$2(!o.has(f.id), `Panel ids must be unique; id "${f.id}" was used more than once`), 
       o.add(f.id), f.onResize && s.observe(f.element);
     });
     const u = ne({
@@ -30957,11 +31295,11 @@
     }), a = ve(e), r = e.panels.map(({id: f}) => f).join(",");
     let l = e.mutableState.defaultLayout;
     l && (Ut(e.panels, l) || (l = void 0));
-    const c = e.mutableState.layouts[r] ?? l ?? We(a), m = K$3({
+    const c = e.mutableState.layouts[r] ?? l ?? We(a), m = K$1({
       layout: c,
       panelConstraints: a
     }), p = e.element.ownerDocument;
-    J$3.set(p, (J$3.get(p) ?? 0) + 1);
+    J$1.set(p, (J$1.get(p) ?? 0) + 1);
     const S = new Map;
     return Ze(e).forEach(f => {
       f.separator && S.set(f.separator, f.panels);
@@ -30972,15 +31310,15 @@
       layout: m,
       separatorToPanels: S
     }), e.separators.forEach(f => {
-      C$5(!i.has(f.id), `Separator ids must be unique; id "${f.id}" was used more than once`), 
+      C$2(!i.has(f.id), `Separator ids must be unique; id "${f.id}" was used more than once`), 
       i.add(f.id), f.element.addEventListener("keydown", $e);
-    }), J$3.get(p) === 1 && (p.addEventListener("contextmenu", Ge, true), p.addEventListener("dblclick", _e, true), 
+    }), J$1.get(p) === 1 && (p.addEventListener("contextmenu", Ge, true), p.addEventListener("dblclick", _e, true), 
     p.addEventListener("pointerdown", je, true), p.addEventListener("pointerleave", He), 
     p.addEventListener("pointermove", Ve), p.addEventListener("pointerout", Ue), p.addEventListener("pointerup", Be, true)), 
     function() {
-      t = false, J$3.set(p, Math.max(0, (J$3.get(p) ?? 0) - 1)), kt$1(e), e.separators.forEach(d => {
+      t = false, J$1.set(p, Math.max(0, (J$1.get(p) ?? 0) - 1)), kt$1(e), e.separators.forEach(d => {
         d.element.removeEventListener("keydown", $e);
-      }), J$3.get(p) || (p.removeEventListener("contextmenu", Ge, true), p.removeEventListener("dblclick", _e, true), 
+      }), J$1.get(p) || (p.removeEventListener("contextmenu", Ge, true), p.removeEventListener("dblclick", _e, true), 
       p.removeEventListener("pointerdown", je, true), p.removeEventListener("pointerleave", He), 
       p.removeEventListener("pointermove", Ve), p.removeEventListener("pointerout", Ue), 
       p.removeEventListener("pointerup", Be, true)), s.disconnect();
@@ -30994,10 +31332,10 @@
     const t = reactExports.useId();
     return `${e ?? t}`;
   }
-  const q$3 = typeof window < "u" ? reactExports.useLayoutEffect : reactExports.useEffect;
+  const q$1 = typeof window < "u" ? reactExports.useLayoutEffect : reactExports.useEffect;
   function se(e) {
     const t = reactExports.useRef(e);
-    return q$3(() => {
+    return q$1(() => {
       t.current = e;
     }, [ e ]), reactExports.useCallback((...n) => t.current?.(...n), [ t ]);
   }
@@ -31024,18 +31362,18 @@
     const t = reactExports.useRef({
       ...e
     });
-    return q$3(() => {
+    return q$1(() => {
       for (const n in e) t.current[n] = e[n];
     }, [ e ]), t.current;
   }
-  const ct$2 = reactExports.createContext(null);
+  const ct = reactExports.createContext(null);
   function Kt(e, t) {
     const n = reactExports.useRef({
       getLayout: () => ({}),
-      setLayout: Et$2
+      setLayout: Et$1
     });
-    reactExports.useImperativeHandle(t, () => n.current, []), q$3(() => {
-      Object.assign(n.current, lt$3({
+    reactExports.useImperativeHandle(t, () => n.current, []), q$1(() => {
+      Object.assign(n.current, lt$2({
         groupId: e
       }));
     });
@@ -31048,9 +31386,9 @@
       onLayoutChange: {},
       onLayoutChanged: {}
     }), f = se(x => {
-      W$3(z.current.onLayoutChange, x) || (z.current.onLayoutChange = x, r?.(x));
+      W$1(z.current.onLayoutChange, x) || (z.current.onLayoutChange = x, r?.(x));
     }), d = se((x, P) => {
-      W$3(z.current.onLayoutChanged, x) || (z.current.onLayoutChanged = x, l?.(x, {
+      W$1(z.current.onLayoutChanged, x) || (z.current.onLayoutChanged = x, l?.(x, {
         isUserInteraction: P
       }));
     }), h = Le(a), y = reactExports.useRef(null), [b, v] = Wt(), g = reactExports.useRef({
@@ -31062,7 +31400,7 @@
     }), w = Ce(y, s);
     Kt(h, u);
     const M = se((x, P) => {
-      const I = B$8(), R = Oe(x), E = H$4(x);
+      const I = B$1(), R = Oe(x), E = H$5(x);
       if (E) {
         let D = false;
         switch (I.state) {
@@ -31105,7 +31443,7 @@
       updatePanelProps: (x, {disabled: P}) => {
         const R = g.current.panels.find(V => V.id === x);
         R && (R.panelConstraints.disabled = P);
-        const E = Oe(h), D = H$4(h);
+        const E = Oe(h), D = H$5(h);
         E && D && j$5(E, {
           ...D,
           derivedPanelConstraints: ve(E)
@@ -31116,7 +31454,7 @@
         E && (E.disabled = P, E.disableDoubleClick = I);
       }
     }), [ M, h, v, c, L ]), N = reactExports.useRef(null);
-    return q$3(() => {
+    return q$1(() => {
       const x = y.current;
       if (x === null) return;
       const P = g.current;
@@ -31144,7 +31482,7 @@
         separators: P.separators
       };
       N.current = R;
-      const E = Bt(R), {defaultLayoutDeferred: D, derivedPanelConstraints: V, layout: ue} = H$4(R.id, true);
+      const E = Bt(R), {defaultLayoutDeferred: D, derivedPanelConstraints: V, layout: ue} = H$5(R.id, true);
       !D && V.length > 0 && (f(ue), d(ue, false));
       const oe = Pe(h, _ => {
         const {defaultLayoutDeferred: Y, derivedPanelConstraints: Ee, layout: ce} = _.next;
@@ -31159,7 +31497,7 @@
             }
           }
         });
-        const dt = B$8().state !== "active";
+        const dt = B$1().state !== "active";
         f(ce), dt && d(ce, _.isUserInteraction);
       });
       return () => {
@@ -31168,7 +31506,7 @@
     }, [ i, h, d, f, c, b, L ]), reactExports.useEffect(() => {
       const x = N.current;
       x && (x.mutableState.defaultLayout = n, x.mutableState.disableCursor = !!o);
-    }), jsxRuntimeExports.jsx(ct$2.Provider, {
+    }), jsxRuntimeExports.jsx(ct.Provider, {
       value: G,
       children: jsxRuntimeExports.jsx("div", {
         ...S,
@@ -31193,8 +31531,8 @@
   }
   Xt.displayName = "Group";
   function Me() {
-    const e = reactExports.useContext(ct$2);
-    return C$5(e, "Group Context not found; did you render a Panel or Separator outside of a Group?"), 
+    const e = reactExports.useContext(ct);
+    return C$2(e, "Group Context not found; did you render a Panel or Separator outside of a Group?"), 
     e;
   }
   function Jt(e, t) {
@@ -31208,8 +31546,8 @@
       isCollapsed: () => false,
       resize: ye
     });
-    reactExports.useImperativeHandle(t, () => o.current, []), q$3(() => {
-      Object.assign(o.current, at$2({
+    reactExports.useImperativeHandle(t, () => o.current, []), q$1(() => {
+      Object.assign(o.current, at$1({
         groupId: n,
         panelId: e
       }));
@@ -31221,7 +31559,7 @@
     }), y = reactExports.useRef(null), b = Ce(y, u), {getPanelStyles: v, id: g, orientation: w, registerPanel: M, updatePanelProps: L} = Me(), G = m !== null, N = se((R, E, D) => {
       m?.(R, r, D);
     });
-    q$3(() => {
+    q$1(() => {
       const R = y.current;
       if (R !== null) {
         const E = {
@@ -31308,7 +31646,7 @@
     const u = e[n], a = t.find(r => r.panelId === n);
     if (a) {
       const r = a.maxSize, l = a.collapsible ? a.collapsedSize : a.minSize, c = [ o, o + 1 ];
-      s = K$3({
+      s = K$1({
         layout: le({
           delta: l - u,
           initialLayout: e,
@@ -31317,7 +31655,7 @@
           prevLayout: e
         }),
         panelConstraints: t
-      })[n], i = K$3({
+      })[n], i = K$1({
         layout: le({
           delta: r - u,
           initialLayout: e,
@@ -31340,7 +31678,7 @@
       disabled: n,
       disableDoubleClick: o
     }), [c, m] = reactExports.useState({}), [p, S] = reactExports.useState("inactive"), [z, f] = reactExports.useState(false), d = reactExports.useRef(null), h = Ce(d, i), {disableCursor: y, id: b, orientation: v, registerSeparator: g, updateSeparatorProps: w} = Me(), M = v === "horizontal" ? "vertical" : "horizontal";
-    q$3(() => {
+    q$1(() => {
       const N = d.current;
       if (N !== null) {
         const x = {
@@ -43106,127 +43444,162 @@
     VirtualTourStatus["Draft"] = "draft";
     VirtualTourStatus["Publish"] = "publish";
   })(VirtualTourStatus || (VirtualTourStatus = {}));
-  function m$5(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var c = e.length;
-      for (t = 0; t < c; t++) e[t] && (o = m$5(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$d(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$d(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function A$4() {
-    for (var e, t, o = 0, r = "", c = arguments.length; o < c; o++) (e = arguments[o]) && (t = m$5(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$b() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$d(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var u$6;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(u$6 || (u$6 = {}));
-  var f$6;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(f$6 || (f$6 = {}));
-  const N$4 = {
+  var ControlSlotType$c;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$c || (ControlSlotType$c = {}));
+  var ControlPropertyKind$c;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$c || (ControlPropertyKind$c = {}));
+  const meta$b = {
     type: "SceneTitle",
     name: "Scene Title",
     description: "Shows the current scene title",
     createInitialProperties: () => ({
-      slot: u$6.BottomLeft,
+      slot: ControlSlotType$c.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, S$3 = e => {
-    const {api: t, style: o, hoverStyle: r, className: c} = e, [a] = reactExports.useState(() => t.generateId()), [b, g] = reactExports.useState(""), [y, h] = reactExports.useState(""), [d, p] = reactExports.useState();
-    return reactExports.useLayoutEffect(() => {
-      const s = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+  };
+  const SceneTitle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sceneTitle, setSceneTitle] = reactExports.useState();
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         padding: "5px 10px",
         "white-space": "nowrap",
         "user-select": "none",
         "text-shadow": "0.5px 0 0 currentColor"
       });
-      return g(s), () => {
-        t.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const s = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
-        color: o?.color,
-        "background-color": o?.background,
-        "backdrop-filter": o?.background ? "blur(4px)" : void 0,
-        "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-        opacity: o?.opacity,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: r?.color,
-          "background-color": r?.background,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return h(s), () => {
-        t.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, o, r ]), reactExports.useLayoutEffect(() => {
-      const s = t.sceneApi.getActive();
-      s && p(s.name);
-    }, [ t ]), reactExports.useEffect(() => {
-      const s = [];
-      return s.push(t.on("scene:show", ({sceneId: n}) => {
-        const v = t.sceneApi.get(n);
-        p(v?.name);
-      })), () => {
-        s.forEach(n => n());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      const scene = api.sceneApi.getActive();
+      if (scene) {
+        setSceneTitle(scene.name);
+      }
+    }, [ api ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        setSceneTitle(scene?.name);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), d ? jsxRuntimeExports.jsx("div", {
-      className: A$4("hvr-control", b, y, c),
-      children: d
-    }) : null;
+    }, [ api ]);
+    if (!sceneTitle) return null;
+    return jsxRuntimeExports.jsx("div", {
+      className: clsx$b("hvr-control", baseClassName, styleClassName, className),
+      children: sceneTitle
+    });
   };
-  function b$5(e) {
-    var t, s, o = "";
-    if (typeof e == "string" || typeof e == "number") o += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var n = e.length;
-      for (t = 0; t < n; t++) e[t] && (s = b$5(e[t])) && (o && (o += " "), o += s);
-    } else for (s in e) e[s] && (o && (o += " "), o += s);
-    return o;
+  function r$c(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$c(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function S$2() {
-    for (var e, t, s = 0, o = "", n = arguments.length; s < n; s++) (e = arguments[s]) && (t = b$5(e)) && (o && (o += " "), 
-    o += t);
-    return o;
+  function clsx$a() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$c(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$6;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(d$6 || (d$6 = {}));
-  var m$4;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(m$4 || (m$4 = {}));
-  const w$5 = {
+  var ControlSlotType$b;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$b || (ControlSlotType$b = {}));
+  var ControlPropertyKind$b;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$b || (ControlPropertyKind$b = {}));
+  const meta$a = {
     type: "SceneCounter",
     name: "Scene Counter",
     description: "Shows current scene number out of total",
     createInitialProperties: () => ({
-      slot: d$6.BottomLeft,
+      slot: ControlSlotType$b.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, B$7 = e => {
-    const {api: t, style: s, hoverStyle: o, className: n} = e, [a] = reactExports.useState(() => t.generateId()), [g, y] = reactExports.useState(""), [h, v] = reactExports.useState(""), [x, p] = reactExports.useState(0), [A, u] = reactExports.useState(0);
-    return reactExports.useLayoutEffect(() => {
-      const r = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+  };
+  const SceneCounter = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sceneIndex, setSceneIndex] = reactExports.useState(0);
+    const [sceneCount, setSceneCount] = reactExports.useState(0);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         padding: "5px 10px",
         "white-space": "nowrap",
@@ -43234,76 +43607,93 @@
         "text-shadow": "0.5px 0 0 currentColor",
         "pointer-events": "none"
       });
-      return y(r), () => {
-        t.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const r = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
-        color: s?.color,
-        "background-color": s?.background,
-        "backdrop-filter": s?.background ? "blur(4px)" : void 0,
-        "border-radius": s?.borderRadius ? `${s.borderRadius}px` : void 0,
-        opacity: s?.opacity,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return v(r), () => {
-        t.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, s, o ]), reactExports.useEffect(() => {
-      const r = [], l = t.sceneApi.getActive();
-      if (l) {
-        const c = t.sceneApi.getIndex(l.id) ?? -1;
-        p(c + 1);
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      const scene = api.sceneApi.getActive();
+      if (scene) {
+        const index = api.sceneApi.getIndex(scene.id) ?? -1;
+        setSceneIndex(index + 1);
       }
-      return u(t.sceneApi.size()), r.push(t.on("scene:add", () => {
-        u(t.sceneApi.size());
-      })), r.push(t.on("scene:remove", () => {
-        u(t.sceneApi.size());
-      })), r.push(t.on("scene:show", ({sceneId: c}) => {
-        const k = t.sceneApi.getIndex(c) ?? -1;
-        p(k + 1);
-      })), () => {
-        r.forEach(c => c());
+      setSceneCount(api.sceneApi.size());
+      cleanups.push(api.on("scene:add", () => {
+        setSceneCount(api.sceneApi.size());
+      }));
+      cleanups.push(api.on("scene:remove", () => {
+        setSceneCount(api.sceneApi.size());
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        const index = api.sceneApi.getIndex(sceneId) ?? -1;
+        setSceneIndex(index + 1);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), jsxRuntimeExports.jsxs("div", {
-      className: S$2("hvr-control", g, h, n),
-      children: [ x, "/", A ]
+    }, [ api ]);
+    return jsxRuntimeExports.jsxs("div", {
+      className: clsx$a("hvr-control", baseClassName, styleClassName, className),
+      children: [ sceneIndex, "/", sceneCount ]
     });
   };
-  function p$5(e) {
-    var t, r, o = "";
-    if (typeof e == "string" || typeof e == "number") o += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var n = e.length;
-      for (t = 0; t < n; t++) e[t] && (r = p$5(e[t])) && (o && (o += " "), o += r);
-    } else for (r in e) e[r] && (o && (o += " "), o += r);
-    return o;
+  function r$b(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$b(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function k$2() {
-    for (var e, t, r = 0, o = "", n = arguments.length; r < n; r++) (e = arguments[r]) && (t = p$5(e)) && (o && (o += " "), 
-    o += t);
-    return o;
+  function clsx$9() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$b(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var l$3;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(l$3 || (l$3 = {}));
-  var u$5;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(u$5 || (u$5 = {}));
-  const N$3 = {
+  var ControlSlotType$a;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$a || (ControlSlotType$a = {}));
+  var ControlPropertyKind$a;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$a || (ControlPropertyKind$a = {}));
+  const meta$9 = {
     type: "SceneNav",
     name: "Scene Navigation",
     description: "Navigates between scenes in a loop",
     createInitialProperties: () => ({
-      slot: l$3.BottomRight,
+      slot: ControlSlotType$a.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -43313,11 +43703,15 @@
         background: "#000"
       }
     })
-  }, A$3 = e => {
-    const {api: t, style: r, hoverStyle: o, className: n} = e, [a] = reactExports.useState(() => t.generateId()), [h, g] = reactExports.useState(""), [b, v] = reactExports.useState("");
+  };
+  const SceneNav = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "flex",
         "flex-direction": "row",
         gap: "5px",
@@ -43338,44 +43732,52 @@
           }
         }
       });
-      return g(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return v(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, r, o ]);
-    const f = () => {
-      const i = t.sceneApi.getPrev(true);
-      i && t.sceneApi.show(i.id);
-    }, m = () => {
-      const i = t.sceneApi.getNext(true);
-      i && t.sceneApi.show(i.id);
+    }, [ api, id, style, hoverStyle ]);
+    const goPrevScene = () => {
+      const scene = api.sceneApi.getPrev(true);
+      if (scene) {
+        void api.sceneApi.show(scene.id);
+      }
+    };
+    const goNextScene = () => {
+      const scene = api.sceneApi.getNext(true);
+      if (scene) {
+        void api.sceneApi.show(scene.id);
+      }
     };
     return jsxRuntimeExports.jsxs("div", {
-      className: k$2("hvr-control", h, b, n),
+      className: clsx$9("hvr-control", baseClassName, styleClassName, className),
       children: [ jsxRuntimeExports.jsx("button", {
         type: "button",
         "aria-label": "Go to previous scene",
         title: "Go to previous scene",
-        onClick: f,
+        onClick: goPrevScene,
         children: jsxRuntimeExports.jsx("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -43394,7 +43796,7 @@
         type: "button",
         "aria-label": "Go to next scene",
         title: "Go to next scene",
-        onClick: m,
+        onClick: goNextScene,
         children: jsxRuntimeExports.jsx("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -43412,313 +43814,321 @@
       }) ]
     });
   };
-  function J$2(e) {
-    var t, r, n = "";
-    if (typeof e == "string" || typeof e == "number") n += e; else if (typeof e == "object") if (Array.isArray(e)) {
+  function r$1$2(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
       var o = e.length;
-      for (t = 0; t < o; t++) e[t] && (r = J$2(e[t])) && (n && (n += " "), n += r);
-    } else for (r in e) e[r] && (n && (n += " "), n += r);
+      for (t = 0; t < o; t++) e[t] && (f = r$1$2(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function A$2() {
-    for (var e, t, r = 0, n = "", o = arguments.length; r < o; r++) (e = arguments[r]) && (t = J$2(e)) && (n && (n += " "), 
+  function clsx$8() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$1$2(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
-  var ot$1 = {
+  var r$a = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, f$5 = function(e) {
-    return typeof e == "string" ? e.length > 0 : typeof e == "number";
-  }, c$2 = function(e, t, r) {
-    return t === void 0 && (t = 0), r === void 0 && (r = Math.pow(10, t)), Math.round(r * e) / r + 0;
-  }, d$5 = function(e, t, r) {
-    return t === void 0 && (t = 0), r === void 0 && (r = 1), e > r ? r : e > t ? e : t;
-  }, Q$2 = function(e) {
-    return (e = isFinite(e) ? e % 360 : 0) > 0 ? e : e + 360;
-  }, V$2 = function(e) {
+  }, t$1$2 = function(r) {
+    return "string" == typeof r ? r.length > 0 : "number" == typeof r;
+  }, n$3 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
+  }, e$3 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
+  }, u$3 = function(r) {
+    return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
+  }, a$3 = function(r) {
     return {
-      r: d$5(e.r, 0, 255),
-      g: d$5(e.g, 0, 255),
-      b: d$5(e.b, 0, 255),
-      a: d$5(e.a)
+      r: e$3(r.r, 0, 255),
+      g: e$3(r.g, 0, 255),
+      b: e$3(r.b, 0, 255),
+      a: e$3(r.a)
     };
-  }, S$1 = function(e) {
+  }, o$1$2 = function(r) {
     return {
-      r: c$2(e.r),
-      g: c$2(e.g),
-      b: c$2(e.b),
-      a: c$2(e.a, 3)
+      r: n$3(r.r),
+      g: n$3(r.g),
+      b: n$3(r.b),
+      a: n$3(r.a, 3)
     };
-  }, it$2 = /^#([0-9a-f]{3,8})$/i, N$2 = function(e) {
-    var t = e.toString(16);
+  }, i$3 = /^#([0-9a-f]{3,8})$/i, s$3 = function(r) {
+    var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
-  }, T$1 = function(e) {
-    var t = e.r, r = e.g, n = e.b, o = e.a, i = Math.max(t, r, n), a = i - Math.min(t, r, n), s = a ? i === t ? (r - n) / a : i === r ? 2 + (n - t) / a : 4 + (t - r) / a : 0;
+  }, h$3 = function(r) {
+    var t = r.r, n = r.g, e = r.b, u = r.a, a = Math.max(t, n, e), o = a - Math.min(t, n, e), i = o ? a === t ? (n - e) / o : a === n ? 2 + (e - t) / o : 4 + (t - n) / o : 0;
     return {
-      h: 60 * (s < 0 ? s + 6 : s),
-      s: i ? a / i * 100 : 0,
-      v: i / 255 * 100,
-      a: o
+      h: 60 * (i < 0 ? i + 6 : i),
+      s: a ? o / a * 100 : 0,
+      v: a / 255 * 100,
+      a: u
     };
-  }, U$2 = function(e) {
-    var t = e.h, r = e.s, n = e.v, o = e.a;
-    t = t / 360 * 6, r /= 100, n /= 100;
-    var i = Math.floor(t), a = n * (1 - r), s = n * (1 - (t - i) * r), h = n * (1 - (1 - t + i) * r), g = i % 6;
+  }, b$3 = function(r) {
+    var t = r.h, n = r.s, e = r.v, u = r.a;
+    t = t / 360 * 6, n /= 100, e /= 100;
+    var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
     return {
-      r: 255 * [ n, s, a, a, h, n ][g],
-      g: 255 * [ h, n, n, s, a, a ][g],
-      b: 255 * [ a, a, h, n, n, s ][g],
-      a: o
+      r: 255 * [ e, i, o, o, s, e ][h],
+      g: 255 * [ s, e, e, i, o, o ][h],
+      b: 255 * [ o, o, s, e, e, i ][h],
+      a: u
     };
-  }, z$3 = function(e) {
+  }, g$3 = function(r) {
     return {
-      h: Q$2(e.h),
-      s: d$5(e.s, 0, 100),
-      l: d$5(e.l, 0, 100),
-      a: d$5(e.a)
+      h: u$3(r.h),
+      s: e$3(r.s, 0, 100),
+      l: e$3(r.l, 0, 100),
+      a: e$3(r.a)
     };
-  }, q$2 = function(e) {
+  }, d$3 = function(r) {
     return {
-      h: c$2(e.h),
-      s: c$2(e.s),
-      l: c$2(e.l),
-      a: c$2(e.a, 3)
+      h: n$3(r.h),
+      s: n$3(r.s),
+      l: n$3(r.l),
+      a: n$3(r.a, 3)
     };
-  }, C$3 = function(e) {
-    return U$2((r = (t = e).s, {
+  }, f$3 = function(r) {
+    return b$3((n = (t = r).s, {
       h: t.h,
-      s: (r *= ((n = t.l) < 50 ? n : 100 - n) / 100) > 0 ? 2 * r / (n + r) * 100 : 0,
-      v: n + r,
+      s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
+      v: e + n,
       a: t.a
     }));
-    var t, r, n;
-  }, x$2 = function(e) {
+    var t, n, e;
+  }, c$3 = function(r) {
     return {
-      h: (t = T$1(e)).h,
-      s: (o = (200 - (r = t.s)) * (n = t.v) / 100) > 0 && o < 200 ? r * n / 100 / (o <= 100 ? o : 200 - o) * 100 : 0,
-      l: o / 2,
+      h: (t = h$3(r)).h,
+      s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
+      l: u / 2,
       a: t.a
     };
-    var t, r, n, o;
-  }, at$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, st$2 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ut$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ct$1 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, $$4 = {
-    string: [ [ function(e) {
-      var t = it$2.exec(e);
-      return t ? (e = t[1]).length <= 4 ? {
-        r: parseInt(e[0] + e[0], 16),
-        g: parseInt(e[1] + e[1], 16),
-        b: parseInt(e[2] + e[2], 16),
-        a: e.length === 4 ? c$2(parseInt(e[3] + e[3], 16) / 255, 2) : 1
-      } : e.length === 6 || e.length === 8 ? {
-        r: parseInt(e.substr(0, 2), 16),
-        g: parseInt(e.substr(2, 2), 16),
-        b: parseInt(e.substr(4, 2), 16),
-        a: e.length === 8 ? c$2(parseInt(e.substr(6, 2), 16) / 255, 2) : 1
+    var t, n, e, u;
+  }, l$3 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$3 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$3 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$3 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$3 = {
+    string: [ [ function(r) {
+      var t = i$3.exec(r);
+      return t ? (r = t[1]).length <= 4 ? {
+        r: parseInt(r[0] + r[0], 16),
+        g: parseInt(r[1] + r[1], 16),
+        b: parseInt(r[2] + r[2], 16),
+        a: 4 === r.length ? n$3(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+      } : 6 === r.length || 8 === r.length ? {
+        r: parseInt(r.substr(0, 2), 16),
+        g: parseInt(r.substr(2, 2), 16),
+        b: parseInt(r.substr(4, 2), 16),
+        a: 8 === r.length ? n$3(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
-    }, "hex" ], [ function(e) {
-      var t = ut$2.exec(e) || ct$1.exec(e);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : V$2({
+    }, "hex" ], [ function(r) {
+      var t = v$3.exec(r) || m$3.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$3({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
-        a: t[7] === void 0 ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
+        a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = at$1.exec(e) || st$2.exec(e);
-      if (!t) return null;
-      var r, n, o = z$3({
-        h: (r = t[1], n = t[2], n === void 0 && (n = "deg"), Number(r) * (ot$1[n] || 1)),
-        s: Number(t[3]),
-        l: Number(t[4]),
-        a: t[5] === void 0 ? 1 : Number(t[5]) / (t[6] ? 100 : 1)
+    }, "rgb" ], [ function(t) {
+      var n = l$3.exec(t) || p$3.exec(t);
+      if (!n) return null;
+      var e, u, a = g$3({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$a[u] || 1)),
+        s: Number(n[3]),
+        l: Number(n[4]),
+        a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return C$3(o);
+      return f$3(a);
     }, "hsl" ] ],
-    object: [ [ function(e) {
-      var t = e.r, r = e.g, n = e.b, o = e.a, i = o === void 0 ? 1 : o;
-      return f$5(t) && f$5(r) && f$5(n) ? V$2({
-        r: Number(t),
-        g: Number(r),
-        b: Number(n),
+    object: [ [ function(r) {
+      var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
+      return t$1$2(n) && t$1$2(e) && t$1$2(u) ? a$3({
+        r: Number(n),
+        g: Number(e),
+        b: Number(u),
         a: Number(i)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = e.h, r = e.s, n = e.l, o = e.a, i = o === void 0 ? 1 : o;
-      if (!f$5(t) || !f$5(r) || !f$5(n)) return null;
-      var a = z$3({
-        h: Number(t),
-        s: Number(r),
-        l: Number(n),
-        a: Number(i)
+    }, "rgb" ], [ function(r) {
+      var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
+      if (!t$1$2(n) || !t$1$2(e) || !t$1$2(u)) return null;
+      var i = g$3({
+        h: Number(n),
+        s: Number(e),
+        l: Number(u),
+        a: Number(o)
       });
-      return C$3(a);
-    }, "hsl" ], [ function(e) {
-      var t = e.h, r = e.s, n = e.v, o = e.a, i = o === void 0 ? 1 : o;
-      if (!f$5(t) || !f$5(r) || !f$5(n)) return null;
-      var a = function(s) {
+      return f$3(i);
+    }, "hsl" ], [ function(r) {
+      var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
+      if (!t$1$2(n) || !t$1$2(a) || !t$1$2(o)) return null;
+      var h = function(r) {
         return {
-          h: Q$2(s.h),
-          s: d$5(s.s, 0, 100),
-          v: d$5(s.v, 0, 100),
-          a: d$5(s.a)
+          h: u$3(r.h),
+          s: e$3(r.s, 0, 100),
+          v: e$3(r.v, 0, 100),
+          a: e$3(r.a)
         };
       }({
-        h: Number(t),
-        s: Number(r),
-        v: Number(n),
-        a: Number(i)
+        h: Number(n),
+        s: Number(a),
+        v: Number(o),
+        a: Number(s)
       });
-      return U$2(a);
+      return b$3(h);
     }, "hsv" ] ]
-  }, K$2 = function(e, t) {
-    for (var r = 0; r < t.length; r++) {
-      var n = t[r][0](e);
-      if (n) return [ n, t[r][1] ];
+  }, N$3 = function(r, t) {
+    for (var n = 0; n < t.length; n++) {
+      var e = t[n][0](r);
+      if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, lt$1 = function(e) {
-    return typeof e == "string" ? K$2(e.trim(), $$4.string) : typeof e == "object" && e !== null ? K$2(e, $$4.object) : [ null, void 0 ];
-  }, R$5 = function(e, t) {
-    var r = x$2(e);
+  }, x$3 = function(r) {
+    return "string" == typeof r ? N$3(r.trim(), y$3.string) : "object" == typeof r && null !== r ? N$3(r, y$3.object) : [ null, void 0 ];
+  }, M$3 = function(r, t) {
+    var n = c$3(r);
     return {
-      h: r.h,
-      s: d$5(r.s + 100 * t, 0, 100),
-      l: r.l,
-      a: r.a
+      h: n.h,
+      s: e$3(n.s + 100 * t, 0, 100),
+      l: n.l,
+      a: n.a
     };
-  }, I$3 = function(e) {
-    return (299 * e.r + 587 * e.g + 114 * e.b) / 1e3 / 255;
-  }, O$2 = function(e, t) {
-    var r = x$2(e);
+  }, H$3 = function(r) {
+    return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
+  }, $$3 = function(r, t) {
+    var n = c$3(r);
     return {
-      h: r.h,
-      s: r.s,
-      l: d$5(r.l + 100 * t, 0, 100),
-      a: r.a
+      h: n.h,
+      s: n.s,
+      l: e$3(n.l + 100 * t, 0, 100),
+      a: n.a
     };
   }, j$3 = function() {
-    function e(t) {
-      this.parsed = lt$1(t)[0], this.rgba = this.parsed || {
+    function r(r) {
+      this.parsed = x$3(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
         a: 1
       };
     }
-    return e.prototype.isValid = function() {
-      return this.parsed !== null;
-    }, e.prototype.brightness = function() {
-      return c$2(I$3(this.rgba), 2);
-    }, e.prototype.isDark = function() {
-      return I$3(this.rgba) < .5;
-    }, e.prototype.isLight = function() {
-      return I$3(this.rgba) >= .5;
-    }, e.prototype.toHex = function() {
-      return t = S$1(this.rgba), r = t.r, n = t.g, o = t.b, a = (i = t.a) < 1 ? N$2(c$2(255 * i)) : "", 
-      "#" + N$2(r) + N$2(n) + N$2(o) + a;
-      var t, r, n, o, i, a;
-    }, e.prototype.toRgb = function() {
-      return S$1(this.rgba);
-    }, e.prototype.toRgbString = function() {
-      return t = S$1(this.rgba), r = t.r, n = t.g, o = t.b, (i = t.a) < 1 ? "rgba(" + r + ", " + n + ", " + o + ", " + i + ")" : "rgb(" + r + ", " + n + ", " + o + ")";
-      var t, r, n, o, i;
-    }, e.prototype.toHsl = function() {
-      return q$2(x$2(this.rgba));
-    }, e.prototype.toHslString = function() {
-      return t = q$2(x$2(this.rgba)), r = t.h, n = t.s, o = t.l, (i = t.a) < 1 ? "hsla(" + r + ", " + n + "%, " + o + "%, " + i + ")" : "hsl(" + r + ", " + n + "%, " + o + "%)";
-      var t, r, n, o, i;
-    }, e.prototype.toHsv = function() {
-      return t = T$1(this.rgba), {
-        h: c$2(t.h),
-        s: c$2(t.s),
-        v: c$2(t.v),
-        a: c$2(t.a, 3)
+    return r.prototype.isValid = function() {
+      return null !== this.parsed;
+    }, r.prototype.brightness = function() {
+      return n$3(H$3(this.rgba), 2);
+    }, r.prototype.isDark = function() {
+      return H$3(this.rgba) < .5;
+    }, r.prototype.isLight = function() {
+      return H$3(this.rgba) >= .5;
+    }, r.prototype.toHex = function() {
+      return r = o$1$2(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$3(n$3(255 * a)) : "", 
+      "#" + s$3(t) + s$3(e) + s$3(u) + i;
+      var r, t, e, u, a, i;
+    }, r.prototype.toRgb = function() {
+      return o$1$2(this.rgba);
+    }, r.prototype.toRgbString = function() {
+      return r = o$1$2(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      var r, t, n, e, u;
+    }, r.prototype.toHsl = function() {
+      return d$3(c$3(this.rgba));
+    }, r.prototype.toHslString = function() {
+      return r = d$3(c$3(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      var r, t, n, e, u;
+    }, r.prototype.toHsv = function() {
+      return r = h$3(this.rgba), {
+        h: n$3(r.h),
+        s: n$3(r.s),
+        v: n$3(r.v),
+        a: n$3(r.a, 3)
       };
-      var t;
-    }, e.prototype.invert = function() {
-      return p$4({
-        r: 255 - (t = this.rgba).r,
-        g: 255 - t.g,
-        b: 255 - t.b,
-        a: t.a
-      });
-      var t;
-    }, e.prototype.saturate = function(t) {
-      return t === void 0 && (t = .1), p$4(R$5(this.rgba, t));
-    }, e.prototype.desaturate = function(t) {
-      return t === void 0 && (t = .1), p$4(R$5(this.rgba, -t));
-    }, e.prototype.grayscale = function() {
-      return p$4(R$5(this.rgba, -1));
-    }, e.prototype.lighten = function(t) {
-      return t === void 0 && (t = .1), p$4(O$2(this.rgba, t));
-    }, e.prototype.darken = function(t) {
-      return t === void 0 && (t = .1), p$4(O$2(this.rgba, -t));
-    }, e.prototype.rotate = function(t) {
-      return t === void 0 && (t = 15), this.hue(this.hue() + t);
-    }, e.prototype.alpha = function(t) {
-      return typeof t == "number" ? p$4({
-        r: (r = this.rgba).r,
-        g: r.g,
-        b: r.b,
-        a: t
-      }) : c$2(this.rgba.a, 3);
       var r;
-    }, e.prototype.hue = function(t) {
-      var r = x$2(this.rgba);
-      return typeof t == "number" ? p$4({
-        h: t,
-        s: r.s,
-        l: r.l,
+    }, r.prototype.invert = function() {
+      return w$3({
+        r: 255 - (r = this.rgba).r,
+        g: 255 - r.g,
+        b: 255 - r.b,
         a: r.a
-      }) : c$2(r.h);
-    }, e.prototype.isEqual = function(t) {
-      return this.toHex() === p$4(t).toHex();
-    }, e;
-  }(), p$4 = function(e) {
-    return e instanceof j$3 ? e : new j$3(e);
-  }, W$2 = [], dt$2 = function(e) {
-    e.forEach(function(t) {
-      W$2.indexOf(t) < 0 && (t(j$3, $$4), W$2.push(t));
+      });
+      var r;
+    }, r.prototype.saturate = function(r) {
+      return void 0 === r && (r = .1), w$3(M$3(this.rgba, r));
+    }, r.prototype.desaturate = function(r) {
+      return void 0 === r && (r = .1), w$3(M$3(this.rgba, -r));
+    }, r.prototype.grayscale = function() {
+      return w$3(M$3(this.rgba, -1));
+    }, r.prototype.lighten = function(r) {
+      return void 0 === r && (r = .1), w$3($$3(this.rgba, r));
+    }, r.prototype.darken = function(r) {
+      return void 0 === r && (r = .1), w$3($$3(this.rgba, -r));
+    }, r.prototype.rotate = function(r) {
+      return void 0 === r && (r = 15), this.hue(this.hue() + r);
+    }, r.prototype.alpha = function(r) {
+      return "number" == typeof r ? w$3({
+        r: (t = this.rgba).r,
+        g: t.g,
+        b: t.b,
+        a: r
+      }) : n$3(this.rgba.a, 3);
+      var t;
+    }, r.prototype.hue = function(r) {
+      var t = c$3(this.rgba);
+      return "number" == typeof r ? w$3({
+        h: r,
+        s: t.s,
+        l: t.l,
+        a: t.a
+      }) : n$3(t.h);
+    }, r.prototype.isEqual = function(r) {
+      return this.toHex() === w$3(r).toHex();
+    }, r;
+  }(), w$3 = function(r) {
+    return r instanceof j$3 ? r : new j$3(r);
+  }, S$2 = [], k$2 = function(r) {
+    r.forEach(function(r) {
+      S$2.indexOf(r) < 0 && (r(j$3, y$3), S$2.push(r));
     });
-  }, M$6 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, B$6 = function(e) {
-    return .2126 * M$6(e.r) + .7152 * M$6(e.g) + .0722 * M$6(e.b);
   };
-  function ht$2(e) {
-    e.prototype.luminance = function() {
-      return t = B$6(this.rgba), (r = 2) === void 0 && (r = 0), n === void 0 && (n = Math.pow(10, r)), 
-      Math.round(n * t) / n + 0;
-      var t, r, n;
-    }, e.prototype.contrast = function(t) {
-      t === void 0 && (t = "#FFF");
-      var r, n, o, i, a, s, h, g = t instanceof e ? t : new e(t);
-      return i = this.rgba, a = g.toRgb(), s = B$6(i), h = B$6(a), r = s > h ? (s + .05) / (h + .05) : (h + .05) / (s + .05), 
-      (n = 2) === void 0 && (n = 0), o === void 0 && (o = Math.pow(10, n)), Math.floor(o * r) / o + 0;
-    }, e.prototype.isReadable = function(t, r) {
-      return t === void 0 && (t = "#FFF"), r === void 0 && (r = {}), this.contrast(t) >= (s = (a = (n = r).size) === void 0 ? "normal" : a, 
-      (i = (o = n.level) === void 0 ? "AA" : o) === "AAA" && s === "normal" ? 7 : i === "AA" && s === "large" ? 3 : 4.5);
-      var n, o, i, a, s;
+  var o$4 = function(o) {
+    var t = o / 255;
+    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+  }, t$4 = function(t) {
+    return .2126 * o$4(t.r) + .7152 * o$4(t.g) + .0722 * o$4(t.b);
+  };
+  function a11yPlugin$1(o) {
+    o.prototype.luminance = function() {
+      return o = t$4(this.rgba), void 0 === (r = 2) && (r = 0), void 0 === n && (n = Math.pow(10, r)), 
+      Math.round(n * o) / n + 0;
+      var o, r, n;
+    }, o.prototype.contrast = function(r) {
+      void 0 === r && (r = "#FFF");
+      var n, a, i, e, v, u, d, c = r instanceof o ? r : new o(r);
+      return e = this.rgba, v = c.toRgb(), u = t$4(e), d = t$4(v), n = u > d ? (u + .05) / (d + .05) : (d + .05) / (u + .05), 
+      void 0 === (a = 2) && (a = 0), void 0 === i && (i = Math.pow(10, a)), Math.floor(i * n) / i + 0;
+    }, o.prototype.isReadable = function(o, t) {
+      return void 0 === o && (o = "#FFF"), void 0 === t && (t = {}), this.contrast(o) >= (e = void 0 === (i = (r = t).size) ? "normal" : i, 
+      "AAA" === (a = void 0 === (n = r.level) ? "AA" : n) && "normal" === e ? 7 : "AA" === a && "large" === e ? 3 : 4.5);
+      var r, n, a, i, e;
     };
   }
-  var l$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(l$2 || (l$2 = {}));
-  var G$1;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(G$1 || (G$1 = {}));
-  dt$2([ ht$2 ]);
-  const gt$2 = {
+  var ControlSlotType$9;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$9 || (ControlSlotType$9 = {}));
+  var ControlPropertyKind$9;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$9 || (ControlPropertyKind$9 = {}));
+  k$2([ a11yPlugin$1 ]);
+  const meta$8 = {
     type: "SceneListNav",
     name: "Scene List Navigation",
     description: "Shows/hides a list of scenes for navigation",
     createInitialProperties: () => ({
-      slot: l$2.BottomLeft,
+      slot: ControlSlotType$9.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -43728,52 +44138,61 @@
         background: "#000"
       }
     })
-  }, pt$2 = {
-    [l$2.TopLeft]: {
+  };
+  const dropPosition = {
+    [ControlSlotType$9.TopLeft]: {
       bottom: "-5px",
       left: 0,
       transform: "translate(0, 100%)"
     },
-    [l$2.Top]: {
+    [ControlSlotType$9.Top]: {
       bottom: "-5px",
       left: "50%",
       transform: "translate(-50%, 100%)"
     },
-    [l$2.TopRight]: {
+    [ControlSlotType$9.TopRight]: {
       bottom: "-5px",
       right: 0,
       transform: "translate(0%, 100%)"
     },
-    [l$2.Left]: {
+    [ControlSlotType$9.Left]: {
       top: "50%",
       right: "-5px",
       transform: "translate(100%, -50%)"
     },
-    [l$2.Right]: {
+    [ControlSlotType$9.Right]: {
       top: "50%",
       left: "-5px",
       transform: "translate(-100%, -50%)"
     },
-    [l$2.BottomLeft]: {
+    [ControlSlotType$9.BottomLeft]: {
       top: "-5px",
       left: 0,
       transform: "translate(0, -100%)"
     },
-    [l$2.Bottom]: {
+    [ControlSlotType$9.Bottom]: {
       top: "-5px",
       left: "50%",
       transform: "translate(-50%, -100%)"
     },
-    [l$2.BottomRight]: {
+    [ControlSlotType$9.BottomRight]: {
       top: "-5px",
       right: 0,
       transform: "translate(0, -100%)"
     }
-  }, vt$2 = e => {
-    const {api: t, slot: r, style: n, hoverStyle: o, className: i} = e, [a] = reactExports.useState(() => t.generateId()), [s, h] = reactExports.useState(""), [g, X] = reactExports.useState(""), [Y, w] = reactExports.useState([]), [H, Z] = reactExports.useState(false), [_, F] = reactExports.useState(null), tt = reactExports.useRef(null);
+  };
+  const SceneListNav = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [scenes, setScenes] = reactExports.useState([]);
+    const [sceneListVisible, setSceneListVisible] = reactExports.useState(false);
+    const [activeSceneId, setActiveSceneId] = reactExports.useState(null);
+    const rootRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const u = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -43791,34 +44210,37 @@
           height: "100%"
         }
       });
-      return h(u), () => {
-        t.styleApi.removeStyle(u);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const u = n?.background ? p$4(n.background).darken(.13).toHex() : void 0, b = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const hoverBackground = style?.background ? w$3(style.background).darken(.13).toHex() : void 0;
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         },
         "& .hvr-scene-list": {
-          ...pt$2[r ?? l$2.BottomLeft],
+          ...dropPosition[slot ?? ControlSlotType$9.BottomLeft],
           position: "absolute",
           width: "max-content",
           "max-height": "250px",
           overflow: "auto",
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
           "border-radius": "5px",
           "z-index": 1,
           transition: "opacity .3s ease",
@@ -43834,7 +44256,7 @@
             width: "5px"
           },
           "&::-webkit-scrollbar-thumb": {
-            background: u ?? "transparent",
+            background: hoverBackground ?? "transparent",
             "border-radius": "5px"
           },
           "& ul": {
@@ -43849,42 +44271,49 @@
             "border-radius": "5px",
             cursor: "pointer",
             "&.active, &:hover": {
-              "background-color": o?.background ?? u ?? "transparent",
-              color: o?.color
+              "background-color": hoverStyle?.background ?? hoverBackground ?? "transparent",
+              color: hoverStyle?.color
             }
           }
         }
       });
-      return X(b), () => {
-        t.styleApi.removeStyle(b);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, r, n, o ]), reactExports.useEffect(() => {
-      const u = [];
-      w(t.sceneApi.getList());
-      const b = t.sceneApi.getActive();
-      return b && F(b.id), u.push(t.on("scene:add", ({sceneId: v}) => {
-        const k = t.sceneApi.get(v);
-        k && w(L => [ ...L, k ]);
-      })), u.push(t.on("scene:remove", ({sceneId: v}) => {
-        w(k => k.filter(L => L.id !== v));
-      })), u.push(t.on("scene:show", ({sceneId: v}) => {
-        F(v);
-      })), () => {
-        u.forEach(v => v());
+    }, [ api, id, slot, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setScenes(api.sceneApi.getList());
+      const activeScene = api.sceneApi.getActive();
+      if (activeScene) setActiveSceneId(activeScene.id);
+      cleanups.push(api.on("scene:add", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        if (scene) setScenes(prev => [ ...prev, scene ]);
+      }));
+      cleanups.push(api.on("scene:remove", ({sceneId: sceneId}) => {
+        setScenes(prev => prev.filter(scene => scene.id !== sceneId));
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        setActiveSceneId(sceneId);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]);
-    const et = () => Z(u => !u), E = u => {
-      t.sceneApi.show(u);
+    }, [ api ]);
+    const toggleSceneList = () => setSceneListVisible(v => !v);
+    const showScene = sceneId => {
+      void api.sceneApi.show(sceneId);
     };
     return jsxRuntimeExports.jsxs("div", {
-      ref: tt,
-      className: A$2("hvr-control", s, g, i),
+      ref: rootRef,
+      className: clsx$8("hvr-control", baseClassName, styleClassName, className),
       children: [ jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-expanded": H,
+        "aria-expanded": sceneListVisible,
         "aria-label": "Show/hide scene list",
         title: "Show/hide scene list",
-        onClick: et,
+        onClick: toggleSceneList,
         children: jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -43904,423 +44333,434 @@
           }) ]
         })
       }), jsxRuntimeExports.jsx("div", {
-        className: A$2("hvr-scene-list", H && "visible"),
+        className: clsx$8("hvr-scene-list", sceneListVisible && "visible"),
         children: jsxRuntimeExports.jsx("ul", {
-          children: Y.map(u => jsxRuntimeExports.jsx("li", {
+          children: scenes.map(scene => jsxRuntimeExports.jsx("li", {
             role: "button",
             tabIndex: 0,
-            className: A$2(u.id === _ && "active"),
-            onClick: () => E(u.id),
-            onKeyDown: b => {
-              (b.key === "Enter" || b.key === " ") && (b.preventDefault(), E(u.id));
+            className: clsx$8(scene.id === activeSceneId && "active"),
+            onClick: () => showScene(scene.id),
+            onKeyDown: e => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                showScene(scene.id);
+              }
             },
-            children: u.name
-          }, u.id))
+            children: scene.name
+          }, scene.id))
         })
       }) ]
     });
   };
-  function it$1(e) {
-    var t, i, n = "";
-    if (typeof e == "string" || typeof e == "number") n += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var s = e.length;
-      for (t = 0; t < s; t++) e[t] && (i = it$1(e[t])) && (n && (n += " "), n += i);
-    } else for (i in e) e[i] && (n && (n += " "), n += i);
+  function r$2$1(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$2$1(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function ht$1() {
-    for (var e, t, i = 0, n = "", s = arguments.length; i < s; i++) (e = arguments[i]) && (t = it$1(e)) && (n && (n += " "), 
+  function clsx$7() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$2$1(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
-  var ut$1 = {
+  var r$1$1 = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, y$5 = function(e) {
-    return typeof e == "string" ? e.length > 0 : typeof e == "number";
-  }, u$4 = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = Math.pow(10, t)), Math.round(i * e) / i + 0;
-  }, d$4 = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = 1), e > i ? i : e > t ? e : t;
-  }, nt$1 = function(e) {
-    return (e = isFinite(e) ? e % 360 : 0) > 0 ? e : e + 360;
-  }, q$1 = function(e) {
+  }, t$2$1 = function(r) {
+    return "string" == typeof r ? r.length > 0 : "number" == typeof r;
+  }, n$1$1 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
+  }, e$1$1 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
+  }, u$1$1 = function(r) {
+    return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
+  }, a$1$1 = function(r) {
     return {
-      r: d$4(e.r, 0, 255),
-      g: d$4(e.g, 0, 255),
-      b: d$4(e.b, 0, 255),
-      a: d$4(e.a)
+      r: e$1$1(r.r, 0, 255),
+      g: e$1$1(r.g, 0, 255),
+      b: e$1$1(r.b, 0, 255),
+      a: e$1$1(r.a)
     };
-  }, R$4 = function(e) {
+  }, o$2$1 = function(r) {
     return {
-      r: u$4(e.r),
-      g: u$4(e.g),
-      b: u$4(e.b),
-      a: u$4(e.a, 3)
+      r: n$1$1(r.r),
+      g: n$1$1(r.g),
+      b: n$1$1(r.b),
+      a: n$1$1(r.a, 3)
     };
-  }, ct = /^#([0-9a-f]{3,8})$/i, M$5 = function(e) {
-    var t = e.toString(16);
+  }, i$1$1 = /^#([0-9a-f]{3,8})$/i, s$2 = function(r) {
+    var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
-  }, st$1 = function(e) {
-    var t = e.r, i = e.g, n = e.b, s = e.a, r = Math.max(t, i, n), o = r - Math.min(t, i, n), a = o ? r === t ? (i - n) / o : r === i ? 2 + (n - t) / o : 4 + (t - i) / o : 0;
+  }, h$1$1 = function(r) {
+    var t = r.r, n = r.g, e = r.b, u = r.a, a = Math.max(t, n, e), o = a - Math.min(t, n, e), i = o ? a === t ? (n - e) / o : a === n ? 2 + (e - t) / o : 4 + (t - n) / o : 0;
     return {
-      h: 60 * (a < 0 ? a + 6 : a),
-      s: r ? o / r * 100 : 0,
-      v: r / 255 * 100,
-      a: s
+      h: 60 * (i < 0 ? i + 6 : i),
+      s: a ? o / a * 100 : 0,
+      v: a / 255 * 100,
+      a: u
     };
-  }, rt = function(e) {
-    var t = e.h, i = e.s, n = e.v, s = e.a;
-    t = t / 360 * 6, i /= 100, n /= 100;
-    var r = Math.floor(t), o = n * (1 - i), a = n * (1 - (t - r) * i), l = n * (1 - (1 - t + r) * i), h = r % 6;
+  }, b$2 = function(r) {
+    var t = r.h, n = r.s, e = r.v, u = r.a;
+    t = t / 360 * 6, n /= 100, e /= 100;
+    var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
     return {
-      r: 255 * [ n, a, o, o, l, n ][h],
-      g: 255 * [ l, n, n, a, o, o ][h],
-      b: 255 * [ o, o, l, n, n, a ][h],
-      a: s
+      r: 255 * [ e, i, o, o, s, e ][h],
+      g: 255 * [ s, e, e, i, o, o ][h],
+      b: 255 * [ o, o, s, e, e, i ][h],
+      a: u
     };
-  }, Y$1 = function(e) {
+  }, g$2 = function(r) {
     return {
-      h: nt$1(e.h),
-      s: d$4(e.s, 0, 100),
-      l: d$4(e.l, 0, 100),
-      a: d$4(e.a)
+      h: u$1$1(r.h),
+      s: e$1$1(r.s, 0, 100),
+      l: e$1$1(r.l, 0, 100),
+      a: e$1$1(r.a)
     };
-  }, _$2 = function(e) {
+  }, d$2 = function(r) {
     return {
-      h: u$4(e.h),
-      s: u$4(e.s),
-      l: u$4(e.l),
-      a: u$4(e.a, 3)
+      h: n$1$1(r.h),
+      s: n$1$1(r.s),
+      l: n$1$1(r.l),
+      a: n$1$1(r.a, 3)
     };
-  }, J$1 = function(e) {
-    return rt((i = (t = e).s, {
+  }, f$1$1 = function(r) {
+    return b$2((n = (t = r).s, {
       h: t.h,
-      s: (i *= ((n = t.l) < 50 ? n : 100 - n) / 100) > 0 ? 2 * i / (n + i) * 100 : 0,
-      v: n + i,
+      s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
+      v: e + n,
       a: t.a
     }));
-    var t, i, n;
-  }, A$1 = function(e) {
+    var t, n, e;
+  }, c$1$1 = function(r) {
     return {
-      h: (t = st$1(e)).h,
-      s: (s = (200 - (i = t.s)) * (n = t.v) / 100) > 0 && s < 200 ? i * n / 100 / (s <= 100 ? s : 200 - s) * 100 : 0,
-      l: s / 2,
+      h: (t = h$1$1(r)).h,
+      s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
+      l: u / 2,
       a: t.a
     };
-    var t, i, n, s;
-  }, dt$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, mt$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, pt$1 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ft$1 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, C$2 = {
-    string: [ [ function(e) {
-      var t = ct.exec(e);
-      return t ? (e = t[1]).length <= 4 ? {
-        r: parseInt(e[0] + e[0], 16),
-        g: parseInt(e[1] + e[1], 16),
-        b: parseInt(e[2] + e[2], 16),
-        a: e.length === 4 ? u$4(parseInt(e[3] + e[3], 16) / 255, 2) : 1
-      } : e.length === 6 || e.length === 8 ? {
-        r: parseInt(e.substr(0, 2), 16),
-        g: parseInt(e.substr(2, 2), 16),
-        b: parseInt(e.substr(4, 2), 16),
-        a: e.length === 8 ? u$4(parseInt(e.substr(6, 2), 16) / 255, 2) : 1
+    var t, n, e, u;
+  }, l$2 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$1$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$2 = {
+    string: [ [ function(r) {
+      var t = i$1$1.exec(r);
+      return t ? (r = t[1]).length <= 4 ? {
+        r: parseInt(r[0] + r[0], 16),
+        g: parseInt(r[1] + r[1], 16),
+        b: parseInt(r[2] + r[2], 16),
+        a: 4 === r.length ? n$1$1(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+      } : 6 === r.length || 8 === r.length ? {
+        r: parseInt(r.substr(0, 2), 16),
+        g: parseInt(r.substr(2, 2), 16),
+        b: parseInt(r.substr(4, 2), 16),
+        a: 8 === r.length ? n$1$1(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
-    }, "hex" ], [ function(e) {
-      var t = pt$1.exec(e) || ft$1.exec(e);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : q$1({
+    }, "hex" ], [ function(r) {
+      var t = v$2.exec(r) || m$2.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$1$1({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
-        a: t[7] === void 0 ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
+        a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = dt$1.exec(e) || mt$1.exec(e);
-      if (!t) return null;
-      var i, n, s = Y$1({
-        h: (i = t[1], n = t[2], n === void 0 && (n = "deg"), Number(i) * (ut$1[n] || 1)),
-        s: Number(t[3]),
-        l: Number(t[4]),
-        a: t[5] === void 0 ? 1 : Number(t[5]) / (t[6] ? 100 : 1)
+    }, "rgb" ], [ function(t) {
+      var n = l$2.exec(t) || p$1$1.exec(t);
+      if (!n) return null;
+      var e, u, a = g$2({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$1$1[u] || 1)),
+        s: Number(n[3]),
+        l: Number(n[4]),
+        a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return J$1(s);
+      return f$1$1(a);
     }, "hsl" ] ],
-    object: [ [ function(e) {
-      var t = e.r, i = e.g, n = e.b, s = e.a, r = s === void 0 ? 1 : s;
-      return y$5(t) && y$5(i) && y$5(n) ? q$1({
-        r: Number(t),
-        g: Number(i),
-        b: Number(n),
-        a: Number(r)
+    object: [ [ function(r) {
+      var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
+      return t$2$1(n) && t$2$1(e) && t$2$1(u) ? a$1$1({
+        r: Number(n),
+        g: Number(e),
+        b: Number(u),
+        a: Number(i)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = e.h, i = e.s, n = e.l, s = e.a, r = s === void 0 ? 1 : s;
-      if (!y$5(t) || !y$5(i) || !y$5(n)) return null;
-      var o = Y$1({
-        h: Number(t),
-        s: Number(i),
-        l: Number(n),
-        a: Number(r)
+    }, "rgb" ], [ function(r) {
+      var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
+      if (!t$2$1(n) || !t$2$1(e) || !t$2$1(u)) return null;
+      var i = g$2({
+        h: Number(n),
+        s: Number(e),
+        l: Number(u),
+        a: Number(o)
       });
-      return J$1(o);
-    }, "hsl" ], [ function(e) {
-      var t = e.h, i = e.s, n = e.v, s = e.a, r = s === void 0 ? 1 : s;
-      if (!y$5(t) || !y$5(i) || !y$5(n)) return null;
-      var o = function(a) {
+      return f$1$1(i);
+    }, "hsl" ], [ function(r) {
+      var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
+      if (!t$2$1(n) || !t$2$1(a) || !t$2$1(o)) return null;
+      var h = function(r) {
         return {
-          h: nt$1(a.h),
-          s: d$4(a.s, 0, 100),
-          v: d$4(a.v, 0, 100),
-          a: d$4(a.a)
+          h: u$1$1(r.h),
+          s: e$1$1(r.s, 0, 100),
+          v: e$1$1(r.v, 0, 100),
+          a: e$1$1(r.a)
         };
       }({
-        h: Number(t),
-        s: Number(i),
-        v: Number(n),
-        a: Number(r)
+        h: Number(n),
+        s: Number(a),
+        v: Number(o),
+        a: Number(s)
       });
-      return rt(o);
+      return b$2(h);
     }, "hsv" ] ]
-  }, K$1 = function(e, t) {
-    for (var i = 0; i < t.length; i++) {
-      var n = t[i][0](e);
-      if (n) return [ n, t[i][1] ];
+  }, N$2 = function(r, t) {
+    for (var n = 0; n < t.length; n++) {
+      var e = t[n][0](r);
+      if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, vt$1 = function(e) {
-    return typeof e == "string" ? K$1(e.trim(), C$2.string) : typeof e == "object" && e !== null ? K$1(e, C$2.object) : [ null, void 0 ];
-  }, $$3 = function(e, t) {
-    var i = A$1(e);
+  }, x$2 = function(r) {
+    return "string" == typeof r ? N$2(r.trim(), y$2.string) : "object" == typeof r && null !== r ? N$2(r, y$2.object) : [ null, void 0 ];
+  }, M$2 = function(r, t) {
+    var n = c$1$1(r);
     return {
-      h: i.h,
-      s: d$4(i.s + 100 * t, 0, 100),
-      l: i.l,
-      a: i.a
+      h: n.h,
+      s: e$1$1(n.s + 100 * t, 0, 100),
+      l: n.l,
+      a: n.a
     };
-  }, z$2 = function(e) {
-    return (299 * e.r + 587 * e.g + 114 * e.b) / 1e3 / 255;
-  }, Q$1 = function(e, t) {
-    var i = A$1(e);
+  }, H$2 = function(r) {
+    return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
+  }, $$2 = function(r, t) {
+    var n = c$1$1(r);
     return {
-      h: i.h,
-      s: i.s,
-      l: d$4(i.l + 100 * t, 0, 100),
-      a: i.a
+      h: n.h,
+      s: n.s,
+      l: e$1$1(n.l + 100 * t, 0, 100),
+      a: n.a
     };
-  }, X$1 = function() {
-    function e(t) {
-      this.parsed = vt$1(t)[0], this.rgba = this.parsed || {
+  }, j$2 = function() {
+    function r(r) {
+      this.parsed = x$2(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
         a: 1
       };
     }
-    return e.prototype.isValid = function() {
-      return this.parsed !== null;
-    }, e.prototype.brightness = function() {
-      return u$4(z$2(this.rgba), 2);
-    }, e.prototype.isDark = function() {
-      return z$2(this.rgba) < .5;
-    }, e.prototype.isLight = function() {
-      return z$2(this.rgba) >= .5;
-    }, e.prototype.toHex = function() {
-      return t = R$4(this.rgba), i = t.r, n = t.g, s = t.b, o = (r = t.a) < 1 ? M$5(u$4(255 * r)) : "", 
-      "#" + M$5(i) + M$5(n) + M$5(s) + o;
-      var t, i, n, s, r, o;
-    }, e.prototype.toRgb = function() {
-      return R$4(this.rgba);
-    }, e.prototype.toRgbString = function() {
-      return t = R$4(this.rgba), i = t.r, n = t.g, s = t.b, (r = t.a) < 1 ? "rgba(" + i + ", " + n + ", " + s + ", " + r + ")" : "rgb(" + i + ", " + n + ", " + s + ")";
-      var t, i, n, s, r;
-    }, e.prototype.toHsl = function() {
-      return _$2(A$1(this.rgba));
-    }, e.prototype.toHslString = function() {
-      return t = _$2(A$1(this.rgba)), i = t.h, n = t.s, s = t.l, (r = t.a) < 1 ? "hsla(" + i + ", " + n + "%, " + s + "%, " + r + ")" : "hsl(" + i + ", " + n + "%, " + s + "%)";
-      var t, i, n, s, r;
-    }, e.prototype.toHsv = function() {
-      return t = st$1(this.rgba), {
-        h: u$4(t.h),
-        s: u$4(t.s),
-        v: u$4(t.v),
-        a: u$4(t.a, 3)
+    return r.prototype.isValid = function() {
+      return null !== this.parsed;
+    }, r.prototype.brightness = function() {
+      return n$1$1(H$2(this.rgba), 2);
+    }, r.prototype.isDark = function() {
+      return H$2(this.rgba) < .5;
+    }, r.prototype.isLight = function() {
+      return H$2(this.rgba) >= .5;
+    }, r.prototype.toHex = function() {
+      return r = o$2$1(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$2(n$1$1(255 * a)) : "", 
+      "#" + s$2(t) + s$2(e) + s$2(u) + i;
+      var r, t, e, u, a, i;
+    }, r.prototype.toRgb = function() {
+      return o$2$1(this.rgba);
+    }, r.prototype.toRgbString = function() {
+      return r = o$2$1(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      var r, t, n, e, u;
+    }, r.prototype.toHsl = function() {
+      return d$2(c$1$1(this.rgba));
+    }, r.prototype.toHslString = function() {
+      return r = d$2(c$1$1(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      var r, t, n, e, u;
+    }, r.prototype.toHsv = function() {
+      return r = h$1$1(this.rgba), {
+        h: n$1$1(r.h),
+        s: n$1$1(r.s),
+        v: n$1$1(r.v),
+        a: n$1$1(r.a, 3)
       };
-      var t;
-    }, e.prototype.invert = function() {
-      return m$3({
-        r: 255 - (t = this.rgba).r,
-        g: 255 - t.g,
-        b: 255 - t.b,
-        a: t.a
+      var r;
+    }, r.prototype.invert = function() {
+      return w$2({
+        r: 255 - (r = this.rgba).r,
+        g: 255 - r.g,
+        b: 255 - r.b,
+        a: r.a
       });
+      var r;
+    }, r.prototype.saturate = function(r) {
+      return void 0 === r && (r = .1), w$2(M$2(this.rgba, r));
+    }, r.prototype.desaturate = function(r) {
+      return void 0 === r && (r = .1), w$2(M$2(this.rgba, -r));
+    }, r.prototype.grayscale = function() {
+      return w$2(M$2(this.rgba, -1));
+    }, r.prototype.lighten = function(r) {
+      return void 0 === r && (r = .1), w$2($$2(this.rgba, r));
+    }, r.prototype.darken = function(r) {
+      return void 0 === r && (r = .1), w$2($$2(this.rgba, -r));
+    }, r.prototype.rotate = function(r) {
+      return void 0 === r && (r = 15), this.hue(this.hue() + r);
+    }, r.prototype.alpha = function(r) {
+      return "number" == typeof r ? w$2({
+        r: (t = this.rgba).r,
+        g: t.g,
+        b: t.b,
+        a: r
+      }) : n$1$1(this.rgba.a, 3);
       var t;
-    }, e.prototype.saturate = function(t) {
-      return t === void 0 && (t = .1), m$3($$3(this.rgba, t));
-    }, e.prototype.desaturate = function(t) {
-      return t === void 0 && (t = .1), m$3($$3(this.rgba, -t));
-    }, e.prototype.grayscale = function() {
-      return m$3($$3(this.rgba, -1));
-    }, e.prototype.lighten = function(t) {
-      return t === void 0 && (t = .1), m$3(Q$1(this.rgba, t));
-    }, e.prototype.darken = function(t) {
-      return t === void 0 && (t = .1), m$3(Q$1(this.rgba, -t));
-    }, e.prototype.rotate = function(t) {
-      return t === void 0 && (t = 15), this.hue(this.hue() + t);
-    }, e.prototype.alpha = function(t) {
-      return typeof t == "number" ? m$3({
-        r: (i = this.rgba).r,
-        g: i.g,
-        b: i.b,
-        a: t
-      }) : u$4(this.rgba.a, 3);
-      var i;
-    }, e.prototype.hue = function(t) {
-      var i = A$1(this.rgba);
-      return typeof t == "number" ? m$3({
-        h: t,
-        s: i.s,
-        l: i.l,
-        a: i.a
-      }) : u$4(i.h);
-    }, e.prototype.isEqual = function(t) {
-      return this.toHex() === m$3(t).toHex();
-    }, e;
-  }(), m$3 = function(e) {
-    return e instanceof X$1 ? e : new X$1(e);
-  }, Z$1 = [], bt$1 = function(e) {
-    e.forEach(function(t) {
-      Z$1.indexOf(t) < 0 && (t(X$1, C$2), Z$1.push(t));
+    }, r.prototype.hue = function(r) {
+      var t = c$1$1(this.rgba);
+      return "number" == typeof r ? w$2({
+        h: r,
+        s: t.s,
+        l: t.l,
+        a: t.a
+      }) : n$1$1(t.h);
+    }, r.prototype.isEqual = function(r) {
+      return this.toHex() === w$2(r).toHex();
+    }, r;
+  }(), w$2 = function(r) {
+    return r instanceof j$2 ? r : new j$2(r);
+  }, S$1 = [], k$1 = function(r) {
+    r.forEach(function(r) {
+      S$1.indexOf(r) < 0 && (r(j$2, y$2), S$1.push(r));
     });
-  }, D$2 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, W$1 = function(e) {
-    return .2126 * D$2(e.r) + .7152 * D$2(e.g) + .0722 * D$2(e.b);
   };
-  function gt$1(e) {
-    e.prototype.luminance = function() {
-      return t = W$1(this.rgba), (i = 2) === void 0 && (i = 0), n === void 0 && (n = Math.pow(10, i)), 
-      Math.round(n * t) / n + 0;
-      var t, i, n;
-    }, e.prototype.contrast = function(t) {
-      t === void 0 && (t = "#FFF");
-      var i, n, s, r, o, a, l, h = t instanceof e ? t : new e(t);
-      return r = this.rgba, o = h.toRgb(), a = W$1(r), l = W$1(o), i = a > l ? (a + .05) / (l + .05) : (l + .05) / (a + .05), 
-      (n = 2) === void 0 && (n = 0), s === void 0 && (s = Math.pow(10, n)), Math.floor(s * i) / s + 0;
-    }, e.prototype.isReadable = function(t, i) {
-      return t === void 0 && (t = "#FFF"), i === void 0 && (i = {}), this.contrast(t) >= (a = (o = (n = i).size) === void 0 ? "normal" : o, 
-      (r = (s = n.level) === void 0 ? "AA" : s) === "AAA" && a === "normal" ? 7 : r === "AA" && a === "large" ? 3 : 4.5);
-      var n, s, r, o, a;
+  var o$1$1 = function(o) {
+    var t = o / 255;
+    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+  }, t$1$1 = function(t) {
+    return .2126 * o$1$1(t.r) + .7152 * o$1$1(t.g) + .0722 * o$1$1(t.b);
+  };
+  function a11yPlugin(o) {
+    o.prototype.luminance = function() {
+      return o = t$1$1(this.rgba), void 0 === (r = 2) && (r = 0), void 0 === n && (n = Math.pow(10, r)), 
+      Math.round(n * o) / n + 0;
+      var o, r, n;
+    }, o.prototype.contrast = function(r) {
+      void 0 === r && (r = "#FFF");
+      var n, a, i, e, v, u, d, c = r instanceof o ? r : new o(r);
+      return e = this.rgba, v = c.toRgb(), u = t$1$1(e), d = t$1$1(v), n = u > d ? (u + .05) / (d + .05) : (d + .05) / (u + .05), 
+      void 0 === (a = 2) && (a = 0), void 0 === i && (i = Math.pow(10, a)), Math.floor(i * n) / i + 0;
+    }, o.prototype.isReadable = function(o, t) {
+      return void 0 === o && (o = "#FFF"), void 0 === t && (t = {}), this.contrast(o) >= (e = void 0 === (i = (r = t).size) ? "normal" : i, 
+      "AAA" === (a = void 0 === (n = r.level) ? "AA" : n) && "normal" === e ? 7 : "AA" === a && "large" === e ? 3 : 4.5);
+      var r, n, a, i, e;
     };
   }
-  var f$4 = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = 1), e > i ? i : e > t ? e : t;
-  }, H$2 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, P$3 = function(e) {
-    return 255 * (e > .0031308 ? 1.055 * Math.pow(e, 1 / 2.4) - .055 : 12.92 * e);
-  }, O$1 = 96.422, B$5 = 100, j$2 = 82.521, yt$1 = function(e) {
-    var t, i, n = {
-      x: .9555766 * (t = e).x + -.0230393 * t.y + .0631636 * t.z,
-      y: -.0282895 * t.x + 1.0099416 * t.y + .0210077 * t.z,
-      z: .0122982 * t.x + -.020483 * t.y + 1.3299098 * t.z
+  var t$3 = function(t, a, n) {
+    return void 0 === a && (a = 0), void 0 === n && (n = 1), t > n ? n : t > a ? t : a;
+  }, a$2 = function(t) {
+    var a = t / 255;
+    return a < .04045 ? a / 12.92 : Math.pow((a + .055) / 1.055, 2.4);
+  }, n$2$1 = function(t) {
+    return 255 * (t > .0031308 ? 1.055 * Math.pow(t, 1 / 2.4) - .055 : 12.92 * t);
+  }, r$9 = 96.422, o$3 = 100, u$2 = 82.521, e$2$1 = function(a) {
+    var r, o, u = {
+      x: .9555766 * (r = a).x + -.0230393 * r.y + .0631636 * r.z,
+      y: -.0282895 * r.x + 1.0099416 * r.y + .0210077 * r.z,
+      z: .0122982 * r.x + -.020483 * r.y + 1.3299098 * r.z
     };
-    return i = {
-      r: P$3(.032404542 * n.x - .015371385 * n.y - .004985314 * n.z),
-      g: P$3(-.00969266 * n.x + .018760108 * n.y + 41556e-8 * n.z),
-      b: P$3(556434e-9 * n.x - .002040259 * n.y + .010572252 * n.z),
-      a: e.a
+    return o = {
+      r: n$2$1(.032404542 * u.x - .015371385 * u.y - .004985314 * u.z),
+      g: n$2$1(-.00969266 * u.x + .018760108 * u.y + 41556e-8 * u.z),
+      b: n$2$1(556434e-9 * u.x - .002040259 * u.y + .010572252 * u.z),
+      a: a.a
     }, {
-      r: f$4(i.r, 0, 255),
-      g: f$4(i.g, 0, 255),
-      b: f$4(i.b, 0, 255),
-      a: f$4(i.a)
+      r: t$3(o.r, 0, 255),
+      g: t$3(o.g, 0, 255),
+      b: t$3(o.b, 0, 255),
+      a: t$3(o.a)
     };
-  }, Et$1 = function(e) {
-    var t = H$2(e.r), i = H$2(e.g), n = H$2(e.b);
-    return function(s) {
+  }, i$2 = function(n) {
+    var e = a$2(n.r), i = a$2(n.g), p = a$2(n.b);
+    return function(a) {
       return {
-        x: f$4(s.x, 0, O$1),
-        y: f$4(s.y, 0, B$5),
-        z: f$4(s.z, 0, j$2),
-        a: f$4(s.a)
+        x: t$3(a.x, 0, r$9),
+        y: t$3(a.y, 0, o$3),
+        z: t$3(a.z, 0, u$2),
+        a: t$3(a.a)
       };
-    }(function(s) {
+    }(function(t) {
       return {
-        x: 1.0478112 * s.x + .0228866 * s.y + -.050127 * s.z,
-        y: .0295424 * s.x + .9904844 * s.y + -.0170491 * s.z,
-        z: -.0092345 * s.x + .0150436 * s.y + .7521316 * s.z,
-        a: s.a
+        x: 1.0478112 * t.x + .0228866 * t.y + -.050127 * t.z,
+        y: .0295424 * t.x + .9904844 * t.y + -.0170491 * t.z,
+        z: -.0092345 * t.x + .0150436 * t.y + .7521316 * t.z,
+        a: t.a
       };
     }({
-      x: 100 * (.4124564 * t + .3575761 * i + .1804375 * n),
-      y: 100 * (.2126729 * t + .7151522 * i + .072175 * n),
-      z: 100 * (.0193339 * t + .119192 * i + .9503041 * n),
-      a: e.a
+      x: 100 * (.4124564 * e + .3575761 * i + .1804375 * p),
+      y: 100 * (.2126729 * e + .7151522 * i + .072175 * p),
+      z: 100 * (.0193339 * e + .119192 * i + .9503041 * p),
+      a: n.a
     }));
-  }, I$2 = 216 / 24389, L$2 = 24389 / 27, tt$1 = function(e) {
-    var t = Et$1(e), i = t.x / O$1, n = t.y / B$5, s = t.z / j$2;
-    return i = i > I$2 ? Math.cbrt(i) : (L$2 * i + 16) / 116, {
-      l: 116 * (n = n > I$2 ? Math.cbrt(n) : (L$2 * n + 16) / 116) - 16,
-      a: 500 * (i - n),
-      b: 200 * (n - (s = s > I$2 ? Math.cbrt(s) : (L$2 * s + 16) / 116)),
-      alpha: t.a
+  }, p$2 = 216 / 24389, h$2 = 24389 / 27, f$2 = function(t) {
+    var a = i$2(t), n = a.x / r$9, e = a.y / o$3, f = a.z / u$2;
+    return n = n > p$2 ? Math.cbrt(n) : (h$2 * n + 16) / 116, {
+      l: 116 * (e = e > p$2 ? Math.cbrt(e) : (h$2 * e + 16) / 116) - 16,
+      a: 500 * (n - e),
+      b: 200 * (e - (f = f > p$2 ? Math.cbrt(f) : (h$2 * f + 16) / 116)),
+      alpha: a.a
     };
-  }, Lt = function(e, t, i) {
-    var n, s = tt$1(e), r = tt$1(t);
-    return function(o) {
-      var a = (o.l + 16) / 116, l = o.a / 500 + a, h = a - o.b / 200;
-      return yt$1({
-        x: (Math.pow(l, 3) > I$2 ? Math.pow(l, 3) : (116 * l - 16) / L$2) * O$1,
-        y: (o.l > 8 ? Math.pow((o.l + 16) / 116, 3) : o.l / L$2) * B$5,
-        z: (Math.pow(h, 3) > I$2 ? Math.pow(h, 3) : (116 * h - 16) / L$2) * j$2,
-        a: o.alpha
+  }, c$2 = function(a, n, i) {
+    var c, y = f$2(a), x = f$2(n);
+    return function(t) {
+      var a = (t.l + 16) / 116, n = t.a / 500 + a, i = a - t.b / 200;
+      return e$2$1({
+        x: (Math.pow(n, 3) > p$2 ? Math.pow(n, 3) : (116 * n - 16) / h$2) * r$9,
+        y: (t.l > 8 ? Math.pow((t.l + 16) / 116, 3) : t.l / h$2) * o$3,
+        z: (Math.pow(i, 3) > p$2 ? Math.pow(i, 3) : (116 * i - 16) / h$2) * u$2,
+        a: t.alpha
       });
     }({
-      l: f$4((n = {
-        l: s.l * (1 - i) + r.l * i,
-        a: s.a * (1 - i) + r.a * i,
-        b: s.b * (1 - i) + r.b * i,
-        alpha: s.alpha * (1 - i) + r.alpha * i
+      l: t$3((c = {
+        l: y.l * (1 - i) + x.l * i,
+        a: y.a * (1 - i) + x.a * i,
+        b: y.b * (1 - i) + x.b * i,
+        alpha: y.alpha * (1 - i) + x.alpha * i
       }).l, 0, 400),
-      a: n.a,
-      b: n.b,
-      alpha: f$4(n.alpha)
+      a: c.a,
+      b: c.b,
+      alpha: t$3(c.alpha)
     });
   };
-  function xt$1(e) {
-    function t(i, n, s) {
-      s === void 0 && (s = 5);
-      for (var r = [], o = 1 / (s - 1), a = 0; a <= s - 1; a++) r.push(i.mix(n, o * a));
+  function mixPlugin(t) {
+    function a(t, a, n) {
+      void 0 === n && (n = 5);
+      for (var r = [], o = 1 / (n - 1), u = 0; u <= n - 1; u++) r.push(t.mix(a, o * u));
       return r;
     }
-    e.prototype.mix = function(i, n) {
-      n === void 0 && (n = .5);
-      var s = i instanceof e ? i : new e(i), r = Lt(this.toRgb(), s.toRgb(), n);
-      return new e(r);
-    }, e.prototype.tints = function(i) {
-      return t(this, "#fff", i);
-    }, e.prototype.shades = function(i) {
-      return t(this, "#000", i);
-    }, e.prototype.tones = function(i) {
-      return t(this, "#808080", i);
+    t.prototype.mix = function(a, n) {
+      void 0 === n && (n = .5);
+      var r = a instanceof t ? a : new t(a), o = c$2(this.toRgb(), r.toRgb(), n);
+      return new t(o);
+    }, t.prototype.tints = function(t) {
+      return a(this, "#fff", t);
+    }, t.prototype.shades = function(t) {
+      return a(this, "#000", t);
+    }, t.prototype.tones = function(t) {
+      return a(this, "#808080", t);
     };
   }
-  var F$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(F$2 || (F$2 = {}));
-  var et;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(et || (et = {}));
-  bt$1([ gt$1, xt$1 ]);
-  const St$1 = {
+  var ControlSlotType$8;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$8 || (ControlSlotType$8 = {}));
+  var ControlPropertyKind$8;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$8 || (ControlPropertyKind$8 = {}));
+  k$1([ a11yPlugin, mixPlugin ]);
+  const meta$7 = {
     type: "SceneThumbsNav",
     name: "Scene Thumbs Navigation",
     description: "Shows/hides scene thumbnails for navigation",
     createInitialProperties: () => ({
-      slot: F$2.Bottom,
+      slot: ControlSlotType$8.Bottom,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -44331,7 +44771,7 @@
       }
     })
   };
-  let p$3 = class p {
+  class SceneSlider {
     static SLIDER_HEIGHT=100;
     static WHEEL_SENSITIVITY=.8;
     static RESISTANCE_STRENGTH=.01;
@@ -44358,53 +44798,65 @@
     activeSceneId=null;
     resizeObserver=null;
     cleanups=[];
-    constructor(t, i, n) {
-      this.api = i, this.id = n, this.rootElement = t, this.sliderElement = document.createElement("div"), 
-      this.trackElement = document.createElement("div"), this.listElement = document.createElement("div"), 
-      this.trackElement.append(this.listElement), this.sliderElement.append(this.trackElement), 
-      t.append(this.sliderElement), this.applyStyles(), this.bind(), this.initResizeObserver();
+    constructor(root, api, id) {
+      this.api = api;
+      this.id = id;
+      this.rootElement = root;
+      this.sliderElement = document.createElement("div");
+      this.trackElement = document.createElement("div");
+      this.listElement = document.createElement("div");
+      this.trackElement.append(this.listElement);
+      this.sliderElement.append(this.trackElement);
+      root.append(this.sliderElement);
+      this.applyStyles();
+      this.bind();
+      this.initResizeObserver();
     }
-    setTheme(t) {
-      let i = "transparent";
-      if (t?.background) {
-        const s = m$3(t.background);
-        i = (s.isDark() ? s.mix("#ffffff", .13) : s.mix("#000000", .13)).toHex();
+    setTheme(style) {
+      let thumbBackground = "transparent";
+      if (style?.background) {
+        const baseColor = w$2(style.background);
+        thumbBackground = (baseColor.isDark() ? baseColor.mix("#ffffff", .13) : baseColor.mix("#000000", .13)).toHex();
       }
-      const n = this.sliderElement.style;
-      n.setProperty("--hvr-panel-color", t?.color || "transparent"), n.setProperty("--hvr-panel-bg", t?.background || "transparent"), 
-      n.setProperty("--hvr-panel-radius", t?.borderRadius ? `${t.borderRadius}px` : "0"), 
-      n.setProperty("--hvr-thumb-bg", i), n.setProperty("--hvr-thumb-active", t?.color || "transparent");
+      const el = this.sliderElement.style;
+      el.setProperty("--hvr-panel-color", style?.color || "transparent");
+      el.setProperty("--hvr-panel-bg", style?.background || "transparent");
+      el.setProperty("--hvr-panel-radius", style?.borderRadius ? `${style.borderRadius}px` : "0");
+      el.setProperty("--hvr-thumb-bg", thumbBackground);
+      el.setProperty("--hvr-thumb-active", style?.color || "transparent");
     }
     applyStyles() {
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           ".hvr-controls-body": {
             transition: "bottom 0.3s ease-out"
           }
         });
-        this.rootElement.classList.add(t), this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.rootElement.classList.add(cls);
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           ".hvr-controls-body": {
-            bottom: `${p.SLIDER_HEIGHT}px`
+            bottom: `${SceneSlider.SLIDER_HEIGHT}px`
           }
         });
-        this.rootElementSliderVisibleCls = t, this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.rootElementSliderVisibleCls = cls;
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           "--hvr-ui-id": this.id,
           transition: "bottom 0.3s ease-out",
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: `-${p.SLIDER_HEIGHT}px`,
-          height: `${p.SLIDER_HEIGHT}px`,
+          bottom: `-${SceneSlider.SLIDER_HEIGHT}px`,
+          height: `${SceneSlider.SLIDER_HEIGHT}px`,
           color: "var(--hvr-panel-color, transparent)",
           "background-color": "var(--hvr-panel-bg, transparent)",
           "box-sizing": "border-box",
@@ -44449,167 +44901,280 @@
             }
           }
         });
-        this.sliderElement.classList.add(t), this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.sliderElement.classList.add(cls);
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
     }
     bind() {
-      this.sliderElement.addEventListener("pointerdown", this.onPointerDown), this.sliderElement.addEventListener("wheel", this.onWheel, {
+      this.sliderElement.addEventListener("pointerdown", this.onPointerDown);
+      this.sliderElement.addEventListener("wheel", this.onWheel, {
         passive: false
-      }), this.listElement.addEventListener("click", this.onSlideClick), this.cleanups.push(() => {
-        this.sliderElement.removeEventListener("pointerdown", this.onPointerDown), this.sliderElement.removeEventListener("wheel", this.onWheel), 
-        this.listElement.removeEventListener("click", this.onSlideClick), document.removeEventListener("pointermove", this.onPointerMove), 
-        document.removeEventListener("pointerup", this.onPointerUp), document.removeEventListener("pointercancel", this.onPointerUp);
+      });
+      this.listElement.addEventListener("click", this.onSlideClick);
+      this.cleanups.push(() => {
+        this.sliderElement.removeEventListener("pointerdown", this.onPointerDown);
+        this.sliderElement.removeEventListener("wheel", this.onWheel);
+        this.listElement.removeEventListener("click", this.onSlideClick);
+        document.removeEventListener("pointermove", this.onPointerMove);
+        document.removeEventListener("pointerup", this.onPointerUp);
+        document.removeEventListener("pointercancel", this.onPointerUp);
       });
     }
     initResizeObserver() {
       this.resizeObserver = new ResizeObserver(() => {
         this.updateLayout();
-      }), this.resizeObserver.observe(this.sliderElement);
+      });
+      this.resizeObserver.observe(this.sliderElement);
     }
-    clamp(t, i, n) {
-      return Math.min(Math.max(t, i), n);
+    clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
     }
     getListElementLeft() {
-      const t = window.getComputedStyle(this.listElement);
-      return parseFloat(t.left) || 0;
+      const style = window.getComputedStyle(this.listElement);
+      return parseFloat(style.left) || 0;
     }
-    setListElementLeft(t) {
-      this.listElement.style.left = `${t}px`;
+    setListElementLeft(left) {
+      this.listElement.style.left = `${left}px`;
     }
-    snapToBoundaries(t = true) {
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
+    snapToBoundaries(animate = true) {
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
       this.isAnimating = false;
-      const i = this.trackElement.offsetWidth, n = this.listElement.offsetWidth;
-      if (n <= i) {
-        t && (this.listElement.style.transition = "left 0.3s ease-out"), this.setListElementLeft(0);
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      if (listWidth <= trackWidth) {
+        if (animate) {
+          this.listElement.style.transition = "left 0.3s ease-out";
+        }
+        this.setListElementLeft(0);
         return;
       }
-      const s = i - n, r = 0, o = this.getListElementLeft(), a = this.clamp(o, s, r);
-      t && (this.listElement.style.transition = "left 0.3s ease-out"), this.setListElementLeft(a);
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      const currentLeft = this.getListElementLeft();
+      const clamped = this.clamp(currentLeft, minLeft, maxLeft);
+      if (animate) {
+        this.listElement.style.transition = "left 0.3s ease-out";
+      }
+      this.setListElementLeft(clamped);
     }
-    startMomentum(t) {
-      if (Math.abs(t) < .3) {
+    startMomentum(initialVelocity) {
+      if (Math.abs(initialVelocity) < .3) {
         this.snapToBoundaries();
         return;
       }
-      this.isAnimating = true, this.listElement.style.transition = "none";
-      const i = Date.now(), n = this.getListElementLeft(), s = () => {
+      this.isAnimating = true;
+      this.listElement.style.transition = "none";
+      const startTime = Date.now();
+      const startLeftPos = this.getListElementLeft();
+      const animate = () => {
         if (!this.isAnimating) return;
-        const r = Date.now() - i, o = Math.exp(-r / 100), a = t * 100 * (1 - o), l = n + a;
-        this.setListElementLeft(l);
-        const h = this.trackElement.offsetWidth, E = this.listElement.offsetWidth;
-        if (E <= h) {
-          this.isAnimating = false, this.snapToBoundaries();
+        const elapsed = Date.now() - startTime;
+        const decay = Math.exp(-elapsed / 100);
+        const delta = initialVelocity * 100 * (1 - decay);
+        const newLeft = startLeftPos + delta;
+        this.setListElementLeft(newLeft);
+        const trackWidth = this.trackElement.offsetWidth;
+        const listWidth = this.listElement.offsetWidth;
+        if (listWidth <= trackWidth) {
+          this.isAnimating = false;
+          this.snapToBoundaries();
           return;
         }
-        const v = h - E, N = 0, b = t * o;
-        if (l >= N && b > -.1 || l <= v && b < .1 || Math.abs(b) < .05) {
-          this.isAnimating = false, this.snapToBoundaries();
+        const minLeft = trackWidth - listWidth;
+        const maxLeft = 0;
+        const currentVelocity = initialVelocity * decay;
+        if (newLeft >= maxLeft && currentVelocity > -.1 || newLeft <= minLeft && currentVelocity < .1 || Math.abs(currentVelocity) < .05) {
+          this.isAnimating = false;
+          this.snapToBoundaries();
           return;
         }
-        this.momentumAnimationId = requestAnimationFrame(s);
+        this.momentumAnimationId = requestAnimationFrame(animate);
       };
-      this.momentumAnimationId = requestAnimationFrame(s);
+      this.momentumAnimationId = requestAnimationFrame(animate);
     }
     updateLayout() {
-      const t = this.trackElement.offsetWidth, i = this.listElement.offsetWidth;
-      this.isDraggable = i > t, this.listElement.style.left = this.isDraggable ? this.listElement.style.left : "auto", 
-      this.activeSceneId && this.goToScene(this.activeSceneId);
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      this.isDraggable = listWidth > trackWidth;
+      this.listElement.style.left = this.isDraggable ? this.listElement.style.left : "auto";
+      if (this.activeSceneId) {
+        this.goToScene(this.activeSceneId);
+      }
     }
-    onPointerDown=t => {
-      t.button !== 0 && t.pointerType !== "touch" || this.isDraggable && (this.isAnimating = false, 
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
-      this.pointerId = t.pointerId, this.startX = t.clientX, this.startLeft = this.getListElementLeft(), 
-      this.lastMoveX = t.clientX, this.lastMoveTime = Date.now(), this.suppressClick = false, 
-      document.addEventListener("pointermove", this.onPointerMove), document.addEventListener("pointerup", this.onPointerUp), 
-      document.addEventListener("pointercancel", this.onPointerUp));
+    onPointerDown=e => {
+      if (e.button !== 0 && e.pointerType !== "touch") return;
+      if (!this.isDraggable) return;
+      this.isAnimating = false;
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
+      this.pointerId = e.pointerId;
+      this.startX = e.clientX;
+      this.startLeft = this.getListElementLeft();
+      this.lastMoveX = e.clientX;
+      this.lastMoveTime = Date.now();
+      this.suppressClick = false;
+      document.addEventListener("pointermove", this.onPointerMove);
+      document.addEventListener("pointerup", this.onPointerUp);
+      document.addEventListener("pointercancel", this.onPointerUp);
     };
-    onPointerMove=t => {
-      if (this.pointerId !== t.pointerId || Math.abs(t.clientX - this.startX) < p.DRAG_THRESHOLD) return;
-      this.isDragging || (this.isDragging = true, this.suppressClick = true, this.listElement.style.transition = "none", 
-      this.sliderElement.setPointerCapture(t.pointerId));
-      const n = t.clientX - this.startX;
-      this.setListElementLeft(this.startLeft + n);
-      const s = Date.now(), r = s - this.lastMoveTime;
-      r > 0 && (this.velocity = (t.clientX - this.lastMoveX) / r), this.lastMoveX = t.clientX, 
-      this.lastMoveTime = s;
+    onPointerMove=e => {
+      if (this.pointerId !== e.pointerId) return;
+      const distance = Math.abs(e.clientX - this.startX);
+      if (distance < SceneSlider.DRAG_THRESHOLD) return;
+      if (!this.isDragging) {
+        this.isDragging = true;
+        this.suppressClick = true;
+        this.listElement.style.transition = "none";
+        this.sliderElement.setPointerCapture(e.pointerId);
+      }
+      const deltaX = e.clientX - this.startX;
+      this.setListElementLeft(this.startLeft + deltaX);
+      const now = Date.now();
+      const dt = now - this.lastMoveTime;
+      if (dt > 0) {
+        this.velocity = (e.clientX - this.lastMoveX) / dt;
+      }
+      this.lastMoveX = e.clientX;
+      this.lastMoveTime = now;
     };
-    onPointerUp=t => {
-      if (this.pointerId !== t.pointerId) return;
-      this.isDragging = false, this.pointerId = null, this.sliderElement.hasPointerCapture(t.pointerId) && this.sliderElement.releasePointerCapture(t.pointerId), 
-      document.removeEventListener("pointermove", this.onPointerMove), document.removeEventListener("pointerup", this.onPointerUp), 
+    onPointerUp=e => {
+      if (this.pointerId !== e.pointerId) return;
+      this.isDragging = false;
+      this.pointerId = null;
+      if (this.sliderElement.hasPointerCapture(e.pointerId)) {
+        this.sliderElement.releasePointerCapture(e.pointerId);
+      }
+      document.removeEventListener("pointermove", this.onPointerMove);
+      document.removeEventListener("pointerup", this.onPointerUp);
       document.removeEventListener("pointercancel", this.onPointerUp);
-      const i = this.velocity;
-      this.velocity = 0, this.startMomentum(i);
+      const v = this.velocity;
+      this.velocity = 0;
+      this.startMomentum(v);
     };
-    onWheel=t => {
-      if (this.isDragging || this.isAnimating || !this.isDraggable) return;
-      const i = this.trackElement.offsetWidth, n = this.listElement.offsetWidth;
-      if (n <= i) return;
-      t.preventDefault();
-      const s = t.deltaX || -t.deltaY, r = this.getListElementLeft(), o = i - n, a = 0;
-      let l = r - s * p.WHEEL_SENSITIVITY, h = 1;
-      l > a ? h = 1 / (1 + (l - a) * p.RESISTANCE_STRENGTH) : l < o && (h = 1 / (1 + (o - l) * p.RESISTANCE_STRENGTH)), 
-      l = r - s * p.WHEEL_SENSITIVITY * h, this.listElement.style.transition = "none", 
-      this.setListElementLeft(l);
-      const E = l > a || l < o;
-      this.wheelEndTimer && clearTimeout(this.wheelEndTimer), E && (this.wheelEndTimer = window.setTimeout(() => {
-        this.wheelEndTimer = null, this.snapToBoundaries(true);
-      }, 100));
+    onWheel=e => {
+      if (this.isDragging || this.isAnimating) return;
+      if (!this.isDraggable) return;
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      if (listWidth <= trackWidth) return;
+      e.preventDefault();
+      const delta = e.deltaX || -e.deltaY;
+      const currentLeft = this.getListElementLeft();
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      let newLeft = currentLeft - delta * SceneSlider.WHEEL_SENSITIVITY;
+      let resistanceFactor = 1;
+      if (newLeft > maxLeft) {
+        const over = newLeft - maxLeft;
+        resistanceFactor = 1 / (1 + over * SceneSlider.RESISTANCE_STRENGTH);
+      } else if (newLeft < minLeft) {
+        const over = minLeft - newLeft;
+        resistanceFactor = 1 / (1 + over * SceneSlider.RESISTANCE_STRENGTH);
+      }
+      newLeft = currentLeft - delta * SceneSlider.WHEEL_SENSITIVITY * resistanceFactor;
+      this.listElement.style.transition = "none";
+      this.setListElementLeft(newLeft);
+      const needsSnap = newLeft > maxLeft || newLeft < minLeft;
+      if (this.wheelEndTimer) clearTimeout(this.wheelEndTimer);
+      if (needsSnap) {
+        this.wheelEndTimer = window.setTimeout(() => {
+          this.wheelEndTimer = null;
+          this.snapToBoundaries(true);
+        }, 100);
+      }
     };
-    onSlideClick=t => {
+    onSlideClick=e => {
       if (this.suppressClick) {
         this.suppressClick = false;
         return;
       }
-      const i = t.target;
-      i.hasAttribute("data-id") && this.api.sceneApi.show(i.getAttribute("data-id"));
-    };
-    setVisible(t) {
-      this.sliderElement.classList.toggle("visible", t), this.rootElement.classList.toggle(this.rootElementSliderVisibleCls, t), 
-      t && this.activeSceneId && this.goToScene(this.activeSceneId);
-    }
-    addScene(t) {
-      const i = document.createElement("div");
-      if (i.dataset.id = t.id, t.image?.id) {
-        const n = new URL(`${t.id}/${t.image.id}/thumb.jpg`, this.api.getResourceUrl("assets")).href;
-        i.style.backgroundImage = `url("${n}")`;
+      const el = e.target;
+      if (el.hasAttribute("data-id")) {
+        void this.api.sceneApi.show(el.getAttribute("data-id"));
       }
-      this.listElement.append(i), this.updateLayout();
+    };
+    setVisible(isVisible) {
+      this.sliderElement.classList.toggle("visible", isVisible);
+      this.rootElement.classList.toggle(this.rootElementSliderVisibleCls, isVisible);
+      if (isVisible && this.activeSceneId) {
+        this.goToScene(this.activeSceneId);
+      }
     }
-    removeScene(t) {
-      this.listElement.querySelector(`[data-id="${t}"]`)?.remove(), this.updateLayout();
+    addScene(scene) {
+      const slide = document.createElement("div");
+      slide.dataset.id = scene.id;
+      if (scene.image?.id) {
+        const thumbUrl = new URL(`${scene.id}/${scene.image.id}/thumb.jpg`, this.api.getResourceUrl("assets")).href;
+        slide.style.backgroundImage = `url("${thumbUrl}")`;
+      }
+      this.listElement.append(slide);
+      this.updateLayout();
     }
-    setActiveScene(t) {
-      this.listElement.querySelectorAll("[data-id]").forEach(n => {
-        n.classList.remove("active");
+    removeScene(sceneId) {
+      const slide = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      slide?.remove();
+      this.updateLayout();
+    }
+    setActiveScene(sceneId) {
+      this.listElement.querySelectorAll("[data-id]").forEach(slide2 => {
+        slide2.classList.remove("active");
       });
-      const i = this.listElement.querySelector(`[data-id="${t}"]`);
-      i && (i.classList.add("active"), this.activeSceneId = t, this.goToScene(t));
+      const slide = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      if (slide) {
+        slide.classList.add("active");
+        this.activeSceneId = sceneId;
+        this.goToScene(sceneId);
+      }
     }
-    goToScene(t) {
+    goToScene(sceneId) {
       if (!this.isDraggable) return;
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
       this.isAnimating = false;
-      const i = this.listElement.querySelector(`[data-id="${t}"]`);
-      if (!i) return;
-      const n = i.offsetLeft, s = i.offsetWidth, r = this.trackElement.offsetWidth, o = r / 2, a = -(n + s / 2 - o), l = this.listElement.offsetWidth, h = r - l, v = this.clamp(a, h, 0);
-      this.listElement.style.transition = "left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)", 
-      this.setListElementLeft(v);
+      const targetScene = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      if (!targetScene) return;
+      const slideOffsetLeft = targetScene.offsetLeft;
+      const slideWidth = targetScene.offsetWidth;
+      const trackWidth = this.trackElement.offsetWidth;
+      const trackCenter = trackWidth / 2;
+      const desiredLeft = -(slideOffsetLeft + slideWidth / 2 - trackCenter);
+      const listWidth = this.listElement.offsetWidth;
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      const clampedLeft = this.clamp(desiredLeft, minLeft, maxLeft);
+      this.listElement.style.transition = "left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      this.setListElementLeft(clampedLeft);
     }
     destroy() {
-      this.momentumAnimationId && cancelAnimationFrame(this.momentumAnimationId), this.wheelEndTimer && clearTimeout(this.wheelEndTimer), 
-      this.resizeObserver && (this.resizeObserver.disconnect(), this.resizeObserver = null), 
-      this.cleanups.forEach(t => t()), this.sliderElement.remove();
+      if (this.momentumAnimationId) cancelAnimationFrame(this.momentumAnimationId);
+      if (this.wheelEndTimer) clearTimeout(this.wheelEndTimer);
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+        this.resizeObserver = null;
+      }
+      this.cleanups.forEach(clean => clean());
+      this.sliderElement.remove();
     }
-  };
-  const wt$1 = e => {
-    const {api: t, slot: i, style: n, hoverStyle: s, className: r} = e, [o] = reactExports.useState(() => t.generateId()), [a, l] = reactExports.useState(""), [h, E] = reactExports.useState(""), [v, N] = reactExports.useState(false), b = reactExports.useRef(null);
+  }
+  const SceneThumbsNav = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sliderVisible, setSliderVisible] = reactExports.useState(false);
+    const sliderRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const c = t.styleApi.applyStyle({
-        "--hvr-ui-id": o,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -44627,65 +45192,80 @@
           height: "100%"
         }
       });
-      return l(c), () => {
-        t.styleApi.removeStyle(c);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, o ]), reactExports.useLayoutEffect(() => {
-      const c = t.styleApi.applyStyle({
-        "--hvr-ui-id": o,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: s?.color,
-          "background-color": s?.background,
-          "border-radius": s?.borderRadius ? `${s.borderRadius}px` : void 0,
-          opacity: s?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return E(c), () => {
-        t.styleApi.removeStyle(c);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, o, n, s ]), reactExports.useEffect(() => {
-      const c = t.getControlContainer(), S = new p$3(c, t, o);
-      return S.setTheme(n), b.current = S, () => {
-        S.destroy(), b.current = null;
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const root = api.getControlContainer();
+      const slider = new SceneSlider(root, api, id);
+      slider.setTheme(style);
+      sliderRef.current = slider;
+      return () => {
+        slider.destroy();
+        sliderRef.current = null;
       };
-    }, [ t, o, i ]), reactExports.useEffect(() => {
-      const c = b.current;
-      if (!c) return;
-      t.sceneApi.getList().forEach(g => c.addScene(g));
-      const U = t.sceneApi.getActive();
-      U && c.setActiveScene(U.id);
-      const w = [];
-      return w.push(t.on("scene:add", ({sceneId: g}) => {
-        const G = t.sceneApi.get(g);
-        G && c.addScene(G);
-      })), w.push(t.on("scene:remove", ({sceneId: g}) => {
-        c.removeScene(g);
-      })), w.push(t.on("scene:show", ({sceneId: g}) => {
-        c.setActiveScene(g);
-      })), () => {
-        w.forEach(g => g());
+    }, [ api, id, slot ]);
+    reactExports.useEffect(() => {
+      const slider = sliderRef.current;
+      if (!slider) return;
+      const scenes = api.sceneApi.getList();
+      scenes.forEach(scene => slider.addScene(scene));
+      const activeScene = api.sceneApi.getActive();
+      if (activeScene) slider.setActiveScene(activeScene.id);
+      const cleanups = [];
+      cleanups.push(api.on("scene:add", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        if (scene) slider.addScene(scene);
+      }));
+      cleanups.push(api.on("scene:remove", ({sceneId: sceneId}) => {
+        slider.removeScene(sceneId);
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        slider.setActiveScene(sceneId);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), reactExports.useEffect(() => {
-      b.current?.setTheme(n);
-    }, [ n ]), reactExports.useEffect(() => {
-      b.current?.setVisible(v);
-    }, [ v ]);
-    const ot = () => N(c => !c);
+    }, [ api ]);
+    reactExports.useEffect(() => {
+      sliderRef.current?.setTheme(style);
+    }, [ style ]);
+    reactExports.useEffect(() => {
+      sliderRef.current?.setVisible(sliderVisible);
+    }, [ sliderVisible ]);
+    const toggleSlider = () => setSliderVisible(v => !v);
     return jsxRuntimeExports.jsx("div", {
-      className: ht$1("hvr-control", a, h, r),
+      className: clsx$7("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-expanded": v,
+        "aria-expanded": sliderVisible,
         "aria-label": "Show/hide scene thumbnails",
         title: "Show/hide scene thumbnails",
-        onClick: ot,
+        onClick: toggleSlider,
         children: jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -44710,34 +45290,41 @@
       })
     });
   };
-  function m$2(t) {
-    var e, r, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var a = t.length;
-      for (e = 0; e < a; e++) t[e] && (r = m$2(t[e])) && (o && (o += " "), o += r);
-    } else for (r in t) t[r] && (o && (o += " "), o += r);
-    return o;
+  function r$8(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$8(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function M$4() {
-    for (var t, e, r = 0, o = "", a = arguments.length; r < a; r++) (t = arguments[r]) && (e = m$2(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$6() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$8(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$3;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(d$3 || (d$3 = {}));
-  var y$4;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(y$4 || (y$4 = {}));
-  const B$4 = {
+  var ControlSlotType$7;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$7 || (ControlSlotType$7 = {}));
+  var ControlPropertyKind$7;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$7 || (ControlPropertyKind$7 = {}));
+  const meta$6 = {
     type: "MuteToggle",
     name: "Mute Toggle",
     description: "Globally mutes/unmutes all tour audio",
     createInitialProperties: () => ({
-      slot: d$3.BottomRight,
+      slot: ControlSlotType$7.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -44747,11 +45334,16 @@
         background: "#000"
       }
     })
-  }, R$3 = t => {
-    const {api: e, style: r, hoverStyle: o, className: a} = t, [l] = reactExports.useState(() => e.generateId()), [b, f] = reactExports.useState(""), [v, k] = reactExports.useState(""), [n, p] = reactExports.useState(false);
+  };
+  const MuteToggle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isMuted, setIsMuted] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const i = e.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -44769,48 +45361,54 @@
           }
         }
       });
-      return f(i), () => {
-        e.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, l ]), reactExports.useLayoutEffect(() => {
-      const i = e.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(i), () => {
-        e.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, l, r, o ]), reactExports.useEffect(() => {
-      const i = [];
-      return p(e.audioApi.isMuted()), i.push(e.on("audio:mute:change", ({isMuted: c}) => {
-        p(c);
-      })), () => {
-        i.forEach(c => c());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsMuted(api.audioApi.isMuted());
+      cleanups.push(api.on("audio:mute:change", ({isMuted: isMuted2}) => {
+        setIsMuted(isMuted2);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ e ]);
-    const x = () => {
-      e.audioApi.setMuted(!n);
+    }, [ api ]);
+    const toggleMute = () => {
+      api.audioApi.setMuted(!isMuted);
     };
     return jsxRuntimeExports.jsx("div", {
-      className: M$4("hvr-control", b, v, a),
+      className: clsx$6("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": n,
-        "aria-label": n ? "Unmute tour audio" : "Mute tour audio",
-        title: n ? "Unmute tour audio" : "Mute tour audio",
-        onClick: x,
-        children: n ? jsxRuntimeExports.jsxs("svg", {
+        "aria-pressed": isMuted,
+        "aria-label": isMuted ? "Unmute tour audio" : "Mute tour audio",
+        title: isMuted ? "Unmute tour audio" : "Mute tour audio",
+        onClick: toggleMute,
+        children: isMuted ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -44852,34 +45450,41 @@
       })
     });
   };
-  function v$3(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var l = e.length;
-      for (t = 0; t < l; t++) e[t] && (o = v$3(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$7(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$7(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function L$1() {
-    for (var e, t, o = 0, r = "", l = arguments.length; o < l; o++) (e = arguments[o]) && (t = v$3(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$5() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$7(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(d$2 || (d$2 = {}));
-  var f$3;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(f$3 || (f$3 = {}));
-  const F$1 = {
+  var ControlSlotType$6;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$6 || (ControlSlotType$6 = {}));
+  var ControlPropertyKind$6;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$6 || (ControlPropertyKind$6 = {}));
+  const meta$5 = {
     type: "FullscreenToggle",
     name: "Fullscreen Toggle",
     description: "Toggles fullscreen mode on/off",
     createInitialProperties: () => ({
-      slot: d$2.BottomRight,
+      slot: ControlSlotType$6.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -44889,11 +45494,16 @@
         background: "#000"
       }
     })
-  }, M$3 = e => {
-    const {api: t, style: o, hoverStyle: r, className: l} = e, [a] = reactExports.useState(() => t.generateId()), [b, m] = reactExports.useState(""), [y, k] = reactExports.useState(""), [c, p] = reactExports.useState(false);
+  };
+  const FullscreenToggle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isFullscreen, setIsFullscreen] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -44911,49 +45521,55 @@
           }
         }
       });
-      return m(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: o?.color,
-          "background-color": o?.background,
-          "backdrop-filter": o?.background ? "blur(4px)" : void 0,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: r?.color,
-          "background-color": r?.background,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, o, r ]), reactExports.useEffect(() => {
-      const i = [];
-      return p(t.viewportApi.isFullscreen()), i.push(t.on("viewport:fullscreen:change", ({isEnabled: u}) => {
-        p(u);
-      })), () => {
-        i.forEach(u => u());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsFullscreen(api.viewportApi.isFullscreen());
+      cleanups.push(api.on("viewport:fullscreen:change", ({isEnabled: isEnabled}) => {
+        setIsFullscreen(isEnabled);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]);
-    const w = () => {
-      t.viewportApi.toggleFullscreen();
+    }, [ api ]);
+    const toggleFullscreen = () => {
+      api.viewportApi.toggleFullscreen();
     };
     return jsxRuntimeExports.jsx("div", {
-      className: L$1("hvr-control", b, y, l),
+      className: clsx$5("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": c,
-        "aria-label": c ? "Exit fullscreen mode" : "Enter fullscreen mode",
+        "aria-pressed": isFullscreen,
+        "aria-label": isFullscreen ? "Exit fullscreen mode" : "Enter fullscreen mode",
         title: "Toggle fullscreen",
-        onClick: w,
-        children: c ? jsxRuntimeExports.jsxs("svg", {
+        onClick: toggleFullscreen,
+        children: isFullscreen ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -44995,34 +45611,41 @@
       })
     });
   };
-  function f$2(t) {
-    var o, r, e = "";
-    if (typeof t == "string" || typeof t == "number") e += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var i = t.length;
-      for (o = 0; o < i; o++) t[o] && (r = f$2(t[o])) && (e && (e += " "), e += r);
-    } else for (r in t) t[r] && (e && (e += " "), e += r);
-    return e;
+  function r$6(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$6(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function R$2() {
-    for (var t, o, r = 0, e = "", i = arguments.length; r < i; r++) (t = arguments[r]) && (o = f$2(t)) && (e && (e += " "), 
-    e += o);
-    return e;
+  function clsx$4() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$6(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var u$3;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(u$3 || (u$3 = {}));
-  var b$4;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(b$4 || (b$4 = {}));
-  const B$3 = {
+  var ControlSlotType$5;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$5 || (ControlSlotType$5 = {}));
+  var ControlPropertyKind$5;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$5 || (ControlPropertyKind$5 = {}));
+  const meta$4 = {
     type: "AutoRotateToggle",
     name: "Auto Rotate Toggle",
     description: "Toggles auto rotate mode on/off",
     createInitialProperties: () => ({
-      slot: u$3.BottomRight,
+      slot: ControlSlotType$5.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -45032,11 +45655,16 @@
         background: "#000"
       }
     })
-  }, E$1 = t => {
-    const {api: o, style: r, hoverStyle: e, className: i} = t, [n] = reactExports.useState(() => o.generateId()), [v, y] = reactExports.useState(""), [m, k] = reactExports.useState(""), [l, p] = reactExports.useState(false);
+  };
+  const AutoRotateToggle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isEnabled, setIsEnabled] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": n,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -45054,53 +45682,59 @@
           }
         }
       });
-      return y(s), () => {
-        o.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, n ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": n,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: e?.color,
-          "background-color": e?.background,
-          "border-radius": e?.borderRadius ? `${e.borderRadius}px` : void 0,
-          opacity: e?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(s), () => {
-        o.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, n, r, e ]), reactExports.useEffect(() => {
-      const s = [];
-      return p(o.viewportApi.getOptions().autoRotate?.enabled ?? false), s.push(o.on("viewport:autorotate:change", ({isEnabled: d}) => {
-        p(d);
-      })), () => {
-        s.forEach(d => d());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsEnabled(api.viewportApi.getOptions().autoRotate?.enabled ?? false);
+      cleanups.push(api.on("viewport:autorotate:change", ({isEnabled: isEnabled2}) => {
+        setIsEnabled(isEnabled2);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ o ]);
-    const w = () => {
-      o.viewportApi.setOptions({
+    }, [ api ]);
+    const toggleAutoRotate = () => {
+      api.viewportApi.setOptions({
         autoRotate: {
-          enabled: !l
+          enabled: !isEnabled
         }
       });
     };
     return jsxRuntimeExports.jsx("div", {
-      className: R$2("hvr-control", v, m, i),
+      className: clsx$4("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": l,
-        "aria-label": l ? "Disable auto rotate" : "Enable auto rotate",
+        "aria-pressed": isEnabled,
+        "aria-label": isEnabled ? "Disable auto rotate" : "Enable auto rotate",
         title: "Toggle auto rotate",
-        onClick: w,
-        children: l ? jsxRuntimeExports.jsxs("svg", {
+        onClick: toggleAutoRotate,
+        children: isEnabled ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -45146,130 +45780,155 @@
       })
     });
   };
-  function v$2(r) {
-    var o, t, e = "";
-    if (typeof r == "string" || typeof r == "number") e += r; else if (typeof r == "object") if (Array.isArray(r)) {
-      var i = r.length;
-      for (o = 0; o < i; o++) r[o] && (t = v$2(r[o])) && (e && (e += " "), e += t);
-    } else for (t in r) r[t] && (e && (e += " "), e += t);
-    return e;
+  function r$5(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$5(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function b$3() {
-    for (var r, o, t = 0, e = "", i = arguments.length; t < i; t++) (r = arguments[t]) && (o = v$2(r)) && (e && (e += " "), 
-    e += o);
-    return e;
+  function clsx$3() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$5(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var g$2;
-  (function(r) {
-    r.TopLeft = "tl", r.Top = "t", r.TopRight = "tr", r.Left = "l", r.Right = "r", r.BottomLeft = "bl", 
-    r.Bottom = "b", r.BottomRight = "br";
-  })(g$2 || (g$2 = {}));
-  var u$2;
-  (function(r) {
-    r.Image = "image", r.Link = "link";
-  })(u$2 || (u$2 = {}));
-  const R$1 = {
+  var ControlSlotType$4;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$4 || (ControlSlotType$4 = {}));
+  var ControlPropertyKind$4;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$4 || (ControlPropertyKind$4 = {}));
+  const meta$3 = {
     type: "VirtualTourLogo",
     name: "Virtual Tour Logo",
     description: "Displays a logo for the virtual tour",
-    editableProperties: [ u$2.Image, u$2.Link ],
+    editableProperties: [ ControlPropertyKind$4.Image, ControlPropertyKind$4.Link ],
     createInitialProperties: () => ({
-      slot: g$2.TopLeft,
+      slot: ControlSlotType$4.TopLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, w$4 = r => {
-    const {api: o, style: t, hoverStyle: e, className: i, image: n, link: a} = r, [l] = reactExports.useState(() => o.generateId()), [m, h] = reactExports.useState(""), [f, k] = reactExports.useState(""), [L, N] = reactExports.useState("");
-    if (reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+  };
+  const VirtualTourLogo = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className, image: image, link: link} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, opacity .3s ease",
         padding: "10px",
         "user-select": "none"
       });
-      return h(s), () => {
-        o.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
-        color: t?.color,
-        "background-color": t?.background,
-        "backdrop-filter": t?.background ? "blur(4px)" : void 0,
-        "border-radius": t?.borderRadius ? `${t.borderRadius}px` : void 0,
-        opacity: t?.opacity,
-        cursor: a ? "pointer" : "default",
-        "pointer-events": a ? "all" : "none",
-        "&:hover": a ? {
-          color: e?.color,
-          "background-color": e?.background,
-          "border-radius": e?.borderRadius ? `${e.borderRadius}px` : void 0,
-          opacity: e?.opacity
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
+        cursor: link ? "pointer" : "default",
+        "pointer-events": link ? "all" : "none",
+        "&:hover": link ? {
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         } : void 0
       });
-      return k(s), () => {
-        o.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l, t, e, a ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+    }, [ api, id, style, hoverStyle, link ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "block",
-        width: n?.size ? `${n.size}px` : "auto",
+        width: image?.size ? `${image.size}px` : "auto",
         height: "auto",
         "-webkit-user-drag": "none"
       });
-      return N(s), () => {
-        o.styleApi.removeStyle(s);
+      setImageClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l, n ]), !n?.url) return null;
-    const y = jsxRuntimeExports.jsx("img", {
-      className: L,
-      src: n.url,
+    }, [ api, id, image ]);
+    if (!image?.url) return null;
+    const img = jsxRuntimeExports.jsx("img", {
+      className: imageClassName,
+      src: image.url,
       alt: "Logo",
       draggable: false
     });
-    return a?.url ? jsxRuntimeExports.jsx("a", {
-      className: b$3("hvr-control", m, f, i),
-      href: a.url,
-      target: a.newWindow ? "_blank" : "_self",
-      rel: a.newWindow ? "noopener noreferrer" : void 0,
-      children: y
+    return link?.url ? jsxRuntimeExports.jsx("a", {
+      className: clsx$3("hvr-control", baseClassName, styleClassName, className),
+      href: link.url,
+      target: link.newWindow ? "_blank" : "_self",
+      rel: link.newWindow ? "noopener noreferrer" : void 0,
+      children: img
     }) : jsxRuntimeExports.jsx("div", {
-      className: b$3("hvr-control", m, f, i),
-      children: y
+      className: clsx$3("hvr-control", baseClassName, styleClassName, className),
+      children: img
     });
   };
-  function w$3(t) {
-    var e, n, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var s = t.length;
-      for (e = 0; e < s; e++) t[e] && (n = w$3(t[e])) && (o && (o += " "), o += n);
-    } else for (n in t) t[n] && (o && (o += " "), o += n);
-    return o;
+  function r$4(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$4(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function I$1() {
-    for (var t, e, n = 0, o = "", s = arguments.length; n < s; n++) (t = arguments[n]) && (e = w$3(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$2() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$4(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var h$3;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(h$3 || (h$3 = {}));
-  var b$2;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(b$2 || (b$2 = {}));
-  const D$1 = {
+  var ControlSlotType$3;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$3 || (ControlSlotType$3 = {}));
+  var ControlPropertyKind$3;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$3 || (ControlPropertyKind$3 = {}));
+  const meta$2 = {
     type: "ZoomControls",
     name: "Zoom Controls",
     description: "Zoom scene in/out while holding the button",
     createInitialProperties: () => ({
-      slot: h$3.BottomRight,
+      slot: ControlSlotType$3.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -45279,11 +45938,18 @@
         background: "#000"
       }
     })
-  }, P$2 = 250, y$3 = 30, M$2 = t => {
-    const {api: e, style: n, hoverStyle: o, className: s} = t, [c] = reactExports.useState(() => e.generateId()), [k, x] = reactExports.useState(""), [L, R] = reactExports.useState(""), u = reactExports.useRef(null);
+  };
+  const HOLD_DELAY = 250;
+  const TICK_MS = 30;
+  const ZoomControls = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const holdRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": c,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "flex",
         "flex-direction": "row",
         gap: "5px",
@@ -45304,62 +45970,77 @@
           }
         }
       });
-      return x(r), () => {
-        e.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, c ]), reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": c,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return R(r), () => {
-        e.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, c, n, o ]), reactExports.useEffect(() => () => a(), []);
-    const m = r => {
-      if (!e.viewportApi.getViewpoint()) return;
-      const i = e.viewportApi.getOptions().zoom?.step ?? .1, d = Math.exp(-r * i * 6 * (y$3 / 1e3));
-      e.viewportApi.zoomBy({
-        factor: d
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => () => stopZoom(), []);
+    const applyZoomStep = dir => {
+      if (!api.viewportApi.getViewpoint()) return;
+      const step = api.viewportApi.getOptions().zoom?.step ?? .1;
+      const k = Math.exp(-dir * step * 6 * (TICK_MS / 1e3));
+      void api.viewportApi.zoomBy({
+        factor: k
       });
-    }, A = (r, i) => {
-      r.preventDefault(), r.currentTarget.setPointerCapture(r.pointerId), a(), m(i), u.current = {
+    };
+    const handlePointerDown = (e, dir) => {
+      e.preventDefault();
+      e.currentTarget.setPointerCapture(e.pointerId);
+      stopZoom();
+      applyZoomStep(dir);
+      holdRef.current = {
         timeout: window.setTimeout(() => {
-          u.current = {
+          holdRef.current = {
             timeout: 0,
-            interval: window.setInterval(() => m(i), y$3)
+            interval: window.setInterval(() => applyZoomStep(dir), TICK_MS)
           };
-        }, P$2),
+        }, HOLD_DELAY),
         interval: 0
       };
-    }, a = () => {
-      const r = u.current;
-      u.current = null, r && (r.timeout && clearTimeout(r.timeout), r.interval && clearInterval(r.interval));
-    }, f = (r, i, d) => jsxRuntimeExports.jsx("button", {
+    };
+    const stopZoom = () => {
+      const hold = holdRef.current;
+      holdRef.current = null;
+      if (!hold) return;
+      if (hold.timeout) clearTimeout(hold.timeout);
+      if (hold.interval) clearInterval(hold.interval);
+    };
+    const zoomButton = (dir, label, icon) => jsxRuntimeExports.jsx("button", {
       type: "button",
-      "aria-label": i,
-      title: i,
-      onPointerDown: B => A(B, r),
-      onPointerUp: a,
-      onPointerCancel: a,
-      onLostPointerCapture: a,
-      children: d
+      "aria-label": label,
+      title: label,
+      onPointerDown: e => handlePointerDown(e, dir),
+      onPointerUp: stopZoom,
+      onPointerCancel: stopZoom,
+      onLostPointerCapture: stopZoom,
+      children: icon
     });
     return jsxRuntimeExports.jsxs("div", {
-      className: I$1("hvr-control", k, L, s),
-      children: [ f(1, "Zoom out", jsxRuntimeExports.jsx("svg", {
+      className: clsx$2("hvr-control", baseClassName, styleClassName, className),
+      children: [ zoomButton(1, "Zoom out", jsxRuntimeExports.jsx("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "24",
         height: "24",
@@ -45372,7 +46053,7 @@
         children: jsxRuntimeExports.jsx("path", {
           d: "M5 12h14"
         })
-      })), f(-1, "Zoom in", jsxRuntimeExports.jsxs("svg", {
+      })), zoomButton(-1, "Zoom in", jsxRuntimeExports.jsxs("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "24",
         height: "24",
@@ -45390,35 +46071,42 @@
       })) ]
     });
   };
-  function B$2(t) {
-    var e, s, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var u = t.length;
-      for (e = 0; e < u; e++) t[e] && (s = B$2(t[e])) && (o && (o += " "), o += s);
-    } else for (s in t) t[s] && (o && (o += " "), o += s);
-    return o;
+  function r$3(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$3(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function P$1() {
-    for (var t, e, s = 0, o = "", u = arguments.length; s < u; s++) (t = arguments[s]) && (e = B$2(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$1() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$3(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var w$2;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(w$2 || (w$2 = {}));
-  var k$1;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(k$1 || (k$1 = {}));
-  const _$1 = {
+  var ControlSlotType$2;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$2 || (ControlSlotType$2 = {}));
+  var ControlPropertyKind$2;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$2 || (ControlPropertyKind$2 = {}));
+  const meta$1 = {
     type: "Compass",
     name: "Compass",
     description: "Shows where north is (scene northOffset, 0 if not set); click to look at north",
-    editableProperties: [ k$1.Image ],
+    editableProperties: [ ControlPropertyKind$2.Image ],
     createInitialProperties: () => ({
-      slot: w$2.TopRight,
+      slot: ControlSlotType$2.TopRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -45428,28 +46116,49 @@
         background: "#000"
       }
     })
-  }, V$1 = {
+  };
+  const needleSvgStyle = {
     transformBox: "view-box",
     transformOrigin: "center"
-  }, C$1 = 600, U$1 = t => {
-    const {api: e, style: s, hoverStyle: o, className: u, image: p} = t, [a] = reactExports.useState(() => e.generateId()), [E, I] = reactExports.useState(""), [$, M] = reactExports.useState(""), [j, x] = reactExports.useState(""), h = !!p?.url, g = reactExports.useRef(0), R = reactExports.useRef(0), m = reactExports.useRef(0), A = reactExports.useRef(0), L = reactExports.useRef(null), y = (r, c = false) => {
-      R.current = r;
-      const n = L.current;
-      if (!n) return;
-      let i = (g.current - r - m.current) % 360;
-      i > 180 && (i -= 360), i < -180 && (i += 360), m.current += i;
-      const O = c || performance.now() < A.current;
-      c && (A.current = performance.now() + C$1), n.style.transition = O ? `transform ${C$1}ms ease` : "none", 
-      n.style.transform = `rotate(${m.current}deg)`;
-    }, N = r => {
-      L.current = r, r && y(R.current);
-    }, b = (r, c) => {
-      const n = r ? e.sceneApi.get(r) : void 0;
-      g.current = n?.northOffset ?? 0, y(c, true);
+  };
+  const NEEDLE_ANIM_MS = 600;
+  const Compass = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className, image: image} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    const hasImage = !!image?.url;
+    const northDegRef = reactExports.useRef(0);
+    const yawDegRef = reactExports.useRef(0);
+    const needleDegRef = reactExports.useRef(0);
+    const animateUntilRef = reactExports.useRef(0);
+    const needleRef = reactExports.useRef(null);
+    const applyRotation = (yawDeg, animate = false) => {
+      yawDegRef.current = yawDeg;
+      const el = needleRef.current;
+      if (!el) return;
+      let delta = (northDegRef.current - yawDeg - needleDegRef.current) % 360;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      needleDegRef.current += delta;
+      const smooth = animate || performance.now() < animateUntilRef.current;
+      if (animate) animateUntilRef.current = performance.now() + NEEDLE_ANIM_MS;
+      el.style.transition = smooth ? `transform ${NEEDLE_ANIM_MS}ms ease` : "none";
+      el.style.transform = `rotate(${needleDegRef.current}deg)`;
+    };
+    const setNeedleRef = el => {
+      needleRef.current = el;
+      if (el) applyRotation(yawDegRef.current);
+    };
+    const applyScene = (sceneId, yawDeg) => {
+      const scene = sceneId ? api.sceneApi.get(sceneId) : void 0;
+      northDegRef.current = scene?.northOffset ?? 0;
+      applyRotation(yawDeg, true);
     };
     reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -45467,36 +46176,40 @@
           }
         }
       });
-      return I(r), () => {
-        e.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, a ]), reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: s?.color,
-          "background-color": s?.background,
-          "backdrop-filter": s?.background ? "blur(4px)" : void 0,
-          "border-radius": s?.borderRadius != null ? `${s.borderRadius}px` : void 0,
-          opacity: s?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius != null ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return M(r), () => {
-        e.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, a, s, o ]), reactExports.useLayoutEffect(() => {
-      if (!h) {
-        x("");
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      if (!hasImage) {
+        setImageClassName("");
         return;
       }
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
           width: "auto",
           height: "auto",
@@ -45504,42 +46217,44 @@
         },
         "& img": {
           display: "block",
-          width: p?.size ? `${p.size}px` : "auto",
+          width: image?.size ? `${image.size}px` : "auto",
           height: "auto",
           "-webkit-user-drag": "none",
           "transform-box": "fill-box",
           "transform-origin": "center"
         }
       });
-      return x(r), () => {
-        e.styleApi.removeStyle(r);
-      };
-    }, [ e, a, p, h ]), reactExports.useEffect(() => {
-      const r = e.sceneApi.getActive();
-      b(r?.id ?? "", e.viewportApi.getViewpoint()?.yaw ?? 0);
-      const c = [ e.on("scene:show:start", ({sceneId: n, viewpoint: i}) => b(n, i.yaw ?? 0)), e.on("scene:show", ({sceneId: n}) => b(n, e.viewportApi.getViewpoint()?.yaw ?? 0)), e.on("viewport:view:change", ({viewpoint: n}) => y(n.yaw ?? 0)) ];
+      setImageClassName(cls);
       return () => {
-        c.forEach(n => n());
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e ]);
-    const D = () => {
-      e.viewportApi.lookAt({
+    }, [ api, id, image, hasImage ]);
+    reactExports.useEffect(() => {
+      const active = api.sceneApi.getActive();
+      applyScene(active?.id ?? "", api.viewportApi.getViewpoint()?.yaw ?? 0);
+      const offs = [ api.on("scene:show:start", ({sceneId: sceneId, viewpoint: viewpoint}) => applyScene(sceneId, viewpoint.yaw ?? 0)), api.on("scene:show", ({sceneId: sceneId}) => applyScene(sceneId, api.viewportApi.getViewpoint()?.yaw ?? 0)), api.on("viewport:view:change", ({viewpoint: viewpoint}) => applyRotation(viewpoint.yaw ?? 0)) ];
+      return () => {
+        offs.forEach(off => off());
+      };
+    }, [ api ]);
+    const lookNorth = () => {
+      void api.viewportApi.lookAt({
         viewpoint: {
-          yaw: g.current
+          yaw: northDegRef.current
         },
         duration: 1e3
       });
     };
     return jsxRuntimeExports.jsx("div", {
-      className: P$1("hvr-control", E, $, j, u),
+      className: clsx$1("hvr-control", baseClassName, styleClassName, imageClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
         "aria-label": "Look at north",
         title: "Look at north",
-        onClick: D,
-        children: h ? jsxRuntimeExports.jsx("img", {
-          ref: N,
-          src: p?.url,
+        onClick: lookNorth,
+        children: hasImage ? jsxRuntimeExports.jsx("img", {
+          ref: setNeedleRef,
+          src: image?.url,
           alt: "Compass",
           draggable: false
         }) : jsxRuntimeExports.jsxs("svg", {
@@ -45555,8 +46270,8 @@
             stroke: "currentColor",
             strokeWidth: "2"
           }), jsxRuntimeExports.jsxs("g", {
-            ref: N,
-            style: V$1,
+            ref: setNeedleRef,
+            style: needleSvgStyle,
             children: [ jsxRuntimeExports.jsx("path", {
               d: "M12 3.5 L14.3 12 L9.7 12 Z",
               fill: "currentColor"
@@ -45571,33 +46286,40 @@
       })
     });
   };
-  function y$2(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var a = e.length;
-      for (t = 0; t < a; t++) e[t] && (o = y$2(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$2(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$2(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function B$1() {
-    for (var e, t, o = 0, r = "", a = arguments.length; o < a; o++) (e = arguments[o]) && (t = y$2(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$2(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var h$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(h$2 || (h$2 = {}));
-  var p$2;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(p$2 || (p$2 = {}));
-  const $$2 = {
+  var ControlSlotType$1;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$1 || (ControlSlotType$1 = {}));
+  var ControlPropertyKind$1;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$1 || (ControlPropertyKind$1 = {}));
+  const meta$c = {
     type: "LoadingIndicator",
     name: "Loading Indicator",
     description: "Spinner shown while tour resources (tiles/textures) are loading",
-    editableProperties: [ p$2.Image ],
+    editableProperties: [ ControlPropertyKind$1.Image ],
     createInitialProperties: () => ({
       style: {
         color: "#fff",
@@ -45605,18 +46327,26 @@
         borderRadius: 4
       }
     })
-  }, z$1 = e => {
-    const {api: t, slot: o, style: r, hoverStyle: a, className: b, image: n} = e, [s] = reactExports.useState(() => t.generateId()), [v, k] = reactExports.useState(""), [w, x] = reactExports.useState(""), [L, f] = reactExports.useState(""), [u, I] = reactExports.useState(() => t.isLoading()), m = reactExports.useRef(null), g = !!n?.url;
-    return reactExports.useEffect(() => t.on("virtualtour:loading", ({isLoading: i}) => I(i)), [ t ]), 
+  };
+  const LoadingIndicator = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className, image: image} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    const [isLoading, setIsLoading] = reactExports.useState(() => api.isLoading());
+    const spinnerRef = reactExports.useRef(null);
+    const hasImage = !!image?.url;
+    reactExports.useEffect(() => api.on("virtualtour:loading", ({isLoading: isLoading2}) => setIsLoading(isLoading2)), [ api ]);
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         width: "1lh",
         height: "1lh",
         padding: "5px",
         "pointer-events": "none",
-        ...!o && {
+        ...!slot && {
           position: "absolute",
           top: "50%",
           left: "50%",
@@ -45628,66 +46358,74 @@
           height: "100%"
         }
       });
-      return k(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, o, r ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
-        color: r?.color,
-        "background-color": r?.background,
-        "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-        "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-        opacity: r?.opacity,
+    }, [ api, id, slot, style ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: a?.color,
-          "background-color": a?.background,
-          "border-radius": a?.borderRadius ? `${a.borderRadius}px` : void 0,
-          opacity: a?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return x(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, r, a ]), reactExports.useLayoutEffect(() => {
-      if (!g) {
-        f("");
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      if (!hasImage) {
+        setImageClassName("");
         return;
       }
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         width: "auto",
         height: "auto",
         padding: "10px",
         "& img": {
           display: "block",
-          width: n?.size ? `${n.size}px` : "auto",
+          width: image?.size ? `${image.size}px` : "auto",
           height: "auto",
           "-webkit-user-drag": "none"
         }
       });
-      return f(i), () => {
-        t.styleApi.removeStyle(i);
+      setImageClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, n, g ]), reactExports.useLayoutEffect(() => {
-      const i = m.current;
-      if (!i || !u) return;
-      const R = i.animate([ {
+    }, [ api, id, image, hasImage ]);
+    reactExports.useLayoutEffect(() => {
+      const el = spinnerRef.current;
+      if (!el || !isLoading) return;
+      const anim = el.animate([ {
         transform: "rotate(0deg)"
       }, {
         transform: "rotate(360deg)"
       } ], {
         duration: 900,
-        iterations: 1 / 0,
+        iterations: Infinity,
         easing: "linear"
       });
-      return () => R.cancel();
-    }, [ u ]), u ? jsxRuntimeExports.jsx("div", {
-      className: B$1("hvr-control", v, w, L, b),
+      return () => anim.cancel();
+    }, [ isLoading ]);
+    if (!isLoading) return null;
+    return jsxRuntimeExports.jsx("div", {
+      className: clsx("hvr-control", baseClassName, styleClassName, imageClassName, className),
       children: jsxRuntimeExports.jsx("div", {
-        ref: m,
-        children: g ? jsxRuntimeExports.jsx("img", {
-          src: n?.url,
+        ref: spinnerRef,
+        children: hasImage ? jsxRuntimeExports.jsx("img", {
+          src: image?.url,
           alt: "Spinner",
           draggable: false
         }) : jsxRuntimeExports.jsx("svg", {
@@ -45705,7 +46443,7 @@
           })
         })
       })
-    }) : null;
+    });
   };
   var ControlWidgetType;
   (function(ControlWidgetType) {
@@ -45723,57 +46461,57 @@
     ControlWidgetType["LoadingIndicator"] = "LoadingIndicator";
   })(ControlWidgetType || (ControlWidgetType = {}));
   const controlWidgetRegistry = {
-    [N$4.type]: {
-      component: S$3,
-      meta: N$4
+    [meta$b.type]: {
+      component: SceneTitle,
+      meta: meta$b
     },
-    [w$5.type]: {
-      component: B$7,
-      meta: w$5
+    [meta$a.type]: {
+      component: SceneCounter,
+      meta: meta$a
     },
-    [N$3.type]: {
-      component: A$3,
-      meta: N$3
+    [meta$9.type]: {
+      component: SceneNav,
+      meta: meta$9
     },
-    [gt$2.type]: {
-      component: vt$2,
-      meta: gt$2
+    [meta$8.type]: {
+      component: SceneListNav,
+      meta: meta$8
     },
-    [St$1.type]: {
-      component: wt$1,
-      meta: St$1,
+    [meta$7.type]: {
+      component: SceneThumbsNav,
+      meta: meta$7,
       pro: true
     },
-    [B$4.type]: {
-      component: R$3,
-      meta: B$4
+    [meta$6.type]: {
+      component: MuteToggle,
+      meta: meta$6
     },
-    [F$1.type]: {
-      component: M$3,
-      meta: F$1
+    [meta$5.type]: {
+      component: FullscreenToggle,
+      meta: meta$5
     },
-    [B$3.type]: {
-      component: E$1,
-      meta: B$3,
+    [meta$4.type]: {
+      component: AutoRotateToggle,
+      meta: meta$4,
       pro: true
     },
-    [R$1.type]: {
-      component: w$4,
-      meta: R$1,
+    [meta$3.type]: {
+      component: VirtualTourLogo,
+      meta: meta$3,
       pro: true
     },
-    [D$1.type]: {
-      component: M$2,
-      meta: D$1
+    [meta$2.type]: {
+      component: ZoomControls,
+      meta: meta$2
     },
-    [_$1.type]: {
-      component: U$1,
-      meta: _$1,
+    [meta$1.type]: {
+      component: Compass,
+      meta: meta$1,
       pro: true
     },
-    [$$2.type]: {
-      component: z$1,
-      meta: $$2
+    [meta$c.type]: {
+      component: LoadingIndicator,
+      meta: meta$c
     }
   };
   const getControlWidgetByType = type => controlWidgetRegistry[type];
@@ -65834,18 +66572,18 @@
     const getCurrentCache = t => [ c, !!t, r ];
     return [ n ? cacheUpdateIsolated : cacheUpdateContextual, getCurrentCache ];
   };
-  const t$1$1 = typeof window !== "undefined" && typeof HTMLElement !== "undefined" && !!window.document;
-  const n$1$1 = t$1$1 ? window : {};
-  const o$1$1 = Math.max;
+  const t$1$3 = typeof window !== "undefined" && typeof HTMLElement !== "undefined" && !!window.document;
+  const n$1$2 = t$1$3 ? window : {};
+  const o$1$3 = Math.max;
   const s$1 = Math.min;
-  const e$1$1 = Math.round;
+  const e$1$2 = Math.round;
   const c$1 = Math.abs;
-  const r$1$1 = Math.sign;
-  const i$1$1 = n$1$1.cancelAnimationFrame;
-  const l$1$1 = n$1$1.requestAnimationFrame;
-  const a$1 = n$1$1.setTimeout;
-  const u$1 = n$1$1.clearTimeout;
-  const getApi = t => typeof n$1$1[t] !== "undefined" ? n$1$1[t] : void 0;
+  const r$1$3 = Math.sign;
+  const i$1$2 = n$1$2.cancelAnimationFrame;
+  const l$1$1 = n$1$2.requestAnimationFrame;
+  const a$1 = n$1$2.setTimeout;
+  const u$1 = n$1$2.clearTimeout;
+  const getApi = t => typeof n$1$2[t] !== "undefined" ? n$1$2[t] : void 0;
   const f$1 = getApi("MutationObserver");
   const _ = getApi("IntersectionObserver");
   const d$1 = getApi("ResizeObserver");
@@ -65913,7 +66651,7 @@
   const S = "marginBottom";
   const m$1 = "overflowX";
   const O = "overflowY";
-  const C$4 = "width";
+  const C$1 = "width";
   const $$1 = "height";
   const x$1 = "visible";
   const H$1 = "hidden";
@@ -65943,7 +66681,7 @@
   const selfClearTimeout = t => {
     let n;
     const o = t ? a$1 : l$1$1;
-    const s = t ? u$1 : i$1$1;
+    const s = t ? u$1 : i$1$2;
     return [ e => {
       s(n);
       n = o(() => e(), isFunction$3(t) ? t() : t);
@@ -65953,7 +66691,7 @@
     const n = isFunction$3(t) ? t() : t;
     if (isNumber(n)) {
       const t = n ? a$1 : l$1$1;
-      const o = n ? u$1 : i$1$1;
+      const o = n ? u$1 : i$1$2;
       return s => {
         const e = t(() => s(), n);
         return () => {
@@ -66054,7 +66792,7 @@
   });
   const isEmptyObject = t => !keys$1(t).length;
   const noop$2 = () => {};
-  const capNumber = (t, n, e) => o$1$1(t, s$1(n, e));
+  const capNumber = (t, n, e) => o$1$3(t, s$1(n, e));
   const getDomTokensArray = t => deduplicateArray((isArray(t) ? t : (t || "").split(" ")).filter(t => t));
   const getAttr = (t, n) => t && t.getAttribute(n);
   const hasAttr = (t, n) => t && t.hasAttribute(n);
@@ -66180,7 +66918,7 @@
     const e = isString(o);
     let c = e ? "" : {};
     if (t) {
-      const r = n$1$1.getComputedStyle(t, s) || t.style;
+      const r = n$1$2.getComputedStyle(t, s) || t.style;
       c = e ? getCSSVal(r, o) : from(o).reduce((t, n) => {
         t[n] = getCSSVal(r, n);
         return t;
@@ -66213,21 +66951,21 @@
     w: n[`${t}Width`],
     h: n[`${t}Height`]
   } : z;
-  const getWindowSize = t => getElmWidthHeightProperty("inner", t || n$1$1);
+  const getWindowSize = t => getElmWidthHeightProperty("inner", t || n$1$2);
   const I = bind(getElmWidthHeightProperty, "offset");
   const A = bind(getElmWidthHeightProperty, "client");
   const T = bind(getElmWidthHeightProperty, "scroll");
   const getFractionalSize = t => {
-    const n = parseFloat(getStyles(t, C$4)) || 0;
+    const n = parseFloat(getStyles(t, C$1)) || 0;
     const o = parseFloat(getStyles(t, $$1)) || 0;
     return {
-      w: n - e$1$1(n),
-      h: o - e$1$1(o)
+      w: n - e$1$2(n),
+      h: o - e$1$2(o)
     };
   };
   const getBoundingClientRect = t => t.getBoundingClientRect();
   const hasDimensions = t => !!t && elementHasDimensions(t);
-  const domRectHasDimensions = t => !!(t && (t[$$1] || t[C$4]));
+  const domRectHasDimensions = t => !!(t && (t[$$1] || t[C$1]));
   const domRectAppeared = (t, n) => {
     const o = domRectHasDimensions(t);
     const s = domRectHasDimensions(n);
@@ -66291,8 +67029,8 @@
     const {T: o, k: s} = t;
     const {w: e, h: i} = n;
     const sanitizeAxis = (t, n, o) => {
-      let s = r$1$1(t) * o;
-      let e = r$1$1(n) * o;
+      let s = r$1$3(t) * o;
+      let e = r$1$3(n) * o;
       if (s === e) {
         const o = c$1(t);
         const r = c$1(n);
@@ -66434,7 +67172,7 @@
   const ot = `${nt}-appear`;
   const st = `${nt}-listener`;
   const it = "os-trinsic-observer";
-  const lt$2 = "os-theme-none";
+  const lt$1 = "os-theme-none";
   const at = "os-scrollbar";
   const ut = `${at}-rtl`;
   const ft = `${at}-horizontal`;
@@ -66625,12 +67363,12 @@
     };
     removeAttrs(s, "style");
     removeElements(s);
-    addEventListener(n$1$1, "resize", () => {
+    addEventListener(n$1$2, "resize", () => {
       l("r", []);
     });
-    if (isFunction$3(n$1$1.matchMedia) && !_ && (!d.x || !d.y)) {
+    if (isFunction$3(n$1$2.matchMedia) && !_ && (!d.x || !d.y)) {
       const addZoomListener = t => {
-        const o = n$1$1.matchMedia(`(resolution: ${n$1$1.devicePixelRatio}dppx)`);
+        const o = n$1$2.matchMedia(`(resolution: ${n$1$2.devicePixelRatio}dppx)`);
         addEventListener(o, "change", () => {
           t();
           addZoomListener(t);
@@ -67356,7 +68094,7 @@
     const createInteractiveScrollEvents = () => {
       const n = "pointerup pointercancel lostpointercapture";
       const r = `client${u ? "X" : "Y"}`;
-      const i = u ? C$4 : $$1;
+      const i = u ? C$1 : $$1;
       const l = u ? "left" : "top";
       const a = u ? "w" : "h";
       const f = u ? "x" : "y";
@@ -67376,7 +68114,7 @@
           const w = bind(getBoundingClientRect, y);
           const C = bind(getBoundingClientRect, b);
           const getHandleOffset = (t, n) => (t || w())[l] - (n || C())[l];
-          const $ = e$1$1(getBoundingClientRect(p)[i]) / I(p)[a] || 1;
+          const $ = e$1$2(getBoundingClientRect(p)[i]) / I(p)[a] || 1;
           const x = getElementScroll(p)[f];
           const scrollRelative = t => {
             scrollElementTo(p, {
@@ -67602,7 +68340,7 @@
       };
       d = F;
       if ($ || nt) {
-        z(lt$2, ot);
+        z(lt$1, ot);
       }
       if (V) {
         z(f);
@@ -67668,7 +68406,7 @@
     const g = isBodyElement(v);
     const h = v.ownerDocument;
     const b = h.documentElement;
-    const getDocumentWindow = () => h.defaultView || n$1$1;
+    const getDocumentWindow = () => h.defaultView || n$1$2;
     const y = bind(staticInitializationElement, [ v ]);
     const w = bind(dynamicInitializationElement, [ v ]);
     const S = bind(createDiv, "");
@@ -67828,7 +68566,7 @@
           top: t ? -u.t : 0,
           right: t ? O ? -u.r : "auto" : 0,
           left: t ? O ? "auto" : -u.l : 0,
-          [C$4]: t && `calc(100% + ${s}px)`
+          [C$1]: t && `calc(100% + ${s}px)`
         };
         const i = {
           [v$1]: t ? u.t : 0,
@@ -67854,7 +68592,7 @@
     const {vt: r, ln: i, L: a, V: u, Qt: f, gt: _, bt: d, wt: p, un: v} = t;
     const {P: g} = e;
     const h = d && u;
-    const b = bind(o$1$1, 0);
+    const b = bind(o$1$3, 0);
     const y = {
       display: () => false,
       direction: t => t !== "ltr",
@@ -67944,7 +68682,7 @@
       };
     };
     const getOverflowAmount = (t, o) => {
-      const s = n$1$1.devicePixelRatio % 1 !== 0 ? 1 : 0;
+      const s = n$1$2.devicePixelRatio % 1 !== 0 ? 1 : 0;
       const e = {
         w: b(t.w - o.w),
         h: b(t.h - o.h)
@@ -68418,33 +69156,33 @@
   };
   OverlayScrollbars.nonce = setNonce;
   OverlayScrollbars.trustedTypePolicy = setTrustedTypePolicy;
-  var r$2 = {
+  var r$e = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, t$3 = function(r) {
+  }, t$5 = function(r) {
     return "string" == typeof r ? r.length > 0 : "number" == typeof r;
-  }, n$3 = function(r, t, n) {
+  }, n$4 = function(r, t, n) {
     return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
-  }, e$3 = function(r, t, n) {
+  }, e$4 = function(r, t, n) {
     return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
-  }, u$7 = function(r) {
+  }, u$4 = function(r) {
     return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
-  }, a$2 = function(r) {
+  }, a$4 = function(r) {
     return {
-      r: e$3(r.r, 0, 255),
-      g: e$3(r.g, 0, 255),
-      b: e$3(r.b, 0, 255),
-      a: e$3(r.a)
+      r: e$4(r.r, 0, 255),
+      g: e$4(r.g, 0, 255),
+      b: e$4(r.b, 0, 255),
+      a: e$4(r.a)
     };
-  }, o$3 = function(r) {
+  }, o$5 = function(r) {
     return {
-      r: n$3(r.r),
-      g: n$3(r.g),
-      b: n$3(r.b),
-      a: n$3(r.a, 3)
+      r: n$4(r.r),
+      g: n$4(r.g),
+      b: n$4(r.b),
+      a: n$4(r.a, 3)
     };
-  }, i$2 = /^#([0-9a-f]{3,8})$/i, s$2 = function(r) {
+  }, i$4 = /^#([0-9a-f]{3,8})$/i, s$4 = function(r) {
     var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
   }, h$4 = function(r) {
@@ -68455,7 +69193,7 @@
       v: a / 255 * 100,
       a: u
     };
-  }, b$6 = function(r) {
+  }, b$4 = function(r) {
     var t = r.h, n = r.s, e = r.v, u = r.a;
     t = t / 360 * 6, n /= 100, e /= 100;
     var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
@@ -68465,29 +69203,29 @@
       b: 255 * [ o, o, s, e, e, i ][h],
       a: u
     };
-  }, g$3 = function(r) {
+  }, g$4 = function(r) {
     return {
-      h: u$7(r.h),
-      s: e$3(r.s, 0, 100),
-      l: e$3(r.l, 0, 100),
-      a: e$3(r.a)
+      h: u$4(r.h),
+      s: e$4(r.s, 0, 100),
+      l: e$4(r.l, 0, 100),
+      a: e$4(r.a)
     };
-  }, d$7 = function(r) {
+  }, d$4 = function(r) {
     return {
-      h: n$3(r.h),
-      s: n$3(r.s),
-      l: n$3(r.l),
-      a: n$3(r.a, 3)
+      h: n$4(r.h),
+      s: n$4(r.s),
+      l: n$4(r.l),
+      a: n$4(r.a, 3)
     };
-  }, f$7 = function(r) {
-    return b$6((n = (t = r).s, {
+  }, f$4 = function(r) {
+    return b$4((n = (t = r).s, {
       h: t.h,
       s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
       v: e + n,
       a: t.a
     }));
     var t, n, e;
-  }, c$3 = function(r) {
+  }, c$4 = function(r) {
     return {
       h: (t = h$4(r)).h,
       s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
@@ -68495,42 +69233,42 @@
       a: t.a
     };
     var t, n, e, u;
-  }, l$4 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$6 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$4 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$6 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$6 = {
+  }, l$4 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$4 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$4 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$4 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$4 = {
     string: [ [ function(r) {
-      var t = i$2.exec(r);
+      var t = i$4.exec(r);
       return t ? (r = t[1]).length <= 4 ? {
         r: parseInt(r[0] + r[0], 16),
         g: parseInt(r[1] + r[1], 16),
         b: parseInt(r[2] + r[2], 16),
-        a: 4 === r.length ? n$3(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+        a: 4 === r.length ? n$4(parseInt(r[3] + r[3], 16) / 255, 2) : 1
       } : 6 === r.length || 8 === r.length ? {
         r: parseInt(r.substr(0, 2), 16),
         g: parseInt(r.substr(2, 2), 16),
         b: parseInt(r.substr(4, 2), 16),
-        a: 8 === r.length ? n$3(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
+        a: 8 === r.length ? n$4(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
     }, "hex" ], [ function(r) {
-      var t = v$4.exec(r) || m$6.exec(r);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$2({
+      var t = v$4.exec(r) || m$4.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$4({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
         a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
     }, "rgb" ], [ function(t) {
-      var n = l$4.exec(t) || p$6.exec(t);
+      var n = l$4.exec(t) || p$4.exec(t);
       if (!n) return null;
-      var e, u, a = g$3({
-        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$2[u] || 1)),
+      var e, u, a = g$4({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$e[u] || 1)),
         s: Number(n[3]),
         l: Number(n[4]),
         a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return f$7(a);
+      return f$4(a);
     }, "hsl" ] ],
     object: [ [ function(r) {
       var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
-      return t$3(n) && t$3(e) && t$3(u) ? a$2({
+      return t$5(n) && t$5(e) && t$5(u) ? a$4({
         r: Number(n),
         g: Number(e),
         b: Number(u),
@@ -68538,23 +69276,23 @@
       }) : null;
     }, "rgb" ], [ function(r) {
       var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
-      if (!t$3(n) || !t$3(e) || !t$3(u)) return null;
-      var i = g$3({
+      if (!t$5(n) || !t$5(e) || !t$5(u)) return null;
+      var i = g$4({
         h: Number(n),
         s: Number(e),
         l: Number(u),
         a: Number(o)
       });
-      return f$7(i);
+      return f$4(i);
     }, "hsl" ], [ function(r) {
       var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
-      if (!t$3(n) || !t$3(a) || !t$3(o)) return null;
+      if (!t$5(n) || !t$5(a) || !t$5(o)) return null;
       var h = function(r) {
         return {
-          h: u$7(r.h),
-          s: e$3(r.s, 0, 100),
-          v: e$3(r.v, 0, 100),
-          a: e$3(r.a)
+          h: u$4(r.h),
+          s: e$4(r.s, 0, 100),
+          v: e$4(r.v, 0, 100),
+          a: e$4(r.a)
         };
       }({
         h: Number(n),
@@ -68562,37 +69300,37 @@
         v: Number(o),
         a: Number(s)
       });
-      return b$6(h);
+      return b$4(h);
     }, "hsv" ] ]
-  }, N$5 = function(r, t) {
+  }, N$4 = function(r, t) {
     for (var n = 0; n < t.length; n++) {
       var e = t[n][0](r);
       if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, x$3 = function(r) {
-    return "string" == typeof r ? N$5(r.trim(), y$6.string) : "object" == typeof r && null !== r ? N$5(r, y$6.object) : [ null, void 0 ];
-  }, M$7 = function(r, t) {
-    var n = c$3(r);
+  }, x$4 = function(r) {
+    return "string" == typeof r ? N$4(r.trim(), y$4.string) : "object" == typeof r && null !== r ? N$4(r, y$4.object) : [ null, void 0 ];
+  }, M$4 = function(r, t) {
+    var n = c$4(r);
     return {
       h: n.h,
-      s: e$3(n.s + 100 * t, 0, 100),
+      s: e$4(n.s + 100 * t, 0, 100),
       l: n.l,
       a: n.a
     };
-  }, H$3 = function(r) {
+  }, H$4 = function(r) {
     return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
-  }, $$5 = function(r, t) {
-    var n = c$3(r);
+  }, $$4 = function(r, t) {
+    var n = c$4(r);
     return {
       h: n.h,
       s: n.s,
-      l: e$3(n.l + 100 * t, 0, 100),
+      l: e$4(n.l + 100 * t, 0, 100),
       a: n.a
     };
   }, j$4 = function() {
     function r(r) {
-      this.parsed = x$3(r)[0], this.rgba = this.parsed || {
+      this.parsed = x$4(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
@@ -68602,35 +69340,35 @@
     return r.prototype.isValid = function() {
       return null !== this.parsed;
     }, r.prototype.brightness = function() {
-      return n$3(H$3(this.rgba), 2);
+      return n$4(H$4(this.rgba), 2);
     }, r.prototype.isDark = function() {
-      return H$3(this.rgba) < .5;
+      return H$4(this.rgba) < .5;
     }, r.prototype.isLight = function() {
-      return H$3(this.rgba) >= .5;
+      return H$4(this.rgba) >= .5;
     }, r.prototype.toHex = function() {
-      return r = o$3(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$2(n$3(255 * a)) : "", 
-      "#" + s$2(t) + s$2(e) + s$2(u) + i;
+      return r = o$5(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$4(n$4(255 * a)) : "", 
+      "#" + s$4(t) + s$4(e) + s$4(u) + i;
       var r, t, e, u, a, i;
     }, r.prototype.toRgb = function() {
-      return o$3(this.rgba);
+      return o$5(this.rgba);
     }, r.prototype.toRgbString = function() {
-      return r = o$3(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      return r = o$5(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
       var r, t, n, e, u;
     }, r.prototype.toHsl = function() {
-      return d$7(c$3(this.rgba));
+      return d$4(c$4(this.rgba));
     }, r.prototype.toHslString = function() {
-      return r = d$7(c$3(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      return r = d$4(c$4(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
       var r, t, n, e, u;
     }, r.prototype.toHsv = function() {
       return r = h$4(this.rgba), {
-        h: n$3(r.h),
-        s: n$3(r.s),
-        v: n$3(r.v),
-        a: n$3(r.a, 3)
+        h: n$4(r.h),
+        s: n$4(r.s),
+        v: n$4(r.v),
+        a: n$4(r.a, 3)
       };
       var r;
     }, r.prototype.invert = function() {
-      return w$6({
+      return w$4({
         r: 255 - (r = this.rgba).r,
         g: 255 - r.g,
         b: 255 - r.b,
@@ -68638,37 +69376,37 @@
       });
       var r;
     }, r.prototype.saturate = function(r) {
-      return void 0 === r && (r = .1), w$6(M$7(this.rgba, r));
+      return void 0 === r && (r = .1), w$4(M$4(this.rgba, r));
     }, r.prototype.desaturate = function(r) {
-      return void 0 === r && (r = .1), w$6(M$7(this.rgba, -r));
+      return void 0 === r && (r = .1), w$4(M$4(this.rgba, -r));
     }, r.prototype.grayscale = function() {
-      return w$6(M$7(this.rgba, -1));
+      return w$4(M$4(this.rgba, -1));
     }, r.prototype.lighten = function(r) {
-      return void 0 === r && (r = .1), w$6($$5(this.rgba, r));
+      return void 0 === r && (r = .1), w$4($$4(this.rgba, r));
     }, r.prototype.darken = function(r) {
-      return void 0 === r && (r = .1), w$6($$5(this.rgba, -r));
+      return void 0 === r && (r = .1), w$4($$4(this.rgba, -r));
     }, r.prototype.rotate = function(r) {
       return void 0 === r && (r = 15), this.hue(this.hue() + r);
     }, r.prototype.alpha = function(r) {
-      return "number" == typeof r ? w$6({
+      return "number" == typeof r ? w$4({
         r: (t = this.rgba).r,
         g: t.g,
         b: t.b,
         a: r
-      }) : n$3(this.rgba.a, 3);
+      }) : n$4(this.rgba.a, 3);
       var t;
     }, r.prototype.hue = function(r) {
-      var t = c$3(this.rgba);
-      return "number" == typeof r ? w$6({
+      var t = c$4(this.rgba);
+      return "number" == typeof r ? w$4({
         h: r,
         s: t.s,
         l: t.l,
         a: t.a
-      }) : n$3(t.h);
+      }) : n$4(t.h);
     }, r.prototype.isEqual = function(r) {
-      return this.toHex() === w$6(r).toHex();
+      return this.toHex() === w$4(r).toHex();
     }, r;
-  }(), w$6 = function(r) {
+  }(), w$4 = function(r) {
     return r instanceof j$4 ? r : new j$4(r);
   };
   var TooltipPlacement$1;
@@ -68976,17 +69714,17 @@
       }
       const baseColor = tooltip.style?.color ?? "#fff";
       const baseBackground = tooltip.style?.background ?? "#000";
-      const codeBackground = w$6(baseBackground).darken(.13).toHex();
-      const codeColor = w$6(codeBackground).isLight() ? "#333" : "#fff";
+      const codeBackground = w$4(baseBackground).darken(.13).toHex();
+      const codeColor = w$4(codeBackground).isLight() ? "#333" : "#fff";
       const generateActiveColor = baseBackground2 => {
-        const bg = w$6(baseBackground2);
+        const bg = w$4(baseBackground2);
         const LIGHT_THEME_BLUE = "#0056b3";
         const DARK_THEME_BLUE = "#8ab4f8";
         return bg.isLight() ? LIGHT_THEME_BLUE : DARK_THEME_BLUE;
       };
       const activeColor = generateActiveColor(baseBackground);
-      const foregroundActiveColor = w$6(activeColor).isLight() ? "#333" : "#fff";
-      const hoverActiveColor = w$6(activeColor).isLight() ? w$6(activeColor).darken(.08).toHex() : w$6(activeColor).lighten(.08).toHex();
+      const foregroundActiveColor = w$4(activeColor).isLight() ? "#333" : "#fff";
+      const hoverActiveColor = w$4(activeColor).isLight() ? w$4(activeColor).darken(.08).toHex() : w$4(activeColor).lighten(.08).toHex();
       entry.tooltipEl.className = "hvr-tooltip";
       entry.tooltipEl.setAttribute("role", "tooltip");
       if (entry.baseClass) this.virtualtourApi.styleApi.removeStyle(entry.baseClass);
@@ -69688,17 +70426,17 @@
       }
       const baseColor = popup.style?.color ?? "#333";
       const baseBackground = popup.style?.background ?? "#fff";
-      const codeBackground = w$6(baseBackground).darken(.13).toHex();
-      const codeColor = w$6(codeBackground).isLight() ? "#333" : "#fff";
+      const codeBackground = w$4(baseBackground).darken(.13).toHex();
+      const codeColor = w$4(codeBackground).isLight() ? "#333" : "#fff";
       const generateActiveColor = baseBackground2 => {
-        const bg = w$6(baseBackground2);
+        const bg = w$4(baseBackground2);
         const LIGHT_THEME_BLUE = "#0056b3";
         const DARK_THEME_BLUE = "#8ab4f8";
         return bg.isLight() ? LIGHT_THEME_BLUE : DARK_THEME_BLUE;
       };
       const activeColor = generateActiveColor(baseBackground);
-      const foregroundActiveColor = w$6(activeColor).isLight() ? "#333" : "#fff";
-      const hoverActiveColor = w$6(activeColor).isLight() ? w$6(activeColor).darken(.08).toHex() : w$6(activeColor).lighten(.08).toHex();
+      const foregroundActiveColor = w$4(activeColor).isLight() ? "#333" : "#fff";
+      const hoverActiveColor = w$4(activeColor).isLight() ? w$4(activeColor).darken(.08).toHex() : w$4(activeColor).lighten(.08).toHex();
       entry.popupEl.className = "hvr-popup";
       entry.popupEl.setAttribute("role", "dialog");
       if (isDialog) {
@@ -86569,6 +87307,7 @@
     const lastSelectedLayerId = useLayoutStore$1(s => s.lastSelectedLayerId);
     const toggleCollapsed = useLayerStore(s => s.actions.toggleCollapsed);
     const toggleHidden = useLayerStore(s => s.actions.toggleHidden);
+    const toggleLock = useLayerStore(s => s.actions.toggleLock);
     const {setNodeRef: setNodeRef, attributes: attributes, listeners: listeners} = useSortable({
       id: flattenLayer.id
     });
@@ -86714,6 +87453,21 @@
               })
             }), jsxRuntimeExports.jsx(TooltipContent, {
               children: "Show/hide"
+            }) ]
+          }), jsxRuntimeExports.jsxs(Tooltip, {
+            children: [ jsxRuntimeExports.jsx(TooltipTrigger, {
+              asChild: true,
+              children: jsxRuntimeExports.jsx("div", {
+                className: cn("hidden group-hover:block", layer.lock && "block"),
+                onClick: () => toggleLock(layer.id),
+                children: layer.lock ? jsxRuntimeExports.jsx(Icons.Lock, {
+                  size: 16
+                }) : jsxRuntimeExports.jsx(Icons.LockOpen, {
+                  size: 16
+                })
+              })
+            }), jsxRuntimeExports.jsx(TooltipContent, {
+              children: "Lock/unlock"
             }) ]
           }) ]
         }) ]
@@ -111615,10 +112369,10 @@
   const EmbedCode = () => {
     const [copied, setCopied] = reactExports.useState(false);
     const timerRef = reactExports.useRef(null);
-    const isPrettyPermalinks = g$5.data.is_pretty_permalinks;
+    const isPrettyPermalinks = g$7.data.is_pretty_permalinks;
     const iframeCode = (() => {
-      const itemId = g$5.data.item_id;
-      const siteUrl = g$5.data.site_url.replace(/\/$/, "");
+      const itemId = g$7.data.item_id;
+      const siteUrl = g$7.data.site_url.replace(/\/$/, "");
       const embedUrl = isPrettyPermalinks ? `${siteUrl}/happyvr/embed/${itemId}/` : `${siteUrl}/?happyvr_embed=${itemId}`;
       return `<iframe src="${embedUrl}" width="100%" height="400" frameborder="0" allow="fullscreen; autoplay; accelerometer; gyroscope;"></iframe>`;
     })();
@@ -115026,7 +115780,7 @@
   }
   var purify = createDOMPurify();
   const IconImage$1 = ({icon: icon, set: set}) => {
-    const iconsBaseUrl = new URL(g$5.data.icons_url, window.location.href).href;
+    const iconsBaseUrl = new URL(g$7.data.icons_url, window.location.href).href;
     const imageUrl = new URL(`${set}/${icon}.svg`, iconsBaseUrl).toString();
     const [svgContent, setSvgContent] = reactExports.useState(null);
     reactExports.useEffect(() => {
@@ -115248,7 +116002,7 @@
     });
   };
   const IconImage = ({icon: icon}) => {
-    const iconsBaseUrl = new URL(g$5.data.icons_url, window.location.href).href;
+    const iconsBaseUrl = new URL(g$7.data.icons_url, window.location.href).href;
     const imageUrl = new URL(`${icon}.svg`, iconsBaseUrl).toString();
     const [svgContent, setSvgContent] = reactExports.useState(null);
     reactExports.useEffect(() => {
@@ -136805,45 +137559,45 @@
     });
   };
   const ControlSlotTypeLabels = {
-    [ControlSlotType$1.TopLeft]: "Top Left",
-    [ControlSlotType$1.Top]: "Top",
-    [ControlSlotType$1.TopRight]: "Top Right",
-    [ControlSlotType$1.Left]: "Left",
-    [ControlSlotType$1.Right]: "Right",
-    [ControlSlotType$1.BottomLeft]: "Bottom Left",
-    [ControlSlotType$1.Bottom]: "Bottom",
-    [ControlSlotType$1.BottomRight]: "Bottom Right"
+    [ControlSlotType$p.TopLeft]: "Top Left",
+    [ControlSlotType$p.Top]: "Top",
+    [ControlSlotType$p.TopRight]: "Top Right",
+    [ControlSlotType$p.Left]: "Left",
+    [ControlSlotType$p.Right]: "Right",
+    [ControlSlotType$p.BottomLeft]: "Bottom Left",
+    [ControlSlotType$p.Bottom]: "Bottom",
+    [ControlSlotType$p.BottomRight]: "Bottom Right"
   };
   const positions = [ {
-    type: ControlSlotType$1.TopLeft,
+    type: ControlSlotType$p.TopLeft,
     x: 3,
     y: 3
   }, {
-    type: ControlSlotType$1.Top,
+    type: ControlSlotType$p.Top,
     x: 10,
     y: 3
   }, {
-    type: ControlSlotType$1.TopRight,
+    type: ControlSlotType$p.TopRight,
     x: 17,
     y: 3
   }, {
-    type: ControlSlotType$1.Left,
+    type: ControlSlotType$p.Left,
     x: 3,
     y: 10
   }, {
-    type: ControlSlotType$1.Right,
+    type: ControlSlotType$p.Right,
     x: 17,
     y: 10
   }, {
-    type: ControlSlotType$1.BottomLeft,
+    type: ControlSlotType$p.BottomLeft,
     x: 3,
     y: 17
   }, {
-    type: ControlSlotType$1.Bottom,
+    type: ControlSlotType$p.Bottom,
     x: 10,
     y: 17
   }, {
-    type: ControlSlotType$1.BottomRight,
+    type: ControlSlotType$p.BottomRight,
     x: 17,
     y: 17
   } ];
@@ -136868,28 +137622,28 @@
   const InputControlSlot = ({placeholder: placeholder, value: value, onValueChange: onValueChange}) => {
     const [isOpen, setIsOpen] = reactExports.useState(false);
     const anchorButtons = [ {
-      type: ControlSlotType$1.TopLeft,
+      type: ControlSlotType$p.TopLeft,
       icon: Icons.AnchorTopLeft
     }, {
-      type: ControlSlotType$1.Top,
+      type: ControlSlotType$p.Top,
       icon: Icons.AnchorTop
     }, {
-      type: ControlSlotType$1.TopRight,
+      type: ControlSlotType$p.TopRight,
       icon: Icons.AnchorTopRight
     }, {
-      type: ControlSlotType$1.Left,
+      type: ControlSlotType$p.Left,
       icon: Icons.AnchorLeft
     }, {
-      type: ControlSlotType$1.Right,
+      type: ControlSlotType$p.Right,
       icon: Icons.AnchorRight
     }, {
-      type: ControlSlotType$1.BottomLeft,
+      type: ControlSlotType$p.BottomLeft,
       icon: Icons.AnchorBottomLeft
     }, {
-      type: ControlSlotType$1.Bottom,
+      type: ControlSlotType$p.Bottom,
       icon: Icons.AnchorBottom
     }, {
-      type: ControlSlotType$1.BottomRight,
+      type: ControlSlotType$p.BottomRight,
       icon: Icons.AnchorBottomRight
     } ];
     const rows = [ anchorButtons.slice(0, 3), anchorButtons.slice(3, 5), anchorButtons.slice(5, 8) ];
@@ -137332,8 +138086,8 @@
         link: false
       };
       return {
-        image: kinds.every(k => k?.includes(ControlPropertyKind$1.Image)),
-        link: kinds.every(k => k?.includes(ControlPropertyKind$1.Link))
+        image: kinds.every(k => k?.includes(ControlPropertyKind$p.Image)),
+        link: kinds.every(k => k?.includes(ControlPropertyKind$p.Link))
       };
     }, [ selectedControls ]);
     if (!supports.image && !supports.link) return null;
@@ -138433,7 +139187,7 @@
     return transformMap[anchor] ?? transformMap[MarkerAnchorType.Center];
   }
   const SvgIcon = ({icon: icon, onLoad: onLoad}) => {
-    const iconsBaseUrl = new URL(g$5.data.icons_url, window.location.href).href;
+    const iconsBaseUrl = new URL(g$7.data.icons_url, window.location.href).href;
     const iconUrl = new URL(`${icon}.svg`, iconsBaseUrl).toString();
     const [svgContent, setSvgContent] = reactExports.useState(null);
     reactExports.useEffect(() => {
@@ -138461,7 +139215,7 @@
       }
     });
   };
-  const MarkerLayer = ({layer: layer, apiRef: apiRef, markerSync: markerSync}) => {
+  const MarkerLayer = ({layer: layer, apiRef: apiRef, markerSync: markerSync, locked: locked}) => {
     const marker = layer.object;
     const {variant: variant = MarkerVariantType.IconLabel, anchor: anchor, label: label, icon: icon, image: image, style: style = {}} = marker;
     const isPano = marker.space === MarkerSpaceType.Pano;
@@ -138552,9 +139306,9 @@
     };
     const fxClass = getAnimationClass(marker.animation);
     const markerStyle = {
-      pointerEvents: "auto",
+      pointerEvents: locked ? "none" : "auto",
       touchAction: "none",
-      cursor: "grab",
+      cursor: locked ? "default" : "grab",
       ...setAnimationVars(marker.animation)
     };
     const bodyStyle = {
@@ -138919,7 +139673,8 @@
         return jsxRuntimeExports.jsx(MarkerLayer, {
           layer: layer,
           apiRef: apiRef,
-          markerSync: markerSync
+          markerSync: markerSync,
+          locked: isLayerLocked(layers, layer.id)
         }, layer.id);
       }
       return null;
@@ -138931,7 +139686,7 @@
     })() : null;
     return jsxRuntimeExports.jsxs("div", {
       className: "happyvr-markers absolute inset-0 pointer-events-none",
-      children: [ layersTree.slice().reverse().map(root => renderNode(root)), selectedPanoLayer && jsxRuntimeExports.jsx(MarkerPanoHandles, {
+      children: [ layersTree.slice().reverse().map(root => renderNode(root)), selectedPanoLayer && !isLayerLocked(layers, selectedPanoLayer.id) && jsxRuntimeExports.jsx(MarkerPanoHandles, {
         layer: selectedPanoLayer,
         apiRef: apiRef
       }) ]
@@ -138952,9 +139707,9 @@
     const pushViewpoint = reactExports.useMemo(() => throttle$1(v => setActiveViewpoint(v), 100), [ setActiveViewpoint ]);
     reactExports.useEffect(() => () => pushViewpoint.cancel(), [ pushViewpoint ]);
     const getResourceUrl = reactExports.useCallback(type => {
-      const assetsBaseUrl = new URL(g$5.data.upload_url, window.location.href).href;
-      const assetsUrl = new URL(`${g$5.data.item_id}/`, assetsBaseUrl).href;
-      const iconsUrl = new URL(g$5.data.icons_url, window.location.href).href;
+      const assetsBaseUrl = new URL(g$7.data.upload_url, window.location.href).href;
+      const assetsUrl = new URL(`${g$7.data.item_id}/`, assetsBaseUrl).href;
+      const iconsUrl = new URL(g$7.data.icons_url, window.location.href).href;
       switch (type) {
        case "assets":
         return assetsUrl;
@@ -139180,9 +139935,9 @@
     const containerRef = reactExports.useRef(null);
     const apiRef = reactExports.useRef(null);
     const getResourceUrl = reactExports.useCallback(type => {
-      const assetsBaseUrl = new URL(g$5.data.upload_url, window.location.href).href;
-      const assetsUrl = new URL(`${g$5.data.item_id}/`, assetsBaseUrl).href;
-      const iconsUrl = new URL(g$5.data.icons_url, window.location.href).href;
+      const assetsBaseUrl = new URL(g$7.data.upload_url, window.location.href).href;
+      const assetsUrl = new URL(`${g$7.data.item_id}/`, assetsBaseUrl).href;
+      const iconsUrl = new URL(g$7.data.icons_url, window.location.href).href;
       switch (type) {
        case "assets":
         return assetsUrl;
@@ -139301,7 +140056,7 @@
   const AppToolbar = () => {
     const isLoading = useLayoutStore(s => s.isLoading);
     const isDirty = useLayoutStore(s => s.isDirty);
-    const baseUrl = new URL(g$5.data.plugin_url, window.location.href);
+    const baseUrl = new URL(g$7.data.plugin_url, window.location.href);
     const logoUrl = new URL("assets/img/happyvr.png", baseUrl).href;
     const save = () => {
       void Service.data.save();

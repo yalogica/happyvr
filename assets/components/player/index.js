@@ -7914,127 +7914,162 @@
     VirtualTourStatus["Draft"] = "draft";
     VirtualTourStatus["Publish"] = "publish";
   })(VirtualTourStatus || (VirtualTourStatus = {}));
-  function m$5(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var c = e.length;
-      for (t = 0; t < c; t++) e[t] && (o = m$5(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$d(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$d(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function A$4() {
-    for (var e, t, o = 0, r = "", c = arguments.length; o < c; o++) (e = arguments[o]) && (t = m$5(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$b() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$d(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var u$6;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(u$6 || (u$6 = {}));
-  var f$6;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(f$6 || (f$6 = {}));
-  const N$4 = {
+  var ControlSlotType$c;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$c || (ControlSlotType$c = {}));
+  var ControlPropertyKind$c;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$c || (ControlPropertyKind$c = {}));
+  const meta$b = {
     type: "SceneTitle",
     name: "Scene Title",
     description: "Shows the current scene title",
     createInitialProperties: () => ({
-      slot: u$6.BottomLeft,
+      slot: ControlSlotType$c.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, S$3 = e => {
-    const {api: t, style: o, hoverStyle: r, className: c} = e, [a] = reactExports.useState(() => t.generateId()), [b, g] = reactExports.useState(""), [y, h] = reactExports.useState(""), [d, p] = reactExports.useState();
-    return reactExports.useLayoutEffect(() => {
-      const s = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+  };
+  const SceneTitle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sceneTitle, setSceneTitle] = reactExports.useState();
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         padding: "5px 10px",
         "white-space": "nowrap",
         "user-select": "none",
         "text-shadow": "0.5px 0 0 currentColor"
       });
-      return g(s), () => {
-        t.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const s = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
-        color: o?.color,
-        "background-color": o?.background,
-        "backdrop-filter": o?.background ? "blur(4px)" : void 0,
-        "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-        opacity: o?.opacity,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: r?.color,
-          "background-color": r?.background,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return h(s), () => {
-        t.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, o, r ]), reactExports.useLayoutEffect(() => {
-      const s = t.sceneApi.getActive();
-      s && p(s.name);
-    }, [ t ]), reactExports.useEffect(() => {
-      const s = [];
-      return s.push(t.on("scene:show", ({sceneId: n}) => {
-        const v = t.sceneApi.get(n);
-        p(v?.name);
-      })), () => {
-        s.forEach(n => n());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      const scene = api.sceneApi.getActive();
+      if (scene) {
+        setSceneTitle(scene.name);
+      }
+    }, [ api ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        setSceneTitle(scene?.name);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), d ? jsxRuntimeExports.jsx("div", {
-      className: A$4("hvr-control", b, y, c),
-      children: d
-    }) : null;
+    }, [ api ]);
+    if (!sceneTitle) return null;
+    return jsxRuntimeExports.jsx("div", {
+      className: clsx$b("hvr-control", baseClassName, styleClassName, className),
+      children: sceneTitle
+    });
   };
-  function b$5(e) {
-    var t, s, o = "";
-    if (typeof e == "string" || typeof e == "number") o += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var n = e.length;
-      for (t = 0; t < n; t++) e[t] && (s = b$5(e[t])) && (o && (o += " "), o += s);
-    } else for (s in e) e[s] && (o && (o += " "), o += s);
-    return o;
+  function r$c(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$c(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function S$2() {
-    for (var e, t, s = 0, o = "", n = arguments.length; s < n; s++) (e = arguments[s]) && (t = b$5(e)) && (o && (o += " "), 
-    o += t);
-    return o;
+  function clsx$a() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$c(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$6;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(d$6 || (d$6 = {}));
-  var m$4;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(m$4 || (m$4 = {}));
-  const w$5 = {
+  var ControlSlotType$b;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$b || (ControlSlotType$b = {}));
+  var ControlPropertyKind$b;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$b || (ControlPropertyKind$b = {}));
+  const meta$a = {
     type: "SceneCounter",
     name: "Scene Counter",
     description: "Shows current scene number out of total",
     createInitialProperties: () => ({
-      slot: d$6.BottomLeft,
+      slot: ControlSlotType$b.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, B$7 = e => {
-    const {api: t, style: s, hoverStyle: o, className: n} = e, [a] = reactExports.useState(() => t.generateId()), [g, y] = reactExports.useState(""), [h, v] = reactExports.useState(""), [x, p] = reactExports.useState(0), [A, u] = reactExports.useState(0);
-    return reactExports.useLayoutEffect(() => {
-      const r = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+  };
+  const SceneCounter = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sceneIndex, setSceneIndex] = reactExports.useState(0);
+    const [sceneCount, setSceneCount] = reactExports.useState(0);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         padding: "5px 10px",
         "white-space": "nowrap",
@@ -8042,76 +8077,93 @@
         "text-shadow": "0.5px 0 0 currentColor",
         "pointer-events": "none"
       });
-      return y(r), () => {
-        t.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const r = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
-        color: s?.color,
-        "background-color": s?.background,
-        "backdrop-filter": s?.background ? "blur(4px)" : void 0,
-        "border-radius": s?.borderRadius ? `${s.borderRadius}px` : void 0,
-        opacity: s?.opacity,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return v(r), () => {
-        t.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, s, o ]), reactExports.useEffect(() => {
-      const r = [], l = t.sceneApi.getActive();
-      if (l) {
-        const c = t.sceneApi.getIndex(l.id) ?? -1;
-        p(c + 1);
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      const scene = api.sceneApi.getActive();
+      if (scene) {
+        const index = api.sceneApi.getIndex(scene.id) ?? -1;
+        setSceneIndex(index + 1);
       }
-      return u(t.sceneApi.size()), r.push(t.on("scene:add", () => {
-        u(t.sceneApi.size());
-      })), r.push(t.on("scene:remove", () => {
-        u(t.sceneApi.size());
-      })), r.push(t.on("scene:show", ({sceneId: c}) => {
-        const k = t.sceneApi.getIndex(c) ?? -1;
-        p(k + 1);
-      })), () => {
-        r.forEach(c => c());
+      setSceneCount(api.sceneApi.size());
+      cleanups.push(api.on("scene:add", () => {
+        setSceneCount(api.sceneApi.size());
+      }));
+      cleanups.push(api.on("scene:remove", () => {
+        setSceneCount(api.sceneApi.size());
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        const index = api.sceneApi.getIndex(sceneId) ?? -1;
+        setSceneIndex(index + 1);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), jsxRuntimeExports.jsxs("div", {
-      className: S$2("hvr-control", g, h, n),
-      children: [ x, "/", A ]
+    }, [ api ]);
+    return jsxRuntimeExports.jsxs("div", {
+      className: clsx$a("hvr-control", baseClassName, styleClassName, className),
+      children: [ sceneIndex, "/", sceneCount ]
     });
   };
-  function p$5(e) {
-    var t, r, o = "";
-    if (typeof e == "string" || typeof e == "number") o += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var n = e.length;
-      for (t = 0; t < n; t++) e[t] && (r = p$5(e[t])) && (o && (o += " "), o += r);
-    } else for (r in e) e[r] && (o && (o += " "), o += r);
-    return o;
+  function r$b(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$b(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function k$2() {
-    for (var e, t, r = 0, o = "", n = arguments.length; r < n; r++) (e = arguments[r]) && (t = p$5(e)) && (o && (o += " "), 
-    o += t);
-    return o;
+  function clsx$9() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$b(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var l$3;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(l$3 || (l$3 = {}));
-  var u$5;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(u$5 || (u$5 = {}));
-  const N$3 = {
+  var ControlSlotType$a;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$a || (ControlSlotType$a = {}));
+  var ControlPropertyKind$a;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$a || (ControlPropertyKind$a = {}));
+  const meta$9 = {
     type: "SceneNav",
     name: "Scene Navigation",
     description: "Navigates between scenes in a loop",
     createInitialProperties: () => ({
-      slot: l$3.BottomRight,
+      slot: ControlSlotType$a.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -8121,11 +8173,15 @@
         background: "#000"
       }
     })
-  }, A$3 = e => {
-    const {api: t, style: r, hoverStyle: o, className: n} = e, [a] = reactExports.useState(() => t.generateId()), [h, g] = reactExports.useState(""), [b, v] = reactExports.useState("");
+  };
+  const SceneNav = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "flex",
         "flex-direction": "row",
         gap: "5px",
@@ -8146,44 +8202,52 @@
           }
         }
       });
-      return g(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return v(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, r, o ]);
-    const f = () => {
-      const i = t.sceneApi.getPrev(true);
-      i && t.sceneApi.show(i.id);
-    }, m = () => {
-      const i = t.sceneApi.getNext(true);
-      i && t.sceneApi.show(i.id);
+    }, [ api, id, style, hoverStyle ]);
+    const goPrevScene = () => {
+      const scene = api.sceneApi.getPrev(true);
+      if (scene) {
+        void api.sceneApi.show(scene.id);
+      }
+    };
+    const goNextScene = () => {
+      const scene = api.sceneApi.getNext(true);
+      if (scene) {
+        void api.sceneApi.show(scene.id);
+      }
     };
     return jsxRuntimeExports.jsxs("div", {
-      className: k$2("hvr-control", h, b, n),
+      className: clsx$9("hvr-control", baseClassName, styleClassName, className),
       children: [ jsxRuntimeExports.jsx("button", {
         type: "button",
         "aria-label": "Go to previous scene",
         title: "Go to previous scene",
-        onClick: f,
+        onClick: goPrevScene,
         children: jsxRuntimeExports.jsx("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -8202,7 +8266,7 @@
         type: "button",
         "aria-label": "Go to next scene",
         title: "Go to next scene",
-        onClick: m,
+        onClick: goNextScene,
         children: jsxRuntimeExports.jsx("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -8220,313 +8284,321 @@
       }) ]
     });
   };
-  function J$2(e) {
-    var t, r, n = "";
-    if (typeof e == "string" || typeof e == "number") n += e; else if (typeof e == "object") if (Array.isArray(e)) {
+  function r$1$2(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
       var o = e.length;
-      for (t = 0; t < o; t++) e[t] && (r = J$2(e[t])) && (n && (n += " "), n += r);
-    } else for (r in e) e[r] && (n && (n += " "), n += r);
+      for (t = 0; t < o; t++) e[t] && (f = r$1$2(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function A$2() {
-    for (var e, t, r = 0, n = "", o = arguments.length; r < o; r++) (e = arguments[r]) && (t = J$2(e)) && (n && (n += " "), 
+  function clsx$8() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$1$2(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
-  var ot$1 = {
+  var r$a = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, f$5 = function(e) {
-    return typeof e == "string" ? e.length > 0 : typeof e == "number";
-  }, c$2 = function(e, t, r) {
-    return t === void 0 && (t = 0), r === void 0 && (r = Math.pow(10, t)), Math.round(r * e) / r + 0;
-  }, d$5 = function(e, t, r) {
-    return t === void 0 && (t = 0), r === void 0 && (r = 1), e > r ? r : e > t ? e : t;
-  }, Q$2 = function(e) {
-    return (e = isFinite(e) ? e % 360 : 0) > 0 ? e : e + 360;
-  }, V$2 = function(e) {
+  }, t$1$2 = function(r) {
+    return "string" == typeof r ? r.length > 0 : "number" == typeof r;
+  }, n$3 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
+  }, e$3 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
+  }, u$3 = function(r) {
+    return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
+  }, a$3 = function(r) {
     return {
-      r: d$5(e.r, 0, 255),
-      g: d$5(e.g, 0, 255),
-      b: d$5(e.b, 0, 255),
-      a: d$5(e.a)
+      r: e$3(r.r, 0, 255),
+      g: e$3(r.g, 0, 255),
+      b: e$3(r.b, 0, 255),
+      a: e$3(r.a)
     };
-  }, S$1 = function(e) {
+  }, o$1$2 = function(r) {
     return {
-      r: c$2(e.r),
-      g: c$2(e.g),
-      b: c$2(e.b),
-      a: c$2(e.a, 3)
+      r: n$3(r.r),
+      g: n$3(r.g),
+      b: n$3(r.b),
+      a: n$3(r.a, 3)
     };
-  }, it$2 = /^#([0-9a-f]{3,8})$/i, N$2 = function(e) {
-    var t = e.toString(16);
+  }, i$3 = /^#([0-9a-f]{3,8})$/i, s$3 = function(r) {
+    var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
-  }, T$1 = function(e) {
-    var t = e.r, r = e.g, n = e.b, o = e.a, i = Math.max(t, r, n), a = i - Math.min(t, r, n), s = a ? i === t ? (r - n) / a : i === r ? 2 + (n - t) / a : 4 + (t - r) / a : 0;
+  }, h$3 = function(r) {
+    var t = r.r, n = r.g, e = r.b, u = r.a, a = Math.max(t, n, e), o = a - Math.min(t, n, e), i = o ? a === t ? (n - e) / o : a === n ? 2 + (e - t) / o : 4 + (t - n) / o : 0;
     return {
-      h: 60 * (s < 0 ? s + 6 : s),
-      s: i ? a / i * 100 : 0,
-      v: i / 255 * 100,
-      a: o
+      h: 60 * (i < 0 ? i + 6 : i),
+      s: a ? o / a * 100 : 0,
+      v: a / 255 * 100,
+      a: u
     };
-  }, U$2 = function(e) {
-    var t = e.h, r = e.s, n = e.v, o = e.a;
-    t = t / 360 * 6, r /= 100, n /= 100;
-    var i = Math.floor(t), a = n * (1 - r), s = n * (1 - (t - i) * r), h = n * (1 - (1 - t + i) * r), g = i % 6;
+  }, b$3 = function(r) {
+    var t = r.h, n = r.s, e = r.v, u = r.a;
+    t = t / 360 * 6, n /= 100, e /= 100;
+    var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
     return {
-      r: 255 * [ n, s, a, a, h, n ][g],
-      g: 255 * [ h, n, n, s, a, a ][g],
-      b: 255 * [ a, a, h, n, n, s ][g],
-      a: o
+      r: 255 * [ e, i, o, o, s, e ][h],
+      g: 255 * [ s, e, e, i, o, o ][h],
+      b: 255 * [ o, o, s, e, e, i ][h],
+      a: u
     };
-  }, z$3 = function(e) {
+  }, g$3 = function(r) {
     return {
-      h: Q$2(e.h),
-      s: d$5(e.s, 0, 100),
-      l: d$5(e.l, 0, 100),
-      a: d$5(e.a)
+      h: u$3(r.h),
+      s: e$3(r.s, 0, 100),
+      l: e$3(r.l, 0, 100),
+      a: e$3(r.a)
     };
-  }, q$2 = function(e) {
+  }, d$3 = function(r) {
     return {
-      h: c$2(e.h),
-      s: c$2(e.s),
-      l: c$2(e.l),
-      a: c$2(e.a, 3)
+      h: n$3(r.h),
+      s: n$3(r.s),
+      l: n$3(r.l),
+      a: n$3(r.a, 3)
     };
-  }, C$3 = function(e) {
-    return U$2((r = (t = e).s, {
+  }, f$3 = function(r) {
+    return b$3((n = (t = r).s, {
       h: t.h,
-      s: (r *= ((n = t.l) < 50 ? n : 100 - n) / 100) > 0 ? 2 * r / (n + r) * 100 : 0,
-      v: n + r,
+      s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
+      v: e + n,
       a: t.a
     }));
-    var t, r, n;
-  }, x$2 = function(e) {
+    var t, n, e;
+  }, c$3 = function(r) {
     return {
-      h: (t = T$1(e)).h,
-      s: (o = (200 - (r = t.s)) * (n = t.v) / 100) > 0 && o < 200 ? r * n / 100 / (o <= 100 ? o : 200 - o) * 100 : 0,
-      l: o / 2,
+      h: (t = h$3(r)).h,
+      s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
+      l: u / 2,
       a: t.a
     };
-    var t, r, n, o;
-  }, at$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, st$2 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ut$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ct$1 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, $$4 = {
-    string: [ [ function(e) {
-      var t = it$2.exec(e);
-      return t ? (e = t[1]).length <= 4 ? {
-        r: parseInt(e[0] + e[0], 16),
-        g: parseInt(e[1] + e[1], 16),
-        b: parseInt(e[2] + e[2], 16),
-        a: e.length === 4 ? c$2(parseInt(e[3] + e[3], 16) / 255, 2) : 1
-      } : e.length === 6 || e.length === 8 ? {
-        r: parseInt(e.substr(0, 2), 16),
-        g: parseInt(e.substr(2, 2), 16),
-        b: parseInt(e.substr(4, 2), 16),
-        a: e.length === 8 ? c$2(parseInt(e.substr(6, 2), 16) / 255, 2) : 1
+    var t, n, e, u;
+  }, l$3 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$3 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$3 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$3 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$3 = {
+    string: [ [ function(r) {
+      var t = i$3.exec(r);
+      return t ? (r = t[1]).length <= 4 ? {
+        r: parseInt(r[0] + r[0], 16),
+        g: parseInt(r[1] + r[1], 16),
+        b: parseInt(r[2] + r[2], 16),
+        a: 4 === r.length ? n$3(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+      } : 6 === r.length || 8 === r.length ? {
+        r: parseInt(r.substr(0, 2), 16),
+        g: parseInt(r.substr(2, 2), 16),
+        b: parseInt(r.substr(4, 2), 16),
+        a: 8 === r.length ? n$3(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
-    }, "hex" ], [ function(e) {
-      var t = ut$2.exec(e) || ct$1.exec(e);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : V$2({
+    }, "hex" ], [ function(r) {
+      var t = v$3.exec(r) || m$3.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$3({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
-        a: t[7] === void 0 ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
+        a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = at$1.exec(e) || st$2.exec(e);
-      if (!t) return null;
-      var r, n, o = z$3({
-        h: (r = t[1], n = t[2], n === void 0 && (n = "deg"), Number(r) * (ot$1[n] || 1)),
-        s: Number(t[3]),
-        l: Number(t[4]),
-        a: t[5] === void 0 ? 1 : Number(t[5]) / (t[6] ? 100 : 1)
+    }, "rgb" ], [ function(t) {
+      var n = l$3.exec(t) || p$3.exec(t);
+      if (!n) return null;
+      var e, u, a = g$3({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$a[u] || 1)),
+        s: Number(n[3]),
+        l: Number(n[4]),
+        a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return C$3(o);
+      return f$3(a);
     }, "hsl" ] ],
-    object: [ [ function(e) {
-      var t = e.r, r = e.g, n = e.b, o = e.a, i = o === void 0 ? 1 : o;
-      return f$5(t) && f$5(r) && f$5(n) ? V$2({
-        r: Number(t),
-        g: Number(r),
-        b: Number(n),
+    object: [ [ function(r) {
+      var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
+      return t$1$2(n) && t$1$2(e) && t$1$2(u) ? a$3({
+        r: Number(n),
+        g: Number(e),
+        b: Number(u),
         a: Number(i)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = e.h, r = e.s, n = e.l, o = e.a, i = o === void 0 ? 1 : o;
-      if (!f$5(t) || !f$5(r) || !f$5(n)) return null;
-      var a = z$3({
-        h: Number(t),
-        s: Number(r),
-        l: Number(n),
-        a: Number(i)
+    }, "rgb" ], [ function(r) {
+      var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
+      if (!t$1$2(n) || !t$1$2(e) || !t$1$2(u)) return null;
+      var i = g$3({
+        h: Number(n),
+        s: Number(e),
+        l: Number(u),
+        a: Number(o)
       });
-      return C$3(a);
-    }, "hsl" ], [ function(e) {
-      var t = e.h, r = e.s, n = e.v, o = e.a, i = o === void 0 ? 1 : o;
-      if (!f$5(t) || !f$5(r) || !f$5(n)) return null;
-      var a = function(s) {
+      return f$3(i);
+    }, "hsl" ], [ function(r) {
+      var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
+      if (!t$1$2(n) || !t$1$2(a) || !t$1$2(o)) return null;
+      var h = function(r) {
         return {
-          h: Q$2(s.h),
-          s: d$5(s.s, 0, 100),
-          v: d$5(s.v, 0, 100),
-          a: d$5(s.a)
+          h: u$3(r.h),
+          s: e$3(r.s, 0, 100),
+          v: e$3(r.v, 0, 100),
+          a: e$3(r.a)
         };
       }({
-        h: Number(t),
-        s: Number(r),
-        v: Number(n),
-        a: Number(i)
+        h: Number(n),
+        s: Number(a),
+        v: Number(o),
+        a: Number(s)
       });
-      return U$2(a);
+      return b$3(h);
     }, "hsv" ] ]
-  }, K$2 = function(e, t) {
-    for (var r = 0; r < t.length; r++) {
-      var n = t[r][0](e);
-      if (n) return [ n, t[r][1] ];
+  }, N$3 = function(r, t) {
+    for (var n = 0; n < t.length; n++) {
+      var e = t[n][0](r);
+      if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, lt$1 = function(e) {
-    return typeof e == "string" ? K$2(e.trim(), $$4.string) : typeof e == "object" && e !== null ? K$2(e, $$4.object) : [ null, void 0 ];
-  }, R$5 = function(e, t) {
-    var r = x$2(e);
+  }, x$3 = function(r) {
+    return "string" == typeof r ? N$3(r.trim(), y$3.string) : "object" == typeof r && null !== r ? N$3(r, y$3.object) : [ null, void 0 ];
+  }, M$3 = function(r, t) {
+    var n = c$3(r);
     return {
-      h: r.h,
-      s: d$5(r.s + 100 * t, 0, 100),
-      l: r.l,
-      a: r.a
+      h: n.h,
+      s: e$3(n.s + 100 * t, 0, 100),
+      l: n.l,
+      a: n.a
     };
-  }, I$3 = function(e) {
-    return (299 * e.r + 587 * e.g + 114 * e.b) / 1e3 / 255;
-  }, O$2 = function(e, t) {
-    var r = x$2(e);
+  }, H$3 = function(r) {
+    return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
+  }, $$3 = function(r, t) {
+    var n = c$3(r);
     return {
-      h: r.h,
-      s: r.s,
-      l: d$5(r.l + 100 * t, 0, 100),
-      a: r.a
+      h: n.h,
+      s: n.s,
+      l: e$3(n.l + 100 * t, 0, 100),
+      a: n.a
     };
   }, j$3 = function() {
-    function e(t) {
-      this.parsed = lt$1(t)[0], this.rgba = this.parsed || {
+    function r(r) {
+      this.parsed = x$3(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
         a: 1
       };
     }
-    return e.prototype.isValid = function() {
-      return this.parsed !== null;
-    }, e.prototype.brightness = function() {
-      return c$2(I$3(this.rgba), 2);
-    }, e.prototype.isDark = function() {
-      return I$3(this.rgba) < .5;
-    }, e.prototype.isLight = function() {
-      return I$3(this.rgba) >= .5;
-    }, e.prototype.toHex = function() {
-      return t = S$1(this.rgba), r = t.r, n = t.g, o = t.b, a = (i = t.a) < 1 ? N$2(c$2(255 * i)) : "", 
-      "#" + N$2(r) + N$2(n) + N$2(o) + a;
-      var t, r, n, o, i, a;
-    }, e.prototype.toRgb = function() {
-      return S$1(this.rgba);
-    }, e.prototype.toRgbString = function() {
-      return t = S$1(this.rgba), r = t.r, n = t.g, o = t.b, (i = t.a) < 1 ? "rgba(" + r + ", " + n + ", " + o + ", " + i + ")" : "rgb(" + r + ", " + n + ", " + o + ")";
-      var t, r, n, o, i;
-    }, e.prototype.toHsl = function() {
-      return q$2(x$2(this.rgba));
-    }, e.prototype.toHslString = function() {
-      return t = q$2(x$2(this.rgba)), r = t.h, n = t.s, o = t.l, (i = t.a) < 1 ? "hsla(" + r + ", " + n + "%, " + o + "%, " + i + ")" : "hsl(" + r + ", " + n + "%, " + o + "%)";
-      var t, r, n, o, i;
-    }, e.prototype.toHsv = function() {
-      return t = T$1(this.rgba), {
-        h: c$2(t.h),
-        s: c$2(t.s),
-        v: c$2(t.v),
-        a: c$2(t.a, 3)
+    return r.prototype.isValid = function() {
+      return null !== this.parsed;
+    }, r.prototype.brightness = function() {
+      return n$3(H$3(this.rgba), 2);
+    }, r.prototype.isDark = function() {
+      return H$3(this.rgba) < .5;
+    }, r.prototype.isLight = function() {
+      return H$3(this.rgba) >= .5;
+    }, r.prototype.toHex = function() {
+      return r = o$1$2(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$3(n$3(255 * a)) : "", 
+      "#" + s$3(t) + s$3(e) + s$3(u) + i;
+      var r, t, e, u, a, i;
+    }, r.prototype.toRgb = function() {
+      return o$1$2(this.rgba);
+    }, r.prototype.toRgbString = function() {
+      return r = o$1$2(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      var r, t, n, e, u;
+    }, r.prototype.toHsl = function() {
+      return d$3(c$3(this.rgba));
+    }, r.prototype.toHslString = function() {
+      return r = d$3(c$3(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      var r, t, n, e, u;
+    }, r.prototype.toHsv = function() {
+      return r = h$3(this.rgba), {
+        h: n$3(r.h),
+        s: n$3(r.s),
+        v: n$3(r.v),
+        a: n$3(r.a, 3)
       };
-      var t;
-    }, e.prototype.invert = function() {
-      return p$4({
-        r: 255 - (t = this.rgba).r,
-        g: 255 - t.g,
-        b: 255 - t.b,
-        a: t.a
-      });
-      var t;
-    }, e.prototype.saturate = function(t) {
-      return t === void 0 && (t = .1), p$4(R$5(this.rgba, t));
-    }, e.prototype.desaturate = function(t) {
-      return t === void 0 && (t = .1), p$4(R$5(this.rgba, -t));
-    }, e.prototype.grayscale = function() {
-      return p$4(R$5(this.rgba, -1));
-    }, e.prototype.lighten = function(t) {
-      return t === void 0 && (t = .1), p$4(O$2(this.rgba, t));
-    }, e.prototype.darken = function(t) {
-      return t === void 0 && (t = .1), p$4(O$2(this.rgba, -t));
-    }, e.prototype.rotate = function(t) {
-      return t === void 0 && (t = 15), this.hue(this.hue() + t);
-    }, e.prototype.alpha = function(t) {
-      return typeof t == "number" ? p$4({
-        r: (r = this.rgba).r,
-        g: r.g,
-        b: r.b,
-        a: t
-      }) : c$2(this.rgba.a, 3);
       var r;
-    }, e.prototype.hue = function(t) {
-      var r = x$2(this.rgba);
-      return typeof t == "number" ? p$4({
-        h: t,
-        s: r.s,
-        l: r.l,
+    }, r.prototype.invert = function() {
+      return w$3({
+        r: 255 - (r = this.rgba).r,
+        g: 255 - r.g,
+        b: 255 - r.b,
         a: r.a
-      }) : c$2(r.h);
-    }, e.prototype.isEqual = function(t) {
-      return this.toHex() === p$4(t).toHex();
-    }, e;
-  }(), p$4 = function(e) {
-    return e instanceof j$3 ? e : new j$3(e);
-  }, W$2 = [], dt$2 = function(e) {
-    e.forEach(function(t) {
-      W$2.indexOf(t) < 0 && (t(j$3, $$4), W$2.push(t));
+      });
+      var r;
+    }, r.prototype.saturate = function(r) {
+      return void 0 === r && (r = .1), w$3(M$3(this.rgba, r));
+    }, r.prototype.desaturate = function(r) {
+      return void 0 === r && (r = .1), w$3(M$3(this.rgba, -r));
+    }, r.prototype.grayscale = function() {
+      return w$3(M$3(this.rgba, -1));
+    }, r.prototype.lighten = function(r) {
+      return void 0 === r && (r = .1), w$3($$3(this.rgba, r));
+    }, r.prototype.darken = function(r) {
+      return void 0 === r && (r = .1), w$3($$3(this.rgba, -r));
+    }, r.prototype.rotate = function(r) {
+      return void 0 === r && (r = 15), this.hue(this.hue() + r);
+    }, r.prototype.alpha = function(r) {
+      return "number" == typeof r ? w$3({
+        r: (t = this.rgba).r,
+        g: t.g,
+        b: t.b,
+        a: r
+      }) : n$3(this.rgba.a, 3);
+      var t;
+    }, r.prototype.hue = function(r) {
+      var t = c$3(this.rgba);
+      return "number" == typeof r ? w$3({
+        h: r,
+        s: t.s,
+        l: t.l,
+        a: t.a
+      }) : n$3(t.h);
+    }, r.prototype.isEqual = function(r) {
+      return this.toHex() === w$3(r).toHex();
+    }, r;
+  }(), w$3 = function(r) {
+    return r instanceof j$3 ? r : new j$3(r);
+  }, S$2 = [], k$2 = function(r) {
+    r.forEach(function(r) {
+      S$2.indexOf(r) < 0 && (r(j$3, y$3), S$2.push(r));
     });
-  }, M$6 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, B$6 = function(e) {
-    return .2126 * M$6(e.r) + .7152 * M$6(e.g) + .0722 * M$6(e.b);
   };
-  function ht$2(e) {
-    e.prototype.luminance = function() {
-      return t = B$6(this.rgba), (r = 2) === void 0 && (r = 0), n === void 0 && (n = Math.pow(10, r)), 
-      Math.round(n * t) / n + 0;
-      var t, r, n;
-    }, e.prototype.contrast = function(t) {
-      t === void 0 && (t = "#FFF");
-      var r, n, o, i, a, s, h, g = t instanceof e ? t : new e(t);
-      return i = this.rgba, a = g.toRgb(), s = B$6(i), h = B$6(a), r = s > h ? (s + .05) / (h + .05) : (h + .05) / (s + .05), 
-      (n = 2) === void 0 && (n = 0), o === void 0 && (o = Math.pow(10, n)), Math.floor(o * r) / o + 0;
-    }, e.prototype.isReadable = function(t, r) {
-      return t === void 0 && (t = "#FFF"), r === void 0 && (r = {}), this.contrast(t) >= (s = (a = (n = r).size) === void 0 ? "normal" : a, 
-      (i = (o = n.level) === void 0 ? "AA" : o) === "AAA" && s === "normal" ? 7 : i === "AA" && s === "large" ? 3 : 4.5);
-      var n, o, i, a, s;
+  var o$4 = function(o) {
+    var t = o / 255;
+    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+  }, t$4 = function(t) {
+    return .2126 * o$4(t.r) + .7152 * o$4(t.g) + .0722 * o$4(t.b);
+  };
+  function a11yPlugin$1(o) {
+    o.prototype.luminance = function() {
+      return o = t$4(this.rgba), void 0 === (r = 2) && (r = 0), void 0 === n && (n = Math.pow(10, r)), 
+      Math.round(n * o) / n + 0;
+      var o, r, n;
+    }, o.prototype.contrast = function(r) {
+      void 0 === r && (r = "#FFF");
+      var n, a, i, e, v, u, d, c = r instanceof o ? r : new o(r);
+      return e = this.rgba, v = c.toRgb(), u = t$4(e), d = t$4(v), n = u > d ? (u + .05) / (d + .05) : (d + .05) / (u + .05), 
+      void 0 === (a = 2) && (a = 0), void 0 === i && (i = Math.pow(10, a)), Math.floor(i * n) / i + 0;
+    }, o.prototype.isReadable = function(o, t) {
+      return void 0 === o && (o = "#FFF"), void 0 === t && (t = {}), this.contrast(o) >= (e = void 0 === (i = (r = t).size) ? "normal" : i, 
+      "AAA" === (a = void 0 === (n = r.level) ? "AA" : n) && "normal" === e ? 7 : "AA" === a && "large" === e ? 3 : 4.5);
+      var r, n, a, i, e;
     };
   }
-  var l$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(l$2 || (l$2 = {}));
-  var G$1;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(G$1 || (G$1 = {}));
-  dt$2([ ht$2 ]);
-  const gt$2 = {
+  var ControlSlotType$9;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$9 || (ControlSlotType$9 = {}));
+  var ControlPropertyKind$9;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$9 || (ControlPropertyKind$9 = {}));
+  k$2([ a11yPlugin$1 ]);
+  const meta$8 = {
     type: "SceneListNav",
     name: "Scene List Navigation",
     description: "Shows/hides a list of scenes for navigation",
     createInitialProperties: () => ({
-      slot: l$2.BottomLeft,
+      slot: ControlSlotType$9.BottomLeft,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -8536,52 +8608,61 @@
         background: "#000"
       }
     })
-  }, pt$2 = {
-    [l$2.TopLeft]: {
+  };
+  const dropPosition = {
+    [ControlSlotType$9.TopLeft]: {
       bottom: "-5px",
       left: 0,
       transform: "translate(0, 100%)"
     },
-    [l$2.Top]: {
+    [ControlSlotType$9.Top]: {
       bottom: "-5px",
       left: "50%",
       transform: "translate(-50%, 100%)"
     },
-    [l$2.TopRight]: {
+    [ControlSlotType$9.TopRight]: {
       bottom: "-5px",
       right: 0,
       transform: "translate(0%, 100%)"
     },
-    [l$2.Left]: {
+    [ControlSlotType$9.Left]: {
       top: "50%",
       right: "-5px",
       transform: "translate(100%, -50%)"
     },
-    [l$2.Right]: {
+    [ControlSlotType$9.Right]: {
       top: "50%",
       left: "-5px",
       transform: "translate(-100%, -50%)"
     },
-    [l$2.BottomLeft]: {
+    [ControlSlotType$9.BottomLeft]: {
       top: "-5px",
       left: 0,
       transform: "translate(0, -100%)"
     },
-    [l$2.Bottom]: {
+    [ControlSlotType$9.Bottom]: {
       top: "-5px",
       left: "50%",
       transform: "translate(-50%, -100%)"
     },
-    [l$2.BottomRight]: {
+    [ControlSlotType$9.BottomRight]: {
       top: "-5px",
       right: 0,
       transform: "translate(0, -100%)"
     }
-  }, vt$2 = e => {
-    const {api: t, slot: r, style: n, hoverStyle: o, className: i} = e, [a] = reactExports.useState(() => t.generateId()), [s, h] = reactExports.useState(""), [g, X] = reactExports.useState(""), [Y, w] = reactExports.useState([]), [H, Z] = reactExports.useState(false), [_, F] = reactExports.useState(null), tt = reactExports.useRef(null);
+  };
+  const SceneListNav = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [scenes, setScenes] = reactExports.useState([]);
+    const [sceneListVisible, setSceneListVisible] = reactExports.useState(false);
+    const [activeSceneId, setActiveSceneId] = reactExports.useState(null);
+    const rootRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const u = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -8599,34 +8680,37 @@
           height: "100%"
         }
       });
-      return h(u), () => {
-        t.styleApi.removeStyle(u);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const u = n?.background ? p$4(n.background).darken(.13).toHex() : void 0, b = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const hoverBackground = style?.background ? w$3(style.background).darken(.13).toHex() : void 0;
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         },
         "& .hvr-scene-list": {
-          ...pt$2[r ?? l$2.BottomLeft],
+          ...dropPosition[slot ?? ControlSlotType$9.BottomLeft],
           position: "absolute",
           width: "max-content",
           "max-height": "250px",
           overflow: "auto",
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
           "border-radius": "5px",
           "z-index": 1,
           transition: "opacity .3s ease",
@@ -8642,7 +8726,7 @@
             width: "5px"
           },
           "&::-webkit-scrollbar-thumb": {
-            background: u ?? "transparent",
+            background: hoverBackground ?? "transparent",
             "border-radius": "5px"
           },
           "& ul": {
@@ -8657,42 +8741,49 @@
             "border-radius": "5px",
             cursor: "pointer",
             "&.active, &:hover": {
-              "background-color": o?.background ?? u ?? "transparent",
-              color: o?.color
+              "background-color": hoverStyle?.background ?? hoverBackground ?? "transparent",
+              color: hoverStyle?.color
             }
           }
         }
       });
-      return X(b), () => {
-        t.styleApi.removeStyle(b);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, r, n, o ]), reactExports.useEffect(() => {
-      const u = [];
-      w(t.sceneApi.getList());
-      const b = t.sceneApi.getActive();
-      return b && F(b.id), u.push(t.on("scene:add", ({sceneId: v}) => {
-        const k = t.sceneApi.get(v);
-        k && w(L => [ ...L, k ]);
-      })), u.push(t.on("scene:remove", ({sceneId: v}) => {
-        w(k => k.filter(L => L.id !== v));
-      })), u.push(t.on("scene:show", ({sceneId: v}) => {
-        F(v);
-      })), () => {
-        u.forEach(v => v());
+    }, [ api, id, slot, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setScenes(api.sceneApi.getList());
+      const activeScene = api.sceneApi.getActive();
+      if (activeScene) setActiveSceneId(activeScene.id);
+      cleanups.push(api.on("scene:add", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        if (scene) setScenes(prev => [ ...prev, scene ]);
+      }));
+      cleanups.push(api.on("scene:remove", ({sceneId: sceneId}) => {
+        setScenes(prev => prev.filter(scene => scene.id !== sceneId));
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        setActiveSceneId(sceneId);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]);
-    const et = () => Z(u => !u), E = u => {
-      t.sceneApi.show(u);
+    }, [ api ]);
+    const toggleSceneList = () => setSceneListVisible(v => !v);
+    const showScene = sceneId => {
+      void api.sceneApi.show(sceneId);
     };
     return jsxRuntimeExports.jsxs("div", {
-      ref: tt,
-      className: A$2("hvr-control", s, g, i),
+      ref: rootRef,
+      className: clsx$8("hvr-control", baseClassName, styleClassName, className),
       children: [ jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-expanded": H,
+        "aria-expanded": sceneListVisible,
         "aria-label": "Show/hide scene list",
         title: "Show/hide scene list",
-        onClick: et,
+        onClick: toggleSceneList,
         children: jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -8712,423 +8803,434 @@
           }) ]
         })
       }), jsxRuntimeExports.jsx("div", {
-        className: A$2("hvr-scene-list", H && "visible"),
+        className: clsx$8("hvr-scene-list", sceneListVisible && "visible"),
         children: jsxRuntimeExports.jsx("ul", {
-          children: Y.map(u => jsxRuntimeExports.jsx("li", {
+          children: scenes.map(scene => jsxRuntimeExports.jsx("li", {
             role: "button",
             tabIndex: 0,
-            className: A$2(u.id === _ && "active"),
-            onClick: () => E(u.id),
-            onKeyDown: b => {
-              (b.key === "Enter" || b.key === " ") && (b.preventDefault(), E(u.id));
+            className: clsx$8(scene.id === activeSceneId && "active"),
+            onClick: () => showScene(scene.id),
+            onKeyDown: e => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                showScene(scene.id);
+              }
             },
-            children: u.name
-          }, u.id))
+            children: scene.name
+          }, scene.id))
         })
       }) ]
     });
   };
-  function it$1(e) {
-    var t, i, n = "";
-    if (typeof e == "string" || typeof e == "number") n += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var s = e.length;
-      for (t = 0; t < s; t++) e[t] && (i = it$1(e[t])) && (n && (n += " "), n += i);
-    } else for (i in e) e[i] && (n && (n += " "), n += i);
+  function r$2$1(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$2$1(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
     return n;
   }
-  function ht$1() {
-    for (var e, t, i = 0, n = "", s = arguments.length; i < s; i++) (e = arguments[i]) && (t = it$1(e)) && (n && (n += " "), 
+  function clsx$7() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$2$1(e)) && (n && (n += " "), 
     n += t);
     return n;
   }
-  var ut$1 = {
+  var r$1$1 = {
     grad: .9,
     turn: 360,
     rad: 360 / (2 * Math.PI)
-  }, y$5 = function(e) {
-    return typeof e == "string" ? e.length > 0 : typeof e == "number";
-  }, u$4 = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = Math.pow(10, t)), Math.round(i * e) / i + 0;
-  }, d$4 = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = 1), e > i ? i : e > t ? e : t;
-  }, nt$1 = function(e) {
-    return (e = isFinite(e) ? e % 360 : 0) > 0 ? e : e + 360;
-  }, q$1 = function(e) {
+  }, t$2 = function(r) {
+    return "string" == typeof r ? r.length > 0 : "number" == typeof r;
+  }, n$1$1 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = Math.pow(10, t)), Math.round(n * r) / n + 0;
+  }, e$1$1 = function(r, t, n) {
+    return void 0 === t && (t = 0), void 0 === n && (n = 1), r > n ? n : r > t ? r : t;
+  }, u$1$1 = function(r) {
+    return (r = isFinite(r) ? r % 360 : 0) > 0 ? r : r + 360;
+  }, a$1$1 = function(r) {
     return {
-      r: d$4(e.r, 0, 255),
-      g: d$4(e.g, 0, 255),
-      b: d$4(e.b, 0, 255),
-      a: d$4(e.a)
+      r: e$1$1(r.r, 0, 255),
+      g: e$1$1(r.g, 0, 255),
+      b: e$1$1(r.b, 0, 255),
+      a: e$1$1(r.a)
     };
-  }, R$4 = function(e) {
+  }, o$2 = function(r) {
     return {
-      r: u$4(e.r),
-      g: u$4(e.g),
-      b: u$4(e.b),
-      a: u$4(e.a, 3)
+      r: n$1$1(r.r),
+      g: n$1$1(r.g),
+      b: n$1$1(r.b),
+      a: n$1$1(r.a, 3)
     };
-  }, ct = /^#([0-9a-f]{3,8})$/i, M$5 = function(e) {
-    var t = e.toString(16);
+  }, i$1$1 = /^#([0-9a-f]{3,8})$/i, s$2 = function(r) {
+    var t = r.toString(16);
     return t.length < 2 ? "0" + t : t;
-  }, st$1 = function(e) {
-    var t = e.r, i = e.g, n = e.b, s = e.a, r = Math.max(t, i, n), o = r - Math.min(t, i, n), a = o ? r === t ? (i - n) / o : r === i ? 2 + (n - t) / o : 4 + (t - i) / o : 0;
+  }, h$1$1 = function(r) {
+    var t = r.r, n = r.g, e = r.b, u = r.a, a = Math.max(t, n, e), o = a - Math.min(t, n, e), i = o ? a === t ? (n - e) / o : a === n ? 2 + (e - t) / o : 4 + (t - n) / o : 0;
     return {
-      h: 60 * (a < 0 ? a + 6 : a),
-      s: r ? o / r * 100 : 0,
-      v: r / 255 * 100,
-      a: s
+      h: 60 * (i < 0 ? i + 6 : i),
+      s: a ? o / a * 100 : 0,
+      v: a / 255 * 100,
+      a: u
     };
-  }, rt = function(e) {
-    var t = e.h, i = e.s, n = e.v, s = e.a;
-    t = t / 360 * 6, i /= 100, n /= 100;
-    var r = Math.floor(t), o = n * (1 - i), a = n * (1 - (t - r) * i), l = n * (1 - (1 - t + r) * i), h = r % 6;
+  }, b$2 = function(r) {
+    var t = r.h, n = r.s, e = r.v, u = r.a;
+    t = t / 360 * 6, n /= 100, e /= 100;
+    var a = Math.floor(t), o = e * (1 - n), i = e * (1 - (t - a) * n), s = e * (1 - (1 - t + a) * n), h = a % 6;
     return {
-      r: 255 * [ n, a, o, o, l, n ][h],
-      g: 255 * [ l, n, n, a, o, o ][h],
-      b: 255 * [ o, o, l, n, n, a ][h],
-      a: s
+      r: 255 * [ e, i, o, o, s, e ][h],
+      g: 255 * [ s, e, e, i, o, o ][h],
+      b: 255 * [ o, o, s, e, e, i ][h],
+      a: u
     };
-  }, Y$1 = function(e) {
+  }, g$2 = function(r) {
     return {
-      h: nt$1(e.h),
-      s: d$4(e.s, 0, 100),
-      l: d$4(e.l, 0, 100),
-      a: d$4(e.a)
+      h: u$1$1(r.h),
+      s: e$1$1(r.s, 0, 100),
+      l: e$1$1(r.l, 0, 100),
+      a: e$1$1(r.a)
     };
-  }, _$2 = function(e) {
+  }, d$2 = function(r) {
     return {
-      h: u$4(e.h),
-      s: u$4(e.s),
-      l: u$4(e.l),
-      a: u$4(e.a, 3)
+      h: n$1$1(r.h),
+      s: n$1$1(r.s),
+      l: n$1$1(r.l),
+      a: n$1$1(r.a, 3)
     };
-  }, J$1 = function(e) {
-    return rt((i = (t = e).s, {
+  }, f$1$1 = function(r) {
+    return b$2((n = (t = r).s, {
       h: t.h,
-      s: (i *= ((n = t.l) < 50 ? n : 100 - n) / 100) > 0 ? 2 * i / (n + i) * 100 : 0,
-      v: n + i,
+      s: (n *= ((e = t.l) < 50 ? e : 100 - e) / 100) > 0 ? 2 * n / (e + n) * 100 : 0,
+      v: e + n,
       a: t.a
     }));
-    var t, i, n;
-  }, A$1 = function(e) {
+    var t, n, e;
+  }, c$1$1 = function(r) {
     return {
-      h: (t = st$1(e)).h,
-      s: (s = (200 - (i = t.s)) * (n = t.v) / 100) > 0 && s < 200 ? i * n / 100 / (s <= 100 ? s : 200 - s) * 100 : 0,
-      l: s / 2,
+      h: (t = h$1$1(r)).h,
+      s: (u = (200 - (n = t.s)) * (e = t.v) / 100) > 0 && u < 200 ? n * e / 100 / (u <= 100 ? u : 200 - u) * 100 : 0,
+      l: u / 2,
       a: t.a
     };
-    var t, i, n, s;
-  }, dt$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, mt$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, pt$1 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, ft$1 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, C$2 = {
-    string: [ [ function(e) {
-      var t = ct.exec(e);
-      return t ? (e = t[1]).length <= 4 ? {
-        r: parseInt(e[0] + e[0], 16),
-        g: parseInt(e[1] + e[1], 16),
-        b: parseInt(e[2] + e[2], 16),
-        a: e.length === 4 ? u$4(parseInt(e[3] + e[3], 16) / 255, 2) : 1
-      } : e.length === 6 || e.length === 8 ? {
-        r: parseInt(e.substr(0, 2), 16),
-        g: parseInt(e.substr(2, 2), 16),
-        b: parseInt(e.substr(4, 2), 16),
-        a: e.length === 8 ? u$4(parseInt(e.substr(6, 2), 16) / 255, 2) : 1
+    var t, n, e, u;
+  }, l$2 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, p$1$1 = /^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, v$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, m$2 = /^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i, y$2 = {
+    string: [ [ function(r) {
+      var t = i$1$1.exec(r);
+      return t ? (r = t[1]).length <= 4 ? {
+        r: parseInt(r[0] + r[0], 16),
+        g: parseInt(r[1] + r[1], 16),
+        b: parseInt(r[2] + r[2], 16),
+        a: 4 === r.length ? n$1$1(parseInt(r[3] + r[3], 16) / 255, 2) : 1
+      } : 6 === r.length || 8 === r.length ? {
+        r: parseInt(r.substr(0, 2), 16),
+        g: parseInt(r.substr(2, 2), 16),
+        b: parseInt(r.substr(4, 2), 16),
+        a: 8 === r.length ? n$1$1(parseInt(r.substr(6, 2), 16) / 255, 2) : 1
       } : null : null;
-    }, "hex" ], [ function(e) {
-      var t = pt$1.exec(e) || ft$1.exec(e);
-      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : q$1({
+    }, "hex" ], [ function(r) {
+      var t = v$2.exec(r) || m$2.exec(r);
+      return t ? t[2] !== t[4] || t[4] !== t[6] ? null : a$1$1({
         r: Number(t[1]) / (t[2] ? 100 / 255 : 1),
         g: Number(t[3]) / (t[4] ? 100 / 255 : 1),
         b: Number(t[5]) / (t[6] ? 100 / 255 : 1),
-        a: t[7] === void 0 ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
+        a: void 0 === t[7] ? 1 : Number(t[7]) / (t[8] ? 100 : 1)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = dt$1.exec(e) || mt$1.exec(e);
-      if (!t) return null;
-      var i, n, s = Y$1({
-        h: (i = t[1], n = t[2], n === void 0 && (n = "deg"), Number(i) * (ut$1[n] || 1)),
-        s: Number(t[3]),
-        l: Number(t[4]),
-        a: t[5] === void 0 ? 1 : Number(t[5]) / (t[6] ? 100 : 1)
+    }, "rgb" ], [ function(t) {
+      var n = l$2.exec(t) || p$1$1.exec(t);
+      if (!n) return null;
+      var e, u, a = g$2({
+        h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r$1$1[u] || 1)),
+        s: Number(n[3]),
+        l: Number(n[4]),
+        a: void 0 === n[5] ? 1 : Number(n[5]) / (n[6] ? 100 : 1)
       });
-      return J$1(s);
+      return f$1$1(a);
     }, "hsl" ] ],
-    object: [ [ function(e) {
-      var t = e.r, i = e.g, n = e.b, s = e.a, r = s === void 0 ? 1 : s;
-      return y$5(t) && y$5(i) && y$5(n) ? q$1({
-        r: Number(t),
-        g: Number(i),
-        b: Number(n),
-        a: Number(r)
+    object: [ [ function(r) {
+      var n = r.r, e = r.g, u = r.b, o = r.a, i = void 0 === o ? 1 : o;
+      return t$2(n) && t$2(e) && t$2(u) ? a$1$1({
+        r: Number(n),
+        g: Number(e),
+        b: Number(u),
+        a: Number(i)
       }) : null;
-    }, "rgb" ], [ function(e) {
-      var t = e.h, i = e.s, n = e.l, s = e.a, r = s === void 0 ? 1 : s;
-      if (!y$5(t) || !y$5(i) || !y$5(n)) return null;
-      var o = Y$1({
-        h: Number(t),
-        s: Number(i),
-        l: Number(n),
-        a: Number(r)
+    }, "rgb" ], [ function(r) {
+      var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
+      if (!t$2(n) || !t$2(e) || !t$2(u)) return null;
+      var i = g$2({
+        h: Number(n),
+        s: Number(e),
+        l: Number(u),
+        a: Number(o)
       });
-      return J$1(o);
-    }, "hsl" ], [ function(e) {
-      var t = e.h, i = e.s, n = e.v, s = e.a, r = s === void 0 ? 1 : s;
-      if (!y$5(t) || !y$5(i) || !y$5(n)) return null;
-      var o = function(a) {
+      return f$1$1(i);
+    }, "hsl" ], [ function(r) {
+      var n = r.h, a = r.s, o = r.v, i = r.a, s = void 0 === i ? 1 : i;
+      if (!t$2(n) || !t$2(a) || !t$2(o)) return null;
+      var h = function(r) {
         return {
-          h: nt$1(a.h),
-          s: d$4(a.s, 0, 100),
-          v: d$4(a.v, 0, 100),
-          a: d$4(a.a)
+          h: u$1$1(r.h),
+          s: e$1$1(r.s, 0, 100),
+          v: e$1$1(r.v, 0, 100),
+          a: e$1$1(r.a)
         };
       }({
-        h: Number(t),
-        s: Number(i),
-        v: Number(n),
-        a: Number(r)
+        h: Number(n),
+        s: Number(a),
+        v: Number(o),
+        a: Number(s)
       });
-      return rt(o);
+      return b$2(h);
     }, "hsv" ] ]
-  }, K$1 = function(e, t) {
-    for (var i = 0; i < t.length; i++) {
-      var n = t[i][0](e);
-      if (n) return [ n, t[i][1] ];
+  }, N$2 = function(r, t) {
+    for (var n = 0; n < t.length; n++) {
+      var e = t[n][0](r);
+      if (e) return [ e, t[n][1] ];
     }
     return [ null, void 0 ];
-  }, vt$1 = function(e) {
-    return typeof e == "string" ? K$1(e.trim(), C$2.string) : typeof e == "object" && e !== null ? K$1(e, C$2.object) : [ null, void 0 ];
-  }, $$3 = function(e, t) {
-    var i = A$1(e);
+  }, x$2 = function(r) {
+    return "string" == typeof r ? N$2(r.trim(), y$2.string) : "object" == typeof r && null !== r ? N$2(r, y$2.object) : [ null, void 0 ];
+  }, M$2 = function(r, t) {
+    var n = c$1$1(r);
     return {
-      h: i.h,
-      s: d$4(i.s + 100 * t, 0, 100),
-      l: i.l,
-      a: i.a
+      h: n.h,
+      s: e$1$1(n.s + 100 * t, 0, 100),
+      l: n.l,
+      a: n.a
     };
-  }, z$2 = function(e) {
-    return (299 * e.r + 587 * e.g + 114 * e.b) / 1e3 / 255;
-  }, Q$1 = function(e, t) {
-    var i = A$1(e);
+  }, H$2 = function(r) {
+    return (299 * r.r + 587 * r.g + 114 * r.b) / 1e3 / 255;
+  }, $$2 = function(r, t) {
+    var n = c$1$1(r);
     return {
-      h: i.h,
-      s: i.s,
-      l: d$4(i.l + 100 * t, 0, 100),
-      a: i.a
+      h: n.h,
+      s: n.s,
+      l: e$1$1(n.l + 100 * t, 0, 100),
+      a: n.a
     };
-  }, X$1 = function() {
-    function e(t) {
-      this.parsed = vt$1(t)[0], this.rgba = this.parsed || {
+  }, j$2 = function() {
+    function r(r) {
+      this.parsed = x$2(r)[0], this.rgba = this.parsed || {
         r: 0,
         g: 0,
         b: 0,
         a: 1
       };
     }
-    return e.prototype.isValid = function() {
-      return this.parsed !== null;
-    }, e.prototype.brightness = function() {
-      return u$4(z$2(this.rgba), 2);
-    }, e.prototype.isDark = function() {
-      return z$2(this.rgba) < .5;
-    }, e.prototype.isLight = function() {
-      return z$2(this.rgba) >= .5;
-    }, e.prototype.toHex = function() {
-      return t = R$4(this.rgba), i = t.r, n = t.g, s = t.b, o = (r = t.a) < 1 ? M$5(u$4(255 * r)) : "", 
-      "#" + M$5(i) + M$5(n) + M$5(s) + o;
-      var t, i, n, s, r, o;
-    }, e.prototype.toRgb = function() {
-      return R$4(this.rgba);
-    }, e.prototype.toRgbString = function() {
-      return t = R$4(this.rgba), i = t.r, n = t.g, s = t.b, (r = t.a) < 1 ? "rgba(" + i + ", " + n + ", " + s + ", " + r + ")" : "rgb(" + i + ", " + n + ", " + s + ")";
-      var t, i, n, s, r;
-    }, e.prototype.toHsl = function() {
-      return _$2(A$1(this.rgba));
-    }, e.prototype.toHslString = function() {
-      return t = _$2(A$1(this.rgba)), i = t.h, n = t.s, s = t.l, (r = t.a) < 1 ? "hsla(" + i + ", " + n + "%, " + s + "%, " + r + ")" : "hsl(" + i + ", " + n + "%, " + s + "%)";
-      var t, i, n, s, r;
-    }, e.prototype.toHsv = function() {
-      return t = st$1(this.rgba), {
-        h: u$4(t.h),
-        s: u$4(t.s),
-        v: u$4(t.v),
-        a: u$4(t.a, 3)
+    return r.prototype.isValid = function() {
+      return null !== this.parsed;
+    }, r.prototype.brightness = function() {
+      return n$1$1(H$2(this.rgba), 2);
+    }, r.prototype.isDark = function() {
+      return H$2(this.rgba) < .5;
+    }, r.prototype.isLight = function() {
+      return H$2(this.rgba) >= .5;
+    }, r.prototype.toHex = function() {
+      return r = o$2(this.rgba), t = r.r, e = r.g, u = r.b, i = (a = r.a) < 1 ? s$2(n$1$1(255 * a)) : "", 
+      "#" + s$2(t) + s$2(e) + s$2(u) + i;
+      var r, t, e, u, a, i;
+    }, r.prototype.toRgb = function() {
+      return o$2(this.rgba);
+    }, r.prototype.toRgbString = function() {
+      return r = o$2(this.rgba), t = r.r, n = r.g, e = r.b, (u = r.a) < 1 ? "rgba(" + t + ", " + n + ", " + e + ", " + u + ")" : "rgb(" + t + ", " + n + ", " + e + ")";
+      var r, t, n, e, u;
+    }, r.prototype.toHsl = function() {
+      return d$2(c$1$1(this.rgba));
+    }, r.prototype.toHslString = function() {
+      return r = d$2(c$1$1(this.rgba)), t = r.h, n = r.s, e = r.l, (u = r.a) < 1 ? "hsla(" + t + ", " + n + "%, " + e + "%, " + u + ")" : "hsl(" + t + ", " + n + "%, " + e + "%)";
+      var r, t, n, e, u;
+    }, r.prototype.toHsv = function() {
+      return r = h$1$1(this.rgba), {
+        h: n$1$1(r.h),
+        s: n$1$1(r.s),
+        v: n$1$1(r.v),
+        a: n$1$1(r.a, 3)
       };
-      var t;
-    }, e.prototype.invert = function() {
-      return m$3({
-        r: 255 - (t = this.rgba).r,
-        g: 255 - t.g,
-        b: 255 - t.b,
-        a: t.a
+      var r;
+    }, r.prototype.invert = function() {
+      return w$2({
+        r: 255 - (r = this.rgba).r,
+        g: 255 - r.g,
+        b: 255 - r.b,
+        a: r.a
       });
+      var r;
+    }, r.prototype.saturate = function(r) {
+      return void 0 === r && (r = .1), w$2(M$2(this.rgba, r));
+    }, r.prototype.desaturate = function(r) {
+      return void 0 === r && (r = .1), w$2(M$2(this.rgba, -r));
+    }, r.prototype.grayscale = function() {
+      return w$2(M$2(this.rgba, -1));
+    }, r.prototype.lighten = function(r) {
+      return void 0 === r && (r = .1), w$2($$2(this.rgba, r));
+    }, r.prototype.darken = function(r) {
+      return void 0 === r && (r = .1), w$2($$2(this.rgba, -r));
+    }, r.prototype.rotate = function(r) {
+      return void 0 === r && (r = 15), this.hue(this.hue() + r);
+    }, r.prototype.alpha = function(r) {
+      return "number" == typeof r ? w$2({
+        r: (t = this.rgba).r,
+        g: t.g,
+        b: t.b,
+        a: r
+      }) : n$1$1(this.rgba.a, 3);
       var t;
-    }, e.prototype.saturate = function(t) {
-      return t === void 0 && (t = .1), m$3($$3(this.rgba, t));
-    }, e.prototype.desaturate = function(t) {
-      return t === void 0 && (t = .1), m$3($$3(this.rgba, -t));
-    }, e.prototype.grayscale = function() {
-      return m$3($$3(this.rgba, -1));
-    }, e.prototype.lighten = function(t) {
-      return t === void 0 && (t = .1), m$3(Q$1(this.rgba, t));
-    }, e.prototype.darken = function(t) {
-      return t === void 0 && (t = .1), m$3(Q$1(this.rgba, -t));
-    }, e.prototype.rotate = function(t) {
-      return t === void 0 && (t = 15), this.hue(this.hue() + t);
-    }, e.prototype.alpha = function(t) {
-      return typeof t == "number" ? m$3({
-        r: (i = this.rgba).r,
-        g: i.g,
-        b: i.b,
-        a: t
-      }) : u$4(this.rgba.a, 3);
-      var i;
-    }, e.prototype.hue = function(t) {
-      var i = A$1(this.rgba);
-      return typeof t == "number" ? m$3({
-        h: t,
-        s: i.s,
-        l: i.l,
-        a: i.a
-      }) : u$4(i.h);
-    }, e.prototype.isEqual = function(t) {
-      return this.toHex() === m$3(t).toHex();
-    }, e;
-  }(), m$3 = function(e) {
-    return e instanceof X$1 ? e : new X$1(e);
-  }, Z$1 = [], bt$1 = function(e) {
-    e.forEach(function(t) {
-      Z$1.indexOf(t) < 0 && (t(X$1, C$2), Z$1.push(t));
+    }, r.prototype.hue = function(r) {
+      var t = c$1$1(this.rgba);
+      return "number" == typeof r ? w$2({
+        h: r,
+        s: t.s,
+        l: t.l,
+        a: t.a
+      }) : n$1$1(t.h);
+    }, r.prototype.isEqual = function(r) {
+      return this.toHex() === w$2(r).toHex();
+    }, r;
+  }(), w$2 = function(r) {
+    return r instanceof j$2 ? r : new j$2(r);
+  }, S$1 = [], k$1 = function(r) {
+    r.forEach(function(r) {
+      S$1.indexOf(r) < 0 && (r(j$2, y$2), S$1.push(r));
     });
-  }, D$2 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, W$1 = function(e) {
-    return .2126 * D$2(e.r) + .7152 * D$2(e.g) + .0722 * D$2(e.b);
   };
-  function gt$1(e) {
-    e.prototype.luminance = function() {
-      return t = W$1(this.rgba), (i = 2) === void 0 && (i = 0), n === void 0 && (n = Math.pow(10, i)), 
-      Math.round(n * t) / n + 0;
-      var t, i, n;
-    }, e.prototype.contrast = function(t) {
-      t === void 0 && (t = "#FFF");
-      var i, n, s, r, o, a, l, h = t instanceof e ? t : new e(t);
-      return r = this.rgba, o = h.toRgb(), a = W$1(r), l = W$1(o), i = a > l ? (a + .05) / (l + .05) : (l + .05) / (a + .05), 
-      (n = 2) === void 0 && (n = 0), s === void 0 && (s = Math.pow(10, n)), Math.floor(s * i) / s + 0;
-    }, e.prototype.isReadable = function(t, i) {
-      return t === void 0 && (t = "#FFF"), i === void 0 && (i = {}), this.contrast(t) >= (a = (o = (n = i).size) === void 0 ? "normal" : o, 
-      (r = (s = n.level) === void 0 ? "AA" : s) === "AAA" && a === "normal" ? 7 : r === "AA" && a === "large" ? 3 : 4.5);
-      var n, s, r, o, a;
+  var o$1$1 = function(o) {
+    var t = o / 255;
+    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+  }, t$1$1 = function(t) {
+    return .2126 * o$1$1(t.r) + .7152 * o$1$1(t.g) + .0722 * o$1$1(t.b);
+  };
+  function a11yPlugin(o) {
+    o.prototype.luminance = function() {
+      return o = t$1$1(this.rgba), void 0 === (r = 2) && (r = 0), void 0 === n && (n = Math.pow(10, r)), 
+      Math.round(n * o) / n + 0;
+      var o, r, n;
+    }, o.prototype.contrast = function(r) {
+      void 0 === r && (r = "#FFF");
+      var n, a, i, e, v, u, d, c = r instanceof o ? r : new o(r);
+      return e = this.rgba, v = c.toRgb(), u = t$1$1(e), d = t$1$1(v), n = u > d ? (u + .05) / (d + .05) : (d + .05) / (u + .05), 
+      void 0 === (a = 2) && (a = 0), void 0 === i && (i = Math.pow(10, a)), Math.floor(i * n) / i + 0;
+    }, o.prototype.isReadable = function(o, t) {
+      return void 0 === o && (o = "#FFF"), void 0 === t && (t = {}), this.contrast(o) >= (e = void 0 === (i = (r = t).size) ? "normal" : i, 
+      "AAA" === (a = void 0 === (n = r.level) ? "AA" : n) && "normal" === e ? 7 : "AA" === a && "large" === e ? 3 : 4.5);
+      var r, n, a, i, e;
     };
   }
-  var f$4 = function(e, t, i) {
-    return t === void 0 && (t = 0), i === void 0 && (i = 1), e > i ? i : e > t ? e : t;
-  }, H$2 = function(e) {
-    var t = e / 255;
-    return t < .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
-  }, P$3 = function(e) {
-    return 255 * (e > .0031308 ? 1.055 * Math.pow(e, 1 / 2.4) - .055 : 12.92 * e);
-  }, O$1 = 96.422, B$5 = 100, j$2 = 82.521, yt$1 = function(e) {
-    var t, i, n = {
-      x: .9555766 * (t = e).x + -.0230393 * t.y + .0631636 * t.z,
-      y: -.0282895 * t.x + 1.0099416 * t.y + .0210077 * t.z,
-      z: .0122982 * t.x + -.020483 * t.y + 1.3299098 * t.z
+  var t$3 = function(t, a, n) {
+    return void 0 === a && (a = 0), void 0 === n && (n = 1), t > n ? n : t > a ? t : a;
+  }, a$2 = function(t) {
+    var a = t / 255;
+    return a < .04045 ? a / 12.92 : Math.pow((a + .055) / 1.055, 2.4);
+  }, n$2 = function(t) {
+    return 255 * (t > .0031308 ? 1.055 * Math.pow(t, 1 / 2.4) - .055 : 12.92 * t);
+  }, r$9 = 96.422, o$3 = 100, u$2 = 82.521, e$2 = function(a) {
+    var r, o, u = {
+      x: .9555766 * (r = a).x + -.0230393 * r.y + .0631636 * r.z,
+      y: -.0282895 * r.x + 1.0099416 * r.y + .0210077 * r.z,
+      z: .0122982 * r.x + -.020483 * r.y + 1.3299098 * r.z
     };
-    return i = {
-      r: P$3(.032404542 * n.x - .015371385 * n.y - .004985314 * n.z),
-      g: P$3(-.00969266 * n.x + .018760108 * n.y + 41556e-8 * n.z),
-      b: P$3(556434e-9 * n.x - .002040259 * n.y + .010572252 * n.z),
-      a: e.a
+    return o = {
+      r: n$2(.032404542 * u.x - .015371385 * u.y - .004985314 * u.z),
+      g: n$2(-.00969266 * u.x + .018760108 * u.y + 41556e-8 * u.z),
+      b: n$2(556434e-9 * u.x - .002040259 * u.y + .010572252 * u.z),
+      a: a.a
     }, {
-      r: f$4(i.r, 0, 255),
-      g: f$4(i.g, 0, 255),
-      b: f$4(i.b, 0, 255),
-      a: f$4(i.a)
+      r: t$3(o.r, 0, 255),
+      g: t$3(o.g, 0, 255),
+      b: t$3(o.b, 0, 255),
+      a: t$3(o.a)
     };
-  }, Et$1 = function(e) {
-    var t = H$2(e.r), i = H$2(e.g), n = H$2(e.b);
-    return function(s) {
+  }, i$2 = function(n) {
+    var e = a$2(n.r), i = a$2(n.g), p = a$2(n.b);
+    return function(a) {
       return {
-        x: f$4(s.x, 0, O$1),
-        y: f$4(s.y, 0, B$5),
-        z: f$4(s.z, 0, j$2),
-        a: f$4(s.a)
+        x: t$3(a.x, 0, r$9),
+        y: t$3(a.y, 0, o$3),
+        z: t$3(a.z, 0, u$2),
+        a: t$3(a.a)
       };
-    }(function(s) {
+    }(function(t) {
       return {
-        x: 1.0478112 * s.x + .0228866 * s.y + -.050127 * s.z,
-        y: .0295424 * s.x + .9904844 * s.y + -.0170491 * s.z,
-        z: -.0092345 * s.x + .0150436 * s.y + .7521316 * s.z,
-        a: s.a
+        x: 1.0478112 * t.x + .0228866 * t.y + -.050127 * t.z,
+        y: .0295424 * t.x + .9904844 * t.y + -.0170491 * t.z,
+        z: -.0092345 * t.x + .0150436 * t.y + .7521316 * t.z,
+        a: t.a
       };
     }({
-      x: 100 * (.4124564 * t + .3575761 * i + .1804375 * n),
-      y: 100 * (.2126729 * t + .7151522 * i + .072175 * n),
-      z: 100 * (.0193339 * t + .119192 * i + .9503041 * n),
-      a: e.a
+      x: 100 * (.4124564 * e + .3575761 * i + .1804375 * p),
+      y: 100 * (.2126729 * e + .7151522 * i + .072175 * p),
+      z: 100 * (.0193339 * e + .119192 * i + .9503041 * p),
+      a: n.a
     }));
-  }, I$2 = 216 / 24389, L$2 = 24389 / 27, tt$1 = function(e) {
-    var t = Et$1(e), i = t.x / O$1, n = t.y / B$5, s = t.z / j$2;
-    return i = i > I$2 ? Math.cbrt(i) : (L$2 * i + 16) / 116, {
-      l: 116 * (n = n > I$2 ? Math.cbrt(n) : (L$2 * n + 16) / 116) - 16,
-      a: 500 * (i - n),
-      b: 200 * (n - (s = s > I$2 ? Math.cbrt(s) : (L$2 * s + 16) / 116)),
-      alpha: t.a
+  }, p$2 = 216 / 24389, h$2 = 24389 / 27, f$2 = function(t) {
+    var a = i$2(t), n = a.x / r$9, e = a.y / o$3, f = a.z / u$2;
+    return n = n > p$2 ? Math.cbrt(n) : (h$2 * n + 16) / 116, {
+      l: 116 * (e = e > p$2 ? Math.cbrt(e) : (h$2 * e + 16) / 116) - 16,
+      a: 500 * (n - e),
+      b: 200 * (e - (f = f > p$2 ? Math.cbrt(f) : (h$2 * f + 16) / 116)),
+      alpha: a.a
     };
-  }, Lt = function(e, t, i) {
-    var n, s = tt$1(e), r = tt$1(t);
-    return function(o) {
-      var a = (o.l + 16) / 116, l = o.a / 500 + a, h = a - o.b / 200;
-      return yt$1({
-        x: (Math.pow(l, 3) > I$2 ? Math.pow(l, 3) : (116 * l - 16) / L$2) * O$1,
-        y: (o.l > 8 ? Math.pow((o.l + 16) / 116, 3) : o.l / L$2) * B$5,
-        z: (Math.pow(h, 3) > I$2 ? Math.pow(h, 3) : (116 * h - 16) / L$2) * j$2,
-        a: o.alpha
+  }, c$2 = function(a, n, i) {
+    var c, y = f$2(a), x = f$2(n);
+    return function(t) {
+      var a = (t.l + 16) / 116, n = t.a / 500 + a, i = a - t.b / 200;
+      return e$2({
+        x: (Math.pow(n, 3) > p$2 ? Math.pow(n, 3) : (116 * n - 16) / h$2) * r$9,
+        y: (t.l > 8 ? Math.pow((t.l + 16) / 116, 3) : t.l / h$2) * o$3,
+        z: (Math.pow(i, 3) > p$2 ? Math.pow(i, 3) : (116 * i - 16) / h$2) * u$2,
+        a: t.alpha
       });
     }({
-      l: f$4((n = {
-        l: s.l * (1 - i) + r.l * i,
-        a: s.a * (1 - i) + r.a * i,
-        b: s.b * (1 - i) + r.b * i,
-        alpha: s.alpha * (1 - i) + r.alpha * i
+      l: t$3((c = {
+        l: y.l * (1 - i) + x.l * i,
+        a: y.a * (1 - i) + x.a * i,
+        b: y.b * (1 - i) + x.b * i,
+        alpha: y.alpha * (1 - i) + x.alpha * i
       }).l, 0, 400),
-      a: n.a,
-      b: n.b,
-      alpha: f$4(n.alpha)
+      a: c.a,
+      b: c.b,
+      alpha: t$3(c.alpha)
     });
   };
-  function xt$1(e) {
-    function t(i, n, s) {
-      s === void 0 && (s = 5);
-      for (var r = [], o = 1 / (s - 1), a = 0; a <= s - 1; a++) r.push(i.mix(n, o * a));
+  function mixPlugin(t) {
+    function a(t, a, n) {
+      void 0 === n && (n = 5);
+      for (var r = [], o = 1 / (n - 1), u = 0; u <= n - 1; u++) r.push(t.mix(a, o * u));
       return r;
     }
-    e.prototype.mix = function(i, n) {
-      n === void 0 && (n = .5);
-      var s = i instanceof e ? i : new e(i), r = Lt(this.toRgb(), s.toRgb(), n);
-      return new e(r);
-    }, e.prototype.tints = function(i) {
-      return t(this, "#fff", i);
-    }, e.prototype.shades = function(i) {
-      return t(this, "#000", i);
-    }, e.prototype.tones = function(i) {
-      return t(this, "#808080", i);
+    t.prototype.mix = function(a, n) {
+      void 0 === n && (n = .5);
+      var r = a instanceof t ? a : new t(a), o = c$2(this.toRgb(), r.toRgb(), n);
+      return new t(o);
+    }, t.prototype.tints = function(t) {
+      return a(this, "#fff", t);
+    }, t.prototype.shades = function(t) {
+      return a(this, "#000", t);
+    }, t.prototype.tones = function(t) {
+      return a(this, "#808080", t);
     };
   }
-  var F$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(F$2 || (F$2 = {}));
-  var et;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(et || (et = {}));
-  bt$1([ gt$1, xt$1 ]);
-  const St$1 = {
+  var ControlSlotType$8;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$8 || (ControlSlotType$8 = {}));
+  var ControlPropertyKind$8;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$8 || (ControlPropertyKind$8 = {}));
+  k$1([ a11yPlugin, mixPlugin ]);
+  const meta$7 = {
     type: "SceneThumbsNav",
     name: "Scene Thumbs Navigation",
     description: "Shows/hides scene thumbnails for navigation",
     createInitialProperties: () => ({
-      slot: F$2.Bottom,
+      slot: ControlSlotType$8.Bottom,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -9139,7 +9241,7 @@
       }
     })
   };
-  let p$3 = class p {
+  class SceneSlider {
     static SLIDER_HEIGHT=100;
     static WHEEL_SENSITIVITY=.8;
     static RESISTANCE_STRENGTH=.01;
@@ -9166,53 +9268,65 @@
     activeSceneId=null;
     resizeObserver=null;
     cleanups=[];
-    constructor(t, i, n) {
-      this.api = i, this.id = n, this.rootElement = t, this.sliderElement = document.createElement("div"), 
-      this.trackElement = document.createElement("div"), this.listElement = document.createElement("div"), 
-      this.trackElement.append(this.listElement), this.sliderElement.append(this.trackElement), 
-      t.append(this.sliderElement), this.applyStyles(), this.bind(), this.initResizeObserver();
+    constructor(root, api, id) {
+      this.api = api;
+      this.id = id;
+      this.rootElement = root;
+      this.sliderElement = document.createElement("div");
+      this.trackElement = document.createElement("div");
+      this.listElement = document.createElement("div");
+      this.trackElement.append(this.listElement);
+      this.sliderElement.append(this.trackElement);
+      root.append(this.sliderElement);
+      this.applyStyles();
+      this.bind();
+      this.initResizeObserver();
     }
-    setTheme(t) {
-      let i = "transparent";
-      if (t?.background) {
-        const s = m$3(t.background);
-        i = (s.isDark() ? s.mix("#ffffff", .13) : s.mix("#000000", .13)).toHex();
+    setTheme(style) {
+      let thumbBackground = "transparent";
+      if (style?.background) {
+        const baseColor = w$2(style.background);
+        thumbBackground = (baseColor.isDark() ? baseColor.mix("#ffffff", .13) : baseColor.mix("#000000", .13)).toHex();
       }
-      const n = this.sliderElement.style;
-      n.setProperty("--hvr-panel-color", t?.color || "transparent"), n.setProperty("--hvr-panel-bg", t?.background || "transparent"), 
-      n.setProperty("--hvr-panel-radius", t?.borderRadius ? `${t.borderRadius}px` : "0"), 
-      n.setProperty("--hvr-thumb-bg", i), n.setProperty("--hvr-thumb-active", t?.color || "transparent");
+      const el = this.sliderElement.style;
+      el.setProperty("--hvr-panel-color", style?.color || "transparent");
+      el.setProperty("--hvr-panel-bg", style?.background || "transparent");
+      el.setProperty("--hvr-panel-radius", style?.borderRadius ? `${style.borderRadius}px` : "0");
+      el.setProperty("--hvr-thumb-bg", thumbBackground);
+      el.setProperty("--hvr-thumb-active", style?.color || "transparent");
     }
     applyStyles() {
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           ".hvr-controls-body": {
             transition: "bottom 0.3s ease-out"
           }
         });
-        this.rootElement.classList.add(t), this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.rootElement.classList.add(cls);
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           ".hvr-controls-body": {
-            bottom: `${p.SLIDER_HEIGHT}px`
+            bottom: `${SceneSlider.SLIDER_HEIGHT}px`
           }
         });
-        this.rootElementSliderVisibleCls = t, this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.rootElementSliderVisibleCls = cls;
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
       {
-        const t = this.api.styleApi.applyStyle({
+        const cls = this.api.styleApi.applyStyle({
           "--hvr-ui-id": this.id,
           transition: "bottom 0.3s ease-out",
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: `-${p.SLIDER_HEIGHT}px`,
-          height: `${p.SLIDER_HEIGHT}px`,
+          bottom: `-${SceneSlider.SLIDER_HEIGHT}px`,
+          height: `${SceneSlider.SLIDER_HEIGHT}px`,
           color: "var(--hvr-panel-color, transparent)",
           "background-color": "var(--hvr-panel-bg, transparent)",
           "box-sizing": "border-box",
@@ -9257,167 +9371,280 @@
             }
           }
         });
-        this.sliderElement.classList.add(t), this.cleanups.push(() => {
-          this.api.styleApi.removeStyle(t);
+        this.sliderElement.classList.add(cls);
+        this.cleanups.push(() => {
+          this.api.styleApi.removeStyle(cls);
         });
       }
     }
     bind() {
-      this.sliderElement.addEventListener("pointerdown", this.onPointerDown), this.sliderElement.addEventListener("wheel", this.onWheel, {
+      this.sliderElement.addEventListener("pointerdown", this.onPointerDown);
+      this.sliderElement.addEventListener("wheel", this.onWheel, {
         passive: false
-      }), this.listElement.addEventListener("click", this.onSlideClick), this.cleanups.push(() => {
-        this.sliderElement.removeEventListener("pointerdown", this.onPointerDown), this.sliderElement.removeEventListener("wheel", this.onWheel), 
-        this.listElement.removeEventListener("click", this.onSlideClick), document.removeEventListener("pointermove", this.onPointerMove), 
-        document.removeEventListener("pointerup", this.onPointerUp), document.removeEventListener("pointercancel", this.onPointerUp);
+      });
+      this.listElement.addEventListener("click", this.onSlideClick);
+      this.cleanups.push(() => {
+        this.sliderElement.removeEventListener("pointerdown", this.onPointerDown);
+        this.sliderElement.removeEventListener("wheel", this.onWheel);
+        this.listElement.removeEventListener("click", this.onSlideClick);
+        document.removeEventListener("pointermove", this.onPointerMove);
+        document.removeEventListener("pointerup", this.onPointerUp);
+        document.removeEventListener("pointercancel", this.onPointerUp);
       });
     }
     initResizeObserver() {
       this.resizeObserver = new ResizeObserver(() => {
         this.updateLayout();
-      }), this.resizeObserver.observe(this.sliderElement);
+      });
+      this.resizeObserver.observe(this.sliderElement);
     }
-    clamp(t, i, n) {
-      return Math.min(Math.max(t, i), n);
+    clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
     }
     getListElementLeft() {
-      const t = window.getComputedStyle(this.listElement);
-      return parseFloat(t.left) || 0;
+      const style = window.getComputedStyle(this.listElement);
+      return parseFloat(style.left) || 0;
     }
-    setListElementLeft(t) {
-      this.listElement.style.left = `${t}px`;
+    setListElementLeft(left) {
+      this.listElement.style.left = `${left}px`;
     }
-    snapToBoundaries(t = true) {
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
+    snapToBoundaries(animate = true) {
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
       this.isAnimating = false;
-      const i = this.trackElement.offsetWidth, n = this.listElement.offsetWidth;
-      if (n <= i) {
-        t && (this.listElement.style.transition = "left 0.3s ease-out"), this.setListElementLeft(0);
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      if (listWidth <= trackWidth) {
+        if (animate) {
+          this.listElement.style.transition = "left 0.3s ease-out";
+        }
+        this.setListElementLeft(0);
         return;
       }
-      const s = i - n, r = 0, o = this.getListElementLeft(), a = this.clamp(o, s, r);
-      t && (this.listElement.style.transition = "left 0.3s ease-out"), this.setListElementLeft(a);
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      const currentLeft = this.getListElementLeft();
+      const clamped = this.clamp(currentLeft, minLeft, maxLeft);
+      if (animate) {
+        this.listElement.style.transition = "left 0.3s ease-out";
+      }
+      this.setListElementLeft(clamped);
     }
-    startMomentum(t) {
-      if (Math.abs(t) < .3) {
+    startMomentum(initialVelocity) {
+      if (Math.abs(initialVelocity) < .3) {
         this.snapToBoundaries();
         return;
       }
-      this.isAnimating = true, this.listElement.style.transition = "none";
-      const i = Date.now(), n = this.getListElementLeft(), s = () => {
+      this.isAnimating = true;
+      this.listElement.style.transition = "none";
+      const startTime = Date.now();
+      const startLeftPos = this.getListElementLeft();
+      const animate = () => {
         if (!this.isAnimating) return;
-        const r = Date.now() - i, o = Math.exp(-r / 100), a = t * 100 * (1 - o), l = n + a;
-        this.setListElementLeft(l);
-        const h = this.trackElement.offsetWidth, E = this.listElement.offsetWidth;
-        if (E <= h) {
-          this.isAnimating = false, this.snapToBoundaries();
+        const elapsed = Date.now() - startTime;
+        const decay = Math.exp(-elapsed / 100);
+        const delta = initialVelocity * 100 * (1 - decay);
+        const newLeft = startLeftPos + delta;
+        this.setListElementLeft(newLeft);
+        const trackWidth = this.trackElement.offsetWidth;
+        const listWidth = this.listElement.offsetWidth;
+        if (listWidth <= trackWidth) {
+          this.isAnimating = false;
+          this.snapToBoundaries();
           return;
         }
-        const v = h - E, N = 0, b = t * o;
-        if (l >= N && b > -.1 || l <= v && b < .1 || Math.abs(b) < .05) {
-          this.isAnimating = false, this.snapToBoundaries();
+        const minLeft = trackWidth - listWidth;
+        const maxLeft = 0;
+        const currentVelocity = initialVelocity * decay;
+        if (newLeft >= maxLeft && currentVelocity > -.1 || newLeft <= minLeft && currentVelocity < .1 || Math.abs(currentVelocity) < .05) {
+          this.isAnimating = false;
+          this.snapToBoundaries();
           return;
         }
-        this.momentumAnimationId = requestAnimationFrame(s);
+        this.momentumAnimationId = requestAnimationFrame(animate);
       };
-      this.momentumAnimationId = requestAnimationFrame(s);
+      this.momentumAnimationId = requestAnimationFrame(animate);
     }
     updateLayout() {
-      const t = this.trackElement.offsetWidth, i = this.listElement.offsetWidth;
-      this.isDraggable = i > t, this.listElement.style.left = this.isDraggable ? this.listElement.style.left : "auto", 
-      this.activeSceneId && this.goToScene(this.activeSceneId);
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      this.isDraggable = listWidth > trackWidth;
+      this.listElement.style.left = this.isDraggable ? this.listElement.style.left : "auto";
+      if (this.activeSceneId) {
+        this.goToScene(this.activeSceneId);
+      }
     }
-    onPointerDown=t => {
-      t.button !== 0 && t.pointerType !== "touch" || this.isDraggable && (this.isAnimating = false, 
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
-      this.pointerId = t.pointerId, this.startX = t.clientX, this.startLeft = this.getListElementLeft(), 
-      this.lastMoveX = t.clientX, this.lastMoveTime = Date.now(), this.suppressClick = false, 
-      document.addEventListener("pointermove", this.onPointerMove), document.addEventListener("pointerup", this.onPointerUp), 
-      document.addEventListener("pointercancel", this.onPointerUp));
+    onPointerDown=e => {
+      if (e.button !== 0 && e.pointerType !== "touch") return;
+      if (!this.isDraggable) return;
+      this.isAnimating = false;
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
+      this.pointerId = e.pointerId;
+      this.startX = e.clientX;
+      this.startLeft = this.getListElementLeft();
+      this.lastMoveX = e.clientX;
+      this.lastMoveTime = Date.now();
+      this.suppressClick = false;
+      document.addEventListener("pointermove", this.onPointerMove);
+      document.addEventListener("pointerup", this.onPointerUp);
+      document.addEventListener("pointercancel", this.onPointerUp);
     };
-    onPointerMove=t => {
-      if (this.pointerId !== t.pointerId || Math.abs(t.clientX - this.startX) < p.DRAG_THRESHOLD) return;
-      this.isDragging || (this.isDragging = true, this.suppressClick = true, this.listElement.style.transition = "none", 
-      this.sliderElement.setPointerCapture(t.pointerId));
-      const n = t.clientX - this.startX;
-      this.setListElementLeft(this.startLeft + n);
-      const s = Date.now(), r = s - this.lastMoveTime;
-      r > 0 && (this.velocity = (t.clientX - this.lastMoveX) / r), this.lastMoveX = t.clientX, 
-      this.lastMoveTime = s;
+    onPointerMove=e => {
+      if (this.pointerId !== e.pointerId) return;
+      const distance = Math.abs(e.clientX - this.startX);
+      if (distance < SceneSlider.DRAG_THRESHOLD) return;
+      if (!this.isDragging) {
+        this.isDragging = true;
+        this.suppressClick = true;
+        this.listElement.style.transition = "none";
+        this.sliderElement.setPointerCapture(e.pointerId);
+      }
+      const deltaX = e.clientX - this.startX;
+      this.setListElementLeft(this.startLeft + deltaX);
+      const now = Date.now();
+      const dt = now - this.lastMoveTime;
+      if (dt > 0) {
+        this.velocity = (e.clientX - this.lastMoveX) / dt;
+      }
+      this.lastMoveX = e.clientX;
+      this.lastMoveTime = now;
     };
-    onPointerUp=t => {
-      if (this.pointerId !== t.pointerId) return;
-      this.isDragging = false, this.pointerId = null, this.sliderElement.hasPointerCapture(t.pointerId) && this.sliderElement.releasePointerCapture(t.pointerId), 
-      document.removeEventListener("pointermove", this.onPointerMove), document.removeEventListener("pointerup", this.onPointerUp), 
+    onPointerUp=e => {
+      if (this.pointerId !== e.pointerId) return;
+      this.isDragging = false;
+      this.pointerId = null;
+      if (this.sliderElement.hasPointerCapture(e.pointerId)) {
+        this.sliderElement.releasePointerCapture(e.pointerId);
+      }
+      document.removeEventListener("pointermove", this.onPointerMove);
+      document.removeEventListener("pointerup", this.onPointerUp);
       document.removeEventListener("pointercancel", this.onPointerUp);
-      const i = this.velocity;
-      this.velocity = 0, this.startMomentum(i);
+      const v = this.velocity;
+      this.velocity = 0;
+      this.startMomentum(v);
     };
-    onWheel=t => {
-      if (this.isDragging || this.isAnimating || !this.isDraggable) return;
-      const i = this.trackElement.offsetWidth, n = this.listElement.offsetWidth;
-      if (n <= i) return;
-      t.preventDefault();
-      const s = t.deltaX || -t.deltaY, r = this.getListElementLeft(), o = i - n, a = 0;
-      let l = r - s * p.WHEEL_SENSITIVITY, h = 1;
-      l > a ? h = 1 / (1 + (l - a) * p.RESISTANCE_STRENGTH) : l < o && (h = 1 / (1 + (o - l) * p.RESISTANCE_STRENGTH)), 
-      l = r - s * p.WHEEL_SENSITIVITY * h, this.listElement.style.transition = "none", 
-      this.setListElementLeft(l);
-      const E = l > a || l < o;
-      this.wheelEndTimer && clearTimeout(this.wheelEndTimer), E && (this.wheelEndTimer = window.setTimeout(() => {
-        this.wheelEndTimer = null, this.snapToBoundaries(true);
-      }, 100));
+    onWheel=e => {
+      if (this.isDragging || this.isAnimating) return;
+      if (!this.isDraggable) return;
+      const trackWidth = this.trackElement.offsetWidth;
+      const listWidth = this.listElement.offsetWidth;
+      if (listWidth <= trackWidth) return;
+      e.preventDefault();
+      const delta = e.deltaX || -e.deltaY;
+      const currentLeft = this.getListElementLeft();
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      let newLeft = currentLeft - delta * SceneSlider.WHEEL_SENSITIVITY;
+      let resistanceFactor = 1;
+      if (newLeft > maxLeft) {
+        const over = newLeft - maxLeft;
+        resistanceFactor = 1 / (1 + over * SceneSlider.RESISTANCE_STRENGTH);
+      } else if (newLeft < minLeft) {
+        const over = minLeft - newLeft;
+        resistanceFactor = 1 / (1 + over * SceneSlider.RESISTANCE_STRENGTH);
+      }
+      newLeft = currentLeft - delta * SceneSlider.WHEEL_SENSITIVITY * resistanceFactor;
+      this.listElement.style.transition = "none";
+      this.setListElementLeft(newLeft);
+      const needsSnap = newLeft > maxLeft || newLeft < minLeft;
+      if (this.wheelEndTimer) clearTimeout(this.wheelEndTimer);
+      if (needsSnap) {
+        this.wheelEndTimer = window.setTimeout(() => {
+          this.wheelEndTimer = null;
+          this.snapToBoundaries(true);
+        }, 100);
+      }
     };
-    onSlideClick=t => {
+    onSlideClick=e => {
       if (this.suppressClick) {
         this.suppressClick = false;
         return;
       }
-      const i = t.target;
-      i.hasAttribute("data-id") && this.api.sceneApi.show(i.getAttribute("data-id"));
-    };
-    setVisible(t) {
-      this.sliderElement.classList.toggle("visible", t), this.rootElement.classList.toggle(this.rootElementSliderVisibleCls, t), 
-      t && this.activeSceneId && this.goToScene(this.activeSceneId);
-    }
-    addScene(t) {
-      const i = document.createElement("div");
-      if (i.dataset.id = t.id, t.image?.id) {
-        const n = new URL(`${t.id}/${t.image.id}/thumb.jpg`, this.api.getResourceUrl("assets")).href;
-        i.style.backgroundImage = `url("${n}")`;
+      const el = e.target;
+      if (el.hasAttribute("data-id")) {
+        void this.api.sceneApi.show(el.getAttribute("data-id"));
       }
-      this.listElement.append(i), this.updateLayout();
+    };
+    setVisible(isVisible) {
+      this.sliderElement.classList.toggle("visible", isVisible);
+      this.rootElement.classList.toggle(this.rootElementSliderVisibleCls, isVisible);
+      if (isVisible && this.activeSceneId) {
+        this.goToScene(this.activeSceneId);
+      }
     }
-    removeScene(t) {
-      this.listElement.querySelector(`[data-id="${t}"]`)?.remove(), this.updateLayout();
+    addScene(scene) {
+      const slide = document.createElement("div");
+      slide.dataset.id = scene.id;
+      if (scene.image?.id) {
+        const thumbUrl = new URL(`${scene.id}/${scene.image.id}/thumb.jpg`, this.api.getResourceUrl("assets")).href;
+        slide.style.backgroundImage = `url("${thumbUrl}")`;
+      }
+      this.listElement.append(slide);
+      this.updateLayout();
     }
-    setActiveScene(t) {
-      this.listElement.querySelectorAll("[data-id]").forEach(n => {
-        n.classList.remove("active");
+    removeScene(sceneId) {
+      const slide = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      slide?.remove();
+      this.updateLayout();
+    }
+    setActiveScene(sceneId) {
+      this.listElement.querySelectorAll("[data-id]").forEach(slide2 => {
+        slide2.classList.remove("active");
       });
-      const i = this.listElement.querySelector(`[data-id="${t}"]`);
-      i && (i.classList.add("active"), this.activeSceneId = t, this.goToScene(t));
+      const slide = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      if (slide) {
+        slide.classList.add("active");
+        this.activeSceneId = sceneId;
+        this.goToScene(sceneId);
+      }
     }
-    goToScene(t) {
+    goToScene(sceneId) {
       if (!this.isDraggable) return;
-      this.momentumAnimationId && (cancelAnimationFrame(this.momentumAnimationId), this.momentumAnimationId = null), 
+      if (this.momentumAnimationId) {
+        cancelAnimationFrame(this.momentumAnimationId);
+        this.momentumAnimationId = null;
+      }
       this.isAnimating = false;
-      const i = this.listElement.querySelector(`[data-id="${t}"]`);
-      if (!i) return;
-      const n = i.offsetLeft, s = i.offsetWidth, r = this.trackElement.offsetWidth, o = r / 2, a = -(n + s / 2 - o), l = this.listElement.offsetWidth, h = r - l, v = this.clamp(a, h, 0);
-      this.listElement.style.transition = "left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)", 
-      this.setListElementLeft(v);
+      const targetScene = this.listElement.querySelector(`[data-id="${sceneId}"]`);
+      if (!targetScene) return;
+      const slideOffsetLeft = targetScene.offsetLeft;
+      const slideWidth = targetScene.offsetWidth;
+      const trackWidth = this.trackElement.offsetWidth;
+      const trackCenter = trackWidth / 2;
+      const desiredLeft = -(slideOffsetLeft + slideWidth / 2 - trackCenter);
+      const listWidth = this.listElement.offsetWidth;
+      const minLeft = trackWidth - listWidth;
+      const maxLeft = 0;
+      const clampedLeft = this.clamp(desiredLeft, minLeft, maxLeft);
+      this.listElement.style.transition = "left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      this.setListElementLeft(clampedLeft);
     }
     destroy() {
-      this.momentumAnimationId && cancelAnimationFrame(this.momentumAnimationId), this.wheelEndTimer && clearTimeout(this.wheelEndTimer), 
-      this.resizeObserver && (this.resizeObserver.disconnect(), this.resizeObserver = null), 
-      this.cleanups.forEach(t => t()), this.sliderElement.remove();
+      if (this.momentumAnimationId) cancelAnimationFrame(this.momentumAnimationId);
+      if (this.wheelEndTimer) clearTimeout(this.wheelEndTimer);
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+        this.resizeObserver = null;
+      }
+      this.cleanups.forEach(clean => clean());
+      this.sliderElement.remove();
     }
-  };
-  const wt$1 = e => {
-    const {api: t, slot: i, style: n, hoverStyle: s, className: r} = e, [o] = reactExports.useState(() => t.generateId()), [a, l] = reactExports.useState(""), [h, E] = reactExports.useState(""), [v, N] = reactExports.useState(false), b = reactExports.useRef(null);
+  }
+  const SceneThumbsNav = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [sliderVisible, setSliderVisible] = reactExports.useState(false);
+    const sliderRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const c = t.styleApi.applyStyle({
-        "--hvr-ui-id": o,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -9435,65 +9662,80 @@
           height: "100%"
         }
       });
-      return l(c), () => {
-        t.styleApi.removeStyle(c);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, o ]), reactExports.useLayoutEffect(() => {
-      const c = t.styleApi.applyStyle({
-        "--hvr-ui-id": o,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: s?.color,
-          "background-color": s?.background,
-          "border-radius": s?.borderRadius ? `${s.borderRadius}px` : void 0,
-          opacity: s?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return E(c), () => {
-        t.styleApi.removeStyle(c);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, o, n, s ]), reactExports.useEffect(() => {
-      const c = t.getControlContainer(), S = new p$3(c, t, o);
-      return S.setTheme(n), b.current = S, () => {
-        S.destroy(), b.current = null;
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const root = api.getControlContainer();
+      const slider = new SceneSlider(root, api, id);
+      slider.setTheme(style);
+      sliderRef.current = slider;
+      return () => {
+        slider.destroy();
+        sliderRef.current = null;
       };
-    }, [ t, o, i ]), reactExports.useEffect(() => {
-      const c = b.current;
-      if (!c) return;
-      t.sceneApi.getList().forEach(g => c.addScene(g));
-      const U = t.sceneApi.getActive();
-      U && c.setActiveScene(U.id);
-      const w = [];
-      return w.push(t.on("scene:add", ({sceneId: g}) => {
-        const G = t.sceneApi.get(g);
-        G && c.addScene(G);
-      })), w.push(t.on("scene:remove", ({sceneId: g}) => {
-        c.removeScene(g);
-      })), w.push(t.on("scene:show", ({sceneId: g}) => {
-        c.setActiveScene(g);
-      })), () => {
-        w.forEach(g => g());
+    }, [ api, id, slot ]);
+    reactExports.useEffect(() => {
+      const slider = sliderRef.current;
+      if (!slider) return;
+      const scenes = api.sceneApi.getList();
+      scenes.forEach(scene => slider.addScene(scene));
+      const activeScene = api.sceneApi.getActive();
+      if (activeScene) slider.setActiveScene(activeScene.id);
+      const cleanups = [];
+      cleanups.push(api.on("scene:add", ({sceneId: sceneId}) => {
+        const scene = api.sceneApi.get(sceneId);
+        if (scene) slider.addScene(scene);
+      }));
+      cleanups.push(api.on("scene:remove", ({sceneId: sceneId}) => {
+        slider.removeScene(sceneId);
+      }));
+      cleanups.push(api.on("scene:show", ({sceneId: sceneId}) => {
+        slider.setActiveScene(sceneId);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]), reactExports.useEffect(() => {
-      b.current?.setTheme(n);
-    }, [ n ]), reactExports.useEffect(() => {
-      b.current?.setVisible(v);
-    }, [ v ]);
-    const ot = () => N(c => !c);
+    }, [ api ]);
+    reactExports.useEffect(() => {
+      sliderRef.current?.setTheme(style);
+    }, [ style ]);
+    reactExports.useEffect(() => {
+      sliderRef.current?.setVisible(sliderVisible);
+    }, [ sliderVisible ]);
+    const toggleSlider = () => setSliderVisible(v => !v);
     return jsxRuntimeExports.jsx("div", {
-      className: ht$1("hvr-control", a, h, r),
+      className: clsx$7("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-expanded": v,
+        "aria-expanded": sliderVisible,
         "aria-label": "Show/hide scene thumbnails",
         title: "Show/hide scene thumbnails",
-        onClick: ot,
+        onClick: toggleSlider,
         children: jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
@@ -9518,34 +9760,41 @@
       })
     });
   };
-  function m$2(t) {
-    var e, r, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var a = t.length;
-      for (e = 0; e < a; e++) t[e] && (r = m$2(t[e])) && (o && (o += " "), o += r);
-    } else for (r in t) t[r] && (o && (o += " "), o += r);
-    return o;
+  function r$8(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$8(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function M$4() {
-    for (var t, e, r = 0, o = "", a = arguments.length; r < a; r++) (t = arguments[r]) && (e = m$2(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$6() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$8(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$3;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(d$3 || (d$3 = {}));
-  var y$4;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(y$4 || (y$4 = {}));
-  const B$4 = {
+  var ControlSlotType$7;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$7 || (ControlSlotType$7 = {}));
+  var ControlPropertyKind$7;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$7 || (ControlPropertyKind$7 = {}));
+  const meta$6 = {
     type: "MuteToggle",
     name: "Mute Toggle",
     description: "Globally mutes/unmutes all tour audio",
     createInitialProperties: () => ({
-      slot: d$3.BottomRight,
+      slot: ControlSlotType$7.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -9555,11 +9804,16 @@
         background: "#000"
       }
     })
-  }, R$3 = t => {
-    const {api: e, style: r, hoverStyle: o, className: a} = t, [l] = reactExports.useState(() => e.generateId()), [b, f] = reactExports.useState(""), [v, k] = reactExports.useState(""), [n, p] = reactExports.useState(false);
+  };
+  const MuteToggle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isMuted, setIsMuted] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const i = e.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -9577,48 +9831,54 @@
           }
         }
       });
-      return f(i), () => {
-        e.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, l ]), reactExports.useLayoutEffect(() => {
-      const i = e.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(i), () => {
-        e.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, l, r, o ]), reactExports.useEffect(() => {
-      const i = [];
-      return p(e.audioApi.isMuted()), i.push(e.on("audio:mute:change", ({isMuted: c}) => {
-        p(c);
-      })), () => {
-        i.forEach(c => c());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsMuted(api.audioApi.isMuted());
+      cleanups.push(api.on("audio:mute:change", ({isMuted: isMuted2}) => {
+        setIsMuted(isMuted2);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ e ]);
-    const x = () => {
-      e.audioApi.setMuted(!n);
+    }, [ api ]);
+    const toggleMute = () => {
+      api.audioApi.setMuted(!isMuted);
     };
     return jsxRuntimeExports.jsx("div", {
-      className: M$4("hvr-control", b, v, a),
+      className: clsx$6("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": n,
-        "aria-label": n ? "Unmute tour audio" : "Mute tour audio",
-        title: n ? "Unmute tour audio" : "Mute tour audio",
-        onClick: x,
-        children: n ? jsxRuntimeExports.jsxs("svg", {
+        "aria-pressed": isMuted,
+        "aria-label": isMuted ? "Unmute tour audio" : "Mute tour audio",
+        title: isMuted ? "Unmute tour audio" : "Mute tour audio",
+        onClick: toggleMute,
+        children: isMuted ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -9660,34 +9920,41 @@
       })
     });
   };
-  function v$3(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var l = e.length;
-      for (t = 0; t < l; t++) e[t] && (o = v$3(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$7(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$7(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function L$1() {
-    for (var e, t, o = 0, r = "", l = arguments.length; o < l; o++) (e = arguments[o]) && (t = v$3(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx$5() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$7(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var d$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(d$2 || (d$2 = {}));
-  var f$3;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(f$3 || (f$3 = {}));
-  const F$1 = {
+  var ControlSlotType$6;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$6 || (ControlSlotType$6 = {}));
+  var ControlPropertyKind$6;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$6 || (ControlPropertyKind$6 = {}));
+  const meta$5 = {
     type: "FullscreenToggle",
     name: "Fullscreen Toggle",
     description: "Toggles fullscreen mode on/off",
     createInitialProperties: () => ({
-      slot: d$2.BottomRight,
+      slot: ControlSlotType$6.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -9697,11 +9964,16 @@
         background: "#000"
       }
     })
-  }, M$3 = e => {
-    const {api: t, style: o, hoverStyle: r, className: l} = e, [a] = reactExports.useState(() => t.generateId()), [b, m] = reactExports.useState(""), [y, k] = reactExports.useState(""), [c, p] = reactExports.useState(false);
+  };
+  const FullscreenToggle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isFullscreen, setIsFullscreen] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -9719,49 +9991,55 @@
           }
         }
       });
-      return m(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: o?.color,
-          "background-color": o?.background,
-          "backdrop-filter": o?.background ? "blur(4px)" : void 0,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: r?.color,
-          "background-color": r?.background,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, a, o, r ]), reactExports.useEffect(() => {
-      const i = [];
-      return p(t.viewportApi.isFullscreen()), i.push(t.on("viewport:fullscreen:change", ({isEnabled: u}) => {
-        p(u);
-      })), () => {
-        i.forEach(u => u());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsFullscreen(api.viewportApi.isFullscreen());
+      cleanups.push(api.on("viewport:fullscreen:change", ({isEnabled: isEnabled}) => {
+        setIsFullscreen(isEnabled);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ t ]);
-    const w = () => {
-      t.viewportApi.toggleFullscreen();
+    }, [ api ]);
+    const toggleFullscreen = () => {
+      api.viewportApi.toggleFullscreen();
     };
     return jsxRuntimeExports.jsx("div", {
-      className: L$1("hvr-control", b, y, l),
+      className: clsx$5("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": c,
-        "aria-label": c ? "Exit fullscreen mode" : "Enter fullscreen mode",
+        "aria-pressed": isFullscreen,
+        "aria-label": isFullscreen ? "Exit fullscreen mode" : "Enter fullscreen mode",
         title: "Toggle fullscreen",
-        onClick: w,
-        children: c ? jsxRuntimeExports.jsxs("svg", {
+        onClick: toggleFullscreen,
+        children: isFullscreen ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -9803,34 +10081,41 @@
       })
     });
   };
-  function f$2(t) {
-    var o, r, e = "";
-    if (typeof t == "string" || typeof t == "number") e += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var i = t.length;
-      for (o = 0; o < i; o++) t[o] && (r = f$2(t[o])) && (e && (e += " "), e += r);
-    } else for (r in t) t[r] && (e && (e += " "), e += r);
-    return e;
+  function r$6(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$6(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function R$2() {
-    for (var t, o, r = 0, e = "", i = arguments.length; r < i; r++) (t = arguments[r]) && (o = f$2(t)) && (e && (e += " "), 
-    e += o);
-    return e;
+  function clsx$4() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$6(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var u$3;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(u$3 || (u$3 = {}));
-  var b$4;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(b$4 || (b$4 = {}));
-  const B$3 = {
+  var ControlSlotType$5;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$5 || (ControlSlotType$5 = {}));
+  var ControlPropertyKind$5;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$5 || (ControlPropertyKind$5 = {}));
+  const meta$4 = {
     type: "AutoRotateToggle",
     name: "Auto Rotate Toggle",
     description: "Toggles auto rotate mode on/off",
     createInitialProperties: () => ({
-      slot: u$3.BottomRight,
+      slot: ControlSlotType$5.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -9840,11 +10125,16 @@
         background: "#000"
       }
     })
-  }, E$1 = t => {
-    const {api: o, style: r, hoverStyle: e, className: i} = t, [n] = reactExports.useState(() => o.generateId()), [v, y] = reactExports.useState(""), [m, k] = reactExports.useState(""), [l, p] = reactExports.useState(false);
+  };
+  const AutoRotateToggle = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [isEnabled, setIsEnabled] = reactExports.useState(false);
     reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": n,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -9862,53 +10152,59 @@
           }
         }
       });
-      return y(s), () => {
-        o.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, n ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": n,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: r?.color,
-          "background-color": r?.background,
-          "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-          "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-          opacity: r?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: e?.color,
-          "background-color": e?.background,
-          "border-radius": e?.borderRadius ? `${e.borderRadius}px` : void 0,
-          opacity: e?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return k(s), () => {
-        o.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, n, r, e ]), reactExports.useEffect(() => {
-      const s = [];
-      return p(o.viewportApi.getOptions().autoRotate?.enabled ?? false), s.push(o.on("viewport:autorotate:change", ({isEnabled: d}) => {
-        p(d);
-      })), () => {
-        s.forEach(d => d());
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => {
+      const cleanups = [];
+      setIsEnabled(api.viewportApi.getOptions().autoRotate?.enabled ?? false);
+      cleanups.push(api.on("viewport:autorotate:change", ({isEnabled: isEnabled2}) => {
+        setIsEnabled(isEnabled2);
+      }));
+      return () => {
+        cleanups.forEach(clean => clean());
       };
-    }, [ o ]);
-    const w = () => {
-      o.viewportApi.setOptions({
+    }, [ api ]);
+    const toggleAutoRotate = () => {
+      api.viewportApi.setOptions({
         autoRotate: {
-          enabled: !l
+          enabled: !isEnabled
         }
       });
     };
     return jsxRuntimeExports.jsx("div", {
-      className: R$2("hvr-control", v, m, i),
+      className: clsx$4("hvr-control", baseClassName, styleClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
-        "aria-pressed": l,
-        "aria-label": l ? "Disable auto rotate" : "Enable auto rotate",
+        "aria-pressed": isEnabled,
+        "aria-label": isEnabled ? "Disable auto rotate" : "Enable auto rotate",
         title: "Toggle auto rotate",
-        onClick: w,
-        children: l ? jsxRuntimeExports.jsxs("svg", {
+        onClick: toggleAutoRotate,
+        children: isEnabled ? jsxRuntimeExports.jsxs("svg", {
           xmlns: "http://www.w3.org/2000/svg",
           width: "24",
           height: "24",
@@ -9954,130 +10250,155 @@
       })
     });
   };
-  function v$2(r) {
-    var o, t, e = "";
-    if (typeof r == "string" || typeof r == "number") e += r; else if (typeof r == "object") if (Array.isArray(r)) {
-      var i = r.length;
-      for (o = 0; o < i; o++) r[o] && (t = v$2(r[o])) && (e && (e += " "), e += t);
-    } else for (t in r) r[t] && (e && (e += " "), e += t);
-    return e;
+  function r$5(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$5(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function b$3() {
-    for (var r, o, t = 0, e = "", i = arguments.length; t < i; t++) (r = arguments[t]) && (o = v$2(r)) && (e && (e += " "), 
-    e += o);
-    return e;
+  function clsx$3() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$5(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var g$2;
-  (function(r) {
-    r.TopLeft = "tl", r.Top = "t", r.TopRight = "tr", r.Left = "l", r.Right = "r", r.BottomLeft = "bl", 
-    r.Bottom = "b", r.BottomRight = "br";
-  })(g$2 || (g$2 = {}));
-  var u$2;
-  (function(r) {
-    r.Image = "image", r.Link = "link";
-  })(u$2 || (u$2 = {}));
-  const R$1 = {
+  var ControlSlotType$4;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$4 || (ControlSlotType$4 = {}));
+  var ControlPropertyKind$4;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$4 || (ControlPropertyKind$4 = {}));
+  const meta$3 = {
     type: "VirtualTourLogo",
     name: "Virtual Tour Logo",
     description: "Displays a logo for the virtual tour",
-    editableProperties: [ u$2.Image, u$2.Link ],
+    editableProperties: [ ControlPropertyKind$4.Image, ControlPropertyKind$4.Link ],
     createInitialProperties: () => ({
-      slot: g$2.TopLeft,
+      slot: ControlSlotType$4.TopLeft,
       style: {
         color: "#fff",
         background: "#00000070",
         borderRadius: 4
       }
     })
-  }, w$4 = r => {
-    const {api: o, style: t, hoverStyle: e, className: i, image: n, link: a} = r, [l] = reactExports.useState(() => o.generateId()), [m, h] = reactExports.useState(""), [f, k] = reactExports.useState(""), [L, N] = reactExports.useState("");
-    if (reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+  };
+  const VirtualTourLogo = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className, image: image, link: link} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, opacity .3s ease",
         padding: "10px",
         "user-select": "none"
       });
-      return h(s), () => {
-        o.styleApi.removeStyle(s);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
-        color: t?.color,
-        "background-color": t?.background,
-        "backdrop-filter": t?.background ? "blur(4px)" : void 0,
-        "border-radius": t?.borderRadius ? `${t.borderRadius}px` : void 0,
-        opacity: t?.opacity,
-        cursor: a ? "pointer" : "default",
-        "pointer-events": a ? "all" : "none",
-        "&:hover": a ? {
-          color: e?.color,
-          "background-color": e?.background,
-          "border-radius": e?.borderRadius ? `${e.borderRadius}px` : void 0,
-          opacity: e?.opacity
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
+        cursor: link ? "pointer" : "default",
+        "pointer-events": link ? "all" : "none",
+        "&:hover": link ? {
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         } : void 0
       });
-      return k(s), () => {
-        o.styleApi.removeStyle(s);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l, t, e, a ]), reactExports.useLayoutEffect(() => {
-      const s = o.styleApi.applyStyle({
-        "--hvr-ui-id": l,
+    }, [ api, id, style, hoverStyle, link ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "block",
-        width: n?.size ? `${n.size}px` : "auto",
+        width: image?.size ? `${image.size}px` : "auto",
         height: "auto",
         "-webkit-user-drag": "none"
       });
-      return N(s), () => {
-        o.styleApi.removeStyle(s);
+      setImageClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ o, l, n ]), !n?.url) return null;
-    const y = jsxRuntimeExports.jsx("img", {
-      className: L,
-      src: n.url,
+    }, [ api, id, image ]);
+    if (!image?.url) return null;
+    const img = jsxRuntimeExports.jsx("img", {
+      className: imageClassName,
+      src: image.url,
       alt: "Logo",
       draggable: false
     });
-    return a?.url ? jsxRuntimeExports.jsx("a", {
-      className: b$3("hvr-control", m, f, i),
-      href: a.url,
-      target: a.newWindow ? "_blank" : "_self",
-      rel: a.newWindow ? "noopener noreferrer" : void 0,
-      children: y
+    return link?.url ? jsxRuntimeExports.jsx("a", {
+      className: clsx$3("hvr-control", baseClassName, styleClassName, className),
+      href: link.url,
+      target: link.newWindow ? "_blank" : "_self",
+      rel: link.newWindow ? "noopener noreferrer" : void 0,
+      children: img
     }) : jsxRuntimeExports.jsx("div", {
-      className: b$3("hvr-control", m, f, i),
-      children: y
+      className: clsx$3("hvr-control", baseClassName, styleClassName, className),
+      children: img
     });
   };
-  function w$3(t) {
-    var e, n, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var s = t.length;
-      for (e = 0; e < s; e++) t[e] && (n = w$3(t[e])) && (o && (o += " "), o += n);
-    } else for (n in t) t[n] && (o && (o += " "), o += n);
-    return o;
+  function r$4(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$4(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function I$1() {
-    for (var t, e, n = 0, o = "", s = arguments.length; n < s; n++) (t = arguments[n]) && (e = w$3(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$2() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$4(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var h$3;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(h$3 || (h$3 = {}));
-  var b$2;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(b$2 || (b$2 = {}));
-  const D$1 = {
+  var ControlSlotType$3;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$3 || (ControlSlotType$3 = {}));
+  var ControlPropertyKind$3;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$3 || (ControlPropertyKind$3 = {}));
+  const meta$2 = {
     type: "ZoomControls",
     name: "Zoom Controls",
     description: "Zoom scene in/out while holding the button",
     createInitialProperties: () => ({
-      slot: h$3.BottomRight,
+      slot: ControlSlotType$3.BottomRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -10087,11 +10408,18 @@
         background: "#000"
       }
     })
-  }, P$2 = 250, y$3 = 30, M$2 = t => {
-    const {api: e, style: n, hoverStyle: o, className: s} = t, [c] = reactExports.useState(() => e.generateId()), [k, x] = reactExports.useState(""), [L, R] = reactExports.useState(""), u = reactExports.useRef(null);
+  };
+  const HOLD_DELAY = 250;
+  const TICK_MS = 30;
+  const ZoomControls = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const holdRef = reactExports.useRef(null);
     reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": c,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         display: "flex",
         "flex-direction": "row",
         gap: "5px",
@@ -10112,62 +10440,77 @@
           }
         }
       });
-      return x(r), () => {
-        e.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, c ]), reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": c,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: n?.color,
-          "background-color": n?.background,
-          "backdrop-filter": n?.background ? "blur(4px)" : void 0,
-          "border-radius": n?.borderRadius ? `${n.borderRadius}px` : void 0,
-          opacity: n?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return R(r), () => {
-        e.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, c, n, o ]), reactExports.useEffect(() => () => a(), []);
-    const m = r => {
-      if (!e.viewportApi.getViewpoint()) return;
-      const i = e.viewportApi.getOptions().zoom?.step ?? .1, d = Math.exp(-r * i * 6 * (y$3 / 1e3));
-      e.viewportApi.zoomBy({
-        factor: d
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useEffect(() => () => stopZoom(), []);
+    const applyZoomStep = dir => {
+      if (!api.viewportApi.getViewpoint()) return;
+      const step = api.viewportApi.getOptions().zoom?.step ?? .1;
+      const k = Math.exp(-dir * step * 6 * (TICK_MS / 1e3));
+      void api.viewportApi.zoomBy({
+        factor: k
       });
-    }, A = (r, i) => {
-      r.preventDefault(), r.currentTarget.setPointerCapture(r.pointerId), a(), m(i), u.current = {
+    };
+    const handlePointerDown = (e, dir) => {
+      e.preventDefault();
+      e.currentTarget.setPointerCapture(e.pointerId);
+      stopZoom();
+      applyZoomStep(dir);
+      holdRef.current = {
         timeout: window.setTimeout(() => {
-          u.current = {
+          holdRef.current = {
             timeout: 0,
-            interval: window.setInterval(() => m(i), y$3)
+            interval: window.setInterval(() => applyZoomStep(dir), TICK_MS)
           };
-        }, P$2),
+        }, HOLD_DELAY),
         interval: 0
       };
-    }, a = () => {
-      const r = u.current;
-      u.current = null, r && (r.timeout && clearTimeout(r.timeout), r.interval && clearInterval(r.interval));
-    }, f = (r, i, d) => jsxRuntimeExports.jsx("button", {
+    };
+    const stopZoom = () => {
+      const hold = holdRef.current;
+      holdRef.current = null;
+      if (!hold) return;
+      if (hold.timeout) clearTimeout(hold.timeout);
+      if (hold.interval) clearInterval(hold.interval);
+    };
+    const zoomButton = (dir, label, icon) => jsxRuntimeExports.jsx("button", {
       type: "button",
-      "aria-label": i,
-      title: i,
-      onPointerDown: B => A(B, r),
-      onPointerUp: a,
-      onPointerCancel: a,
-      onLostPointerCapture: a,
-      children: d
+      "aria-label": label,
+      title: label,
+      onPointerDown: e => handlePointerDown(e, dir),
+      onPointerUp: stopZoom,
+      onPointerCancel: stopZoom,
+      onLostPointerCapture: stopZoom,
+      children: icon
     });
     return jsxRuntimeExports.jsxs("div", {
-      className: I$1("hvr-control", k, L, s),
-      children: [ f(1, "Zoom out", jsxRuntimeExports.jsx("svg", {
+      className: clsx$2("hvr-control", baseClassName, styleClassName, className),
+      children: [ zoomButton(1, "Zoom out", jsxRuntimeExports.jsx("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "24",
         height: "24",
@@ -10180,7 +10523,7 @@
         children: jsxRuntimeExports.jsx("path", {
           d: "M5 12h14"
         })
-      })), f(-1, "Zoom in", jsxRuntimeExports.jsxs("svg", {
+      })), zoomButton(-1, "Zoom in", jsxRuntimeExports.jsxs("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "24",
         height: "24",
@@ -10198,35 +10541,42 @@
       })) ]
     });
   };
-  function B$2(t) {
-    var e, s, o = "";
-    if (typeof t == "string" || typeof t == "number") o += t; else if (typeof t == "object") if (Array.isArray(t)) {
-      var u = t.length;
-      for (e = 0; e < u; e++) t[e] && (s = B$2(t[e])) && (o && (o += " "), o += s);
-    } else for (s in t) t[s] && (o && (o += " "), o += s);
-    return o;
+  function r$3(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$3(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function P$1() {
-    for (var t, e, s = 0, o = "", u = arguments.length; s < u; s++) (t = arguments[s]) && (e = B$2(t)) && (o && (o += " "), 
-    o += e);
-    return o;
+  function clsx$1() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$3(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var w$2;
-  (function(t) {
-    t.TopLeft = "tl", t.Top = "t", t.TopRight = "tr", t.Left = "l", t.Right = "r", t.BottomLeft = "bl", 
-    t.Bottom = "b", t.BottomRight = "br";
-  })(w$2 || (w$2 = {}));
-  var k$1;
-  (function(t) {
-    t.Image = "image", t.Link = "link";
-  })(k$1 || (k$1 = {}));
-  const _$1 = {
+  var ControlSlotType$2;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$2 || (ControlSlotType$2 = {}));
+  var ControlPropertyKind$2;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$2 || (ControlPropertyKind$2 = {}));
+  const meta$1 = {
     type: "Compass",
     name: "Compass",
     description: "Shows where north is (scene northOffset, 0 if not set); click to look at north",
-    editableProperties: [ k$1.Image ],
+    editableProperties: [ ControlPropertyKind$2.Image ],
     createInitialProperties: () => ({
-      slot: w$2.TopRight,
+      slot: ControlSlotType$2.TopRight,
       style: {
         color: "#fff",
         background: "#00000070",
@@ -10236,28 +10586,49 @@
         background: "#000"
       }
     })
-  }, V$1 = {
+  };
+  const needleSvgStyle = {
     transformBox: "view-box",
     transformOrigin: "center"
-  }, C$1 = 600, U$1 = t => {
-    const {api: e, style: s, hoverStyle: o, className: u, image: p} = t, [a] = reactExports.useState(() => e.generateId()), [E, I] = reactExports.useState(""), [$, M] = reactExports.useState(""), [j, x] = reactExports.useState(""), h = !!p?.url, g = reactExports.useRef(0), R = reactExports.useRef(0), m = reactExports.useRef(0), A = reactExports.useRef(0), L = reactExports.useRef(null), y = (r, c = false) => {
-      R.current = r;
-      const n = L.current;
-      if (!n) return;
-      let i = (g.current - r - m.current) % 360;
-      i > 180 && (i -= 360), i < -180 && (i += 360), m.current += i;
-      const O = c || performance.now() < A.current;
-      c && (A.current = performance.now() + C$1), n.style.transition = O ? `transform ${C$1}ms ease` : "none", 
-      n.style.transform = `rotate(${m.current}deg)`;
-    }, N = r => {
-      L.current = r, r && y(R.current);
-    }, b = (r, c) => {
-      const n = r ? e.sceneApi.get(r) : void 0;
-      g.current = n?.northOffset ?? 0, y(c, true);
+  };
+  const NEEDLE_ANIM_MS = 600;
+  const Compass = props => {
+    const {api: api, style: style, hoverStyle: hoverStyle, className: className, image: image} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    const hasImage = !!image?.url;
+    const northDegRef = reactExports.useRef(0);
+    const yawDegRef = reactExports.useRef(0);
+    const needleDegRef = reactExports.useRef(0);
+    const animateUntilRef = reactExports.useRef(0);
+    const needleRef = reactExports.useRef(null);
+    const applyRotation = (yawDeg, animate = false) => {
+      yawDegRef.current = yawDeg;
+      const el = needleRef.current;
+      if (!el) return;
+      let delta = (northDegRef.current - yawDeg - needleDegRef.current) % 360;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      needleDegRef.current += delta;
+      const smooth = animate || performance.now() < animateUntilRef.current;
+      if (animate) animateUntilRef.current = performance.now() + NEEDLE_ANIM_MS;
+      el.style.transition = smooth ? `transform ${NEEDLE_ANIM_MS}ms ease` : "none";
+      el.style.transform = `rotate(${needleDegRef.current}deg)`;
+    };
+    const setNeedleRef = el => {
+      needleRef.current = el;
+      if (el) applyRotation(yawDegRef.current);
+    };
+    const applyScene = (sceneId, yawDeg) => {
+      const scene = sceneId ? api.sceneApi.get(sceneId) : void 0;
+      northDegRef.current = scene?.northOffset ?? 0;
+      applyRotation(yawDeg, true);
     };
     reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         position: "relative",
         "& button": {
           transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
@@ -10275,36 +10646,40 @@
           }
         }
       });
-      return I(r), () => {
-        e.styleApi.removeStyle(r);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, a ]), reactExports.useLayoutEffect(() => {
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+    }, [ api, id ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
-          color: s?.color,
-          "background-color": s?.background,
-          "backdrop-filter": s?.background ? "blur(4px)" : void 0,
-          "border-radius": s?.borderRadius != null ? `${s.borderRadius}px` : void 0,
-          opacity: s?.opacity
+          color: style?.color,
+          "background-color": style?.background,
+          "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+          "border-radius": style?.borderRadius != null ? `${style.borderRadius}px` : void 0,
+          opacity: style?.opacity
         },
         "& button:hover": {
-          color: o?.color,
-          "background-color": o?.background,
-          "border-radius": o?.borderRadius ? `${o.borderRadius}px` : void 0,
-          opacity: o?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return M(r), () => {
-        e.styleApi.removeStyle(r);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e, a, s, o ]), reactExports.useLayoutEffect(() => {
-      if (!h) {
-        x("");
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      if (!hasImage) {
+        setImageClassName("");
         return;
       }
-      const r = e.styleApi.applyStyle({
-        "--hvr-ui-id": a,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         "& button": {
           width: "auto",
           height: "auto",
@@ -10312,42 +10687,44 @@
         },
         "& img": {
           display: "block",
-          width: p?.size ? `${p.size}px` : "auto",
+          width: image?.size ? `${image.size}px` : "auto",
           height: "auto",
           "-webkit-user-drag": "none",
           "transform-box": "fill-box",
           "transform-origin": "center"
         }
       });
-      return x(r), () => {
-        e.styleApi.removeStyle(r);
-      };
-    }, [ e, a, p, h ]), reactExports.useEffect(() => {
-      const r = e.sceneApi.getActive();
-      b(r?.id ?? "", e.viewportApi.getViewpoint()?.yaw ?? 0);
-      const c = [ e.on("scene:show:start", ({sceneId: n, viewpoint: i}) => b(n, i.yaw ?? 0)), e.on("scene:show", ({sceneId: n}) => b(n, e.viewportApi.getViewpoint()?.yaw ?? 0)), e.on("viewport:view:change", ({viewpoint: n}) => y(n.yaw ?? 0)) ];
+      setImageClassName(cls);
       return () => {
-        c.forEach(n => n());
+        api.styleApi.removeStyle(cls);
       };
-    }, [ e ]);
-    const D = () => {
-      e.viewportApi.lookAt({
+    }, [ api, id, image, hasImage ]);
+    reactExports.useEffect(() => {
+      const active = api.sceneApi.getActive();
+      applyScene(active?.id ?? "", api.viewportApi.getViewpoint()?.yaw ?? 0);
+      const offs = [ api.on("scene:show:start", ({sceneId: sceneId, viewpoint: viewpoint}) => applyScene(sceneId, viewpoint.yaw ?? 0)), api.on("scene:show", ({sceneId: sceneId}) => applyScene(sceneId, api.viewportApi.getViewpoint()?.yaw ?? 0)), api.on("viewport:view:change", ({viewpoint: viewpoint}) => applyRotation(viewpoint.yaw ?? 0)) ];
+      return () => {
+        offs.forEach(off => off());
+      };
+    }, [ api ]);
+    const lookNorth = () => {
+      void api.viewportApi.lookAt({
         viewpoint: {
-          yaw: g.current
+          yaw: northDegRef.current
         },
         duration: 1e3
       });
     };
     return jsxRuntimeExports.jsx("div", {
-      className: P$1("hvr-control", E, $, j, u),
+      className: clsx$1("hvr-control", baseClassName, styleClassName, imageClassName, className),
       children: jsxRuntimeExports.jsx("button", {
         type: "button",
         "aria-label": "Look at north",
         title: "Look at north",
-        onClick: D,
-        children: h ? jsxRuntimeExports.jsx("img", {
-          ref: N,
-          src: p?.url,
+        onClick: lookNorth,
+        children: hasImage ? jsxRuntimeExports.jsx("img", {
+          ref: setNeedleRef,
+          src: image?.url,
           alt: "Compass",
           draggable: false
         }) : jsxRuntimeExports.jsxs("svg", {
@@ -10363,8 +10740,8 @@
             stroke: "currentColor",
             strokeWidth: "2"
           }), jsxRuntimeExports.jsxs("g", {
-            ref: N,
-            style: V$1,
+            ref: setNeedleRef,
+            style: needleSvgStyle,
             children: [ jsxRuntimeExports.jsx("path", {
               d: "M12 3.5 L14.3 12 L9.7 12 Z",
               fill: "currentColor"
@@ -10379,33 +10756,40 @@
       })
     });
   };
-  function y$2(e) {
-    var t, o, r = "";
-    if (typeof e == "string" || typeof e == "number") r += e; else if (typeof e == "object") if (Array.isArray(e)) {
-      var a = e.length;
-      for (t = 0; t < a; t++) e[t] && (o = y$2(e[t])) && (r && (r += " "), r += o);
-    } else for (o in e) e[o] && (r && (r += " "), r += o);
-    return r;
+  function r$2(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e; else if ("object" == typeof e) if (Array.isArray(e)) {
+      var o = e.length;
+      for (t = 0; t < o; t++) e[t] && (f = r$2(e[t])) && (n && (n += " "), n += f);
+    } else for (f in e) e[f] && (n && (n += " "), n += f);
+    return n;
   }
-  function B$1() {
-    for (var e, t, o = 0, r = "", a = arguments.length; o < a; o++) (e = arguments[o]) && (t = y$2(e)) && (r && (r += " "), 
-    r += t);
-    return r;
+  function clsx() {
+    for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r$2(e)) && (n && (n += " "), 
+    n += t);
+    return n;
   }
-  var h$2;
-  (function(e) {
-    e.TopLeft = "tl", e.Top = "t", e.TopRight = "tr", e.Left = "l", e.Right = "r", e.BottomLeft = "bl", 
-    e.Bottom = "b", e.BottomRight = "br";
-  })(h$2 || (h$2 = {}));
-  var p$2;
-  (function(e) {
-    e.Image = "image", e.Link = "link";
-  })(p$2 || (p$2 = {}));
-  const $$2 = {
+  var ControlSlotType$1;
+  (function(ControlSlotType) {
+    ControlSlotType["TopLeft"] = "tl";
+    ControlSlotType["Top"] = "t";
+    ControlSlotType["TopRight"] = "tr";
+    ControlSlotType["Left"] = "l";
+    ControlSlotType["Right"] = "r";
+    ControlSlotType["BottomLeft"] = "bl";
+    ControlSlotType["Bottom"] = "b";
+    ControlSlotType["BottomRight"] = "br";
+  })(ControlSlotType$1 || (ControlSlotType$1 = {}));
+  var ControlPropertyKind$1;
+  (function(ControlPropertyKind) {
+    ControlPropertyKind["Image"] = "image";
+    ControlPropertyKind["Link"] = "link";
+  })(ControlPropertyKind$1 || (ControlPropertyKind$1 = {}));
+  const meta = {
     type: "LoadingIndicator",
     name: "Loading Indicator",
     description: "Spinner shown while tour resources (tiles/textures) are loading",
-    editableProperties: [ p$2.Image ],
+    editableProperties: [ ControlPropertyKind$1.Image ],
     createInitialProperties: () => ({
       style: {
         color: "#fff",
@@ -10413,18 +10797,26 @@
         borderRadius: 4
       }
     })
-  }, z$1 = e => {
-    const {api: t, slot: o, style: r, hoverStyle: a, className: b, image: n} = e, [s] = reactExports.useState(() => t.generateId()), [v, k] = reactExports.useState(""), [w, x] = reactExports.useState(""), [L, f] = reactExports.useState(""), [u, I] = reactExports.useState(() => t.isLoading()), m = reactExports.useRef(null), g = !!n?.url;
-    return reactExports.useEffect(() => t.on("virtualtour:loading", ({isLoading: i}) => I(i)), [ t ]), 
+  };
+  const LoadingIndicator = props => {
+    const {api: api, slot: slot, style: style, hoverStyle: hoverStyle, className: className, image: image} = props;
+    const [id] = reactExports.useState(() => api.generateId());
+    const [baseClassName, setBaseClassName] = reactExports.useState("");
+    const [styleClassName, setStyleClassName] = reactExports.useState("");
+    const [imageClassName, setImageClassName] = reactExports.useState("");
+    const [isLoading, setIsLoading] = reactExports.useState(() => api.isLoading());
+    const spinnerRef = reactExports.useRef(null);
+    const hasImage = !!image?.url;
+    reactExports.useEffect(() => api.on("virtualtour:loading", ({isLoading: isLoading2}) => setIsLoading(isLoading2)), [ api ]);
     reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         transition: "background-color .3s ease, color .3s ease, opacity .3s ease",
         width: "1lh",
         height: "1lh",
         padding: "5px",
         "pointer-events": "none",
-        ...!o && {
+        ...!slot && {
           position: "absolute",
           top: "50%",
           left: "50%",
@@ -10436,66 +10828,74 @@
           height: "100%"
         }
       });
-      return k(i), () => {
-        t.styleApi.removeStyle(i);
+      setBaseClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, o, r ]), reactExports.useLayoutEffect(() => {
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
-        color: r?.color,
-        "background-color": r?.background,
-        "backdrop-filter": r?.background ? "blur(4px)" : void 0,
-        "border-radius": r?.borderRadius ? `${r.borderRadius}px` : void 0,
-        opacity: r?.opacity,
+    }, [ api, id, slot, style ]);
+    reactExports.useLayoutEffect(() => {
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
+        color: style?.color,
+        "background-color": style?.background,
+        "backdrop-filter": style?.background ? "blur(4px)" : void 0,
+        "border-radius": style?.borderRadius ? `${style.borderRadius}px` : void 0,
+        opacity: style?.opacity,
         "&:hover": {
-          color: a?.color,
-          "background-color": a?.background,
-          "border-radius": a?.borderRadius ? `${a.borderRadius}px` : void 0,
-          opacity: a?.opacity
+          color: hoverStyle?.color,
+          "background-color": hoverStyle?.background,
+          "border-radius": hoverStyle?.borderRadius ? `${hoverStyle.borderRadius}px` : void 0,
+          opacity: hoverStyle?.opacity
         }
       });
-      return x(i), () => {
-        t.styleApi.removeStyle(i);
+      setStyleClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, r, a ]), reactExports.useLayoutEffect(() => {
-      if (!g) {
-        f("");
+    }, [ api, id, style, hoverStyle ]);
+    reactExports.useLayoutEffect(() => {
+      if (!hasImage) {
+        setImageClassName("");
         return;
       }
-      const i = t.styleApi.applyStyle({
-        "--hvr-ui-id": s,
+      const cls = api.styleApi.applyStyle({
+        "--hvr-ui-id": id,
         width: "auto",
         height: "auto",
         padding: "10px",
         "& img": {
           display: "block",
-          width: n?.size ? `${n.size}px` : "auto",
+          width: image?.size ? `${image.size}px` : "auto",
           height: "auto",
           "-webkit-user-drag": "none"
         }
       });
-      return f(i), () => {
-        t.styleApi.removeStyle(i);
+      setImageClassName(cls);
+      return () => {
+        api.styleApi.removeStyle(cls);
       };
-    }, [ t, s, n, g ]), reactExports.useLayoutEffect(() => {
-      const i = m.current;
-      if (!i || !u) return;
-      const R = i.animate([ {
+    }, [ api, id, image, hasImage ]);
+    reactExports.useLayoutEffect(() => {
+      const el = spinnerRef.current;
+      if (!el || !isLoading) return;
+      const anim = el.animate([ {
         transform: "rotate(0deg)"
       }, {
         transform: "rotate(360deg)"
       } ], {
         duration: 900,
-        iterations: 1 / 0,
+        iterations: Infinity,
         easing: "linear"
       });
-      return () => R.cancel();
-    }, [ u ]), u ? jsxRuntimeExports.jsx("div", {
-      className: B$1("hvr-control", v, w, L, b),
+      return () => anim.cancel();
+    }, [ isLoading ]);
+    if (!isLoading) return null;
+    return jsxRuntimeExports.jsx("div", {
+      className: clsx("hvr-control", baseClassName, styleClassName, imageClassName, className),
       children: jsxRuntimeExports.jsx("div", {
-        ref: m,
-        children: g ? jsxRuntimeExports.jsx("img", {
-          src: n?.url,
+        ref: spinnerRef,
+        children: hasImage ? jsxRuntimeExports.jsx("img", {
+          src: image?.url,
           alt: "Spinner",
           draggable: false
         }) : jsxRuntimeExports.jsx("svg", {
@@ -10513,7 +10913,7 @@
           })
         })
       })
-    }) : null;
+    });
   };
   var ControlWidgetType;
   (function(ControlWidgetType) {
@@ -10531,57 +10931,57 @@
     ControlWidgetType["LoadingIndicator"] = "LoadingIndicator";
   })(ControlWidgetType || (ControlWidgetType = {}));
   const controlWidgetRegistry = {
-    [N$4.type]: {
-      component: S$3,
-      meta: N$4
+    [meta$b.type]: {
+      component: SceneTitle,
+      meta: meta$b
     },
-    [w$5.type]: {
-      component: B$7,
-      meta: w$5
+    [meta$a.type]: {
+      component: SceneCounter,
+      meta: meta$a
     },
-    [N$3.type]: {
-      component: A$3,
-      meta: N$3
+    [meta$9.type]: {
+      component: SceneNav,
+      meta: meta$9
     },
-    [gt$2.type]: {
-      component: vt$2,
-      meta: gt$2
+    [meta$8.type]: {
+      component: SceneListNav,
+      meta: meta$8
     },
-    [St$1.type]: {
-      component: wt$1,
-      meta: St$1,
+    [meta$7.type]: {
+      component: SceneThumbsNav,
+      meta: meta$7,
       pro: true
     },
-    [B$4.type]: {
-      component: R$3,
-      meta: B$4
+    [meta$6.type]: {
+      component: MuteToggle,
+      meta: meta$6
     },
-    [F$1.type]: {
-      component: M$3,
-      meta: F$1
+    [meta$5.type]: {
+      component: FullscreenToggle,
+      meta: meta$5
     },
-    [B$3.type]: {
-      component: E$1,
-      meta: B$3,
+    [meta$4.type]: {
+      component: AutoRotateToggle,
+      meta: meta$4,
       pro: true
     },
-    [R$1.type]: {
-      component: w$4,
-      meta: R$1,
+    [meta$3.type]: {
+      component: VirtualTourLogo,
+      meta: meta$3,
       pro: true
     },
-    [D$1.type]: {
-      component: M$2,
-      meta: D$1
+    [meta$2.type]: {
+      component: ZoomControls,
+      meta: meta$2
     },
-    [_$1.type]: {
-      component: U$1,
-      meta: _$1,
+    [meta$1.type]: {
+      component: Compass,
+      meta: meta$1,
       pro: true
     },
-    [$$2.type]: {
-      component: z$1,
-      meta: $$2
+    [meta.type]: {
+      component: LoadingIndicator,
+      meta: meta
     }
   };
   const getControlWidgetByType = type => controlWidgetRegistry[type];
@@ -33272,7 +33672,7 @@
       b: 255 * [ o, o, s, e, e, i ][h],
       a: u
     };
-  }, g$3 = function(r) {
+  }, g$4 = function(r) {
     return {
       h: u(r.h),
       s: e(r.s, 0, 100),
@@ -33327,7 +33727,7 @@
     }, "rgb" ], [ function(t) {
       var n = l.exec(t) || p.exec(t);
       if (!n) return null;
-      var e, u, a = g$3({
+      var e, u, a = g$4({
         h: (e = n[1], u = n[2], void 0 === u && (u = "deg"), Number(e) * (r[u] || 1)),
         s: Number(n[3]),
         l: Number(n[4]),
@@ -33346,7 +33746,7 @@
     }, "rgb" ], [ function(r) {
       var n = r.h, e = r.s, u = r.l, a = r.a, o = void 0 === a ? 1 : a;
       if (!t(n) || !t(e) || !t(u)) return null;
-      var i = g$3({
+      var i = g$4({
         h: Number(n),
         s: Number(e),
         l: Number(u),

@@ -5,7 +5,19 @@
       "Yalogica\\HappyVR\\": "includes/"
     }
   },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../packages/wordpress-sdk-2.13.5",
+      "options": {
+        "symlink": false,
+        "versions": {
+          "freemius/wordpress-sdk": "2.13.5"
+        }
+      }
+    }
+  ],
   "require": {
-    "freemius/wordpress-sdk": "^2.13.4"
+    "freemius/wordpress-sdk": "^2.13.5"
   }
 }

@@ -3,7 +3,7 @@
  * Plugin Name:       HappyVR - Virtual Tour Builder & 360 Panorama Viewer
  * Plugin URI:        https://yalogica.com/happyvr
  * Description:       Create interactive virtual tours with stunning 360° panoramas. Easily add scenes, interactive hotspot and controls, perfect for real estate, education, and business presentations.
- * Version:           2.6.1
+ * Version:           2.7.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Yalogica
@@ -19,7 +19,7 @@ namespace Yalogica\HappyVR;
 defined('ABSPATH') || exit;
 
 define('HAPPYVR_PLUGIN_NAME', 'happyvr');
-define('HAPPYVR_PLUGIN_VERSION', '2.6.1');
+define('HAPPYVR_PLUGIN_VERSION', '2.7.0');
 define('HAPPYVR_PLUGIN_BASE_NAME', plugin_basename(__FILE__));
 define('HAPPYVR_PLUGIN_PATH', __DIR__);
 define('HAPPYVR_PLUGIN_URL', plugin_dir_url(__FILE__));
