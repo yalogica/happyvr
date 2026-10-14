@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "happyvr/virtualtour-embed",
+  "title": "HappyVR Embed",
+  "description": "Embed an interactive 360° virtual tour built with HappyVR.",
+  "category": "media",
+  "icon": "format-gallery",
+  "keywords": ["happyvr", "virtual tour", "360", "panorama", "vr"],
+  "textdomain": "happyvr",
+  "attributes": {
+    "tourId": { "type": "number", "default": 0 },
+    "width": { "type": "string", "default": "" },
+    "height": { "type": "string", "default": "" },
+    "sceneid": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  },
+  "editorScript": "happyvr-embed-block-editor",
+  "render": "php"
+}

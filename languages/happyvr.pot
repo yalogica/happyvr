@@ -1,0 +1,287 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: HappyVR\n"
+"POT-Creation-Date: 2026-09-01 19:24+0300\n"
+"PO-Revision-Date: 2025-04-18 17:59+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: happyvr.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: monorepo\n"
+"X-Poedit-SearchPathExcluded-2: vendor\n"
+
+#: includes/Models/AccessModel.php:45
+msgid "All"
+msgstr ""
+
+#: includes/Models/AccessModel.php:48
+msgid "By Role"
+msgstr ""
+
+#: includes/Models/AccessModel.php:51
+msgid "Private"
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:216
+#: includes/Rest/Controllers/DataController.php:273
+msgid "Virtual tour data has been retrieved."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:223
+#: includes/Rest/Controllers/DataController.php:228
+#: includes/Rest/Controllers/DataController.php:280
+#: includes/Rest/Controllers/DataController.php:285
+msgid "Failed to get virtual tour data."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:247
+msgid "Virtual tour items have been retrieved."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:254
+#: includes/Rest/Controllers/DataController.php:259
+msgid "Failed to get virtual tour items."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:300
+msgid "Virtual tour data has been saved."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:304
+#: includes/Rest/Controllers/DataController.php:309
+msgid "Failed to save virtual tour data."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:323
+msgid "Virtual tour has been deleted."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:327
+#: includes/Rest/Controllers/DataController.php:332
+msgid "Failed to delete virtual tour."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:346
+msgid "Virtual tour has been copied."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:353
+#: includes/Rest/Controllers/DataController.php:358
+msgid "Failed to copy virtual tour."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:373
+msgid "Virtual tour status has been updated."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:377
+#: includes/Rest/Controllers/DataController.php:382
+msgid "Failed to update virtual tour status."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:411
+msgid "Invalid face."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:426
+msgid "Tile images have been updated."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:430
+#: includes/Rest/Controllers/DataController.php:435
+msgid "Failed to update tile images."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:464
+msgid "Scene thumb image has been updated."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:468
+#: includes/Rest/Controllers/DataController.php:473
+msgid "Failed to update scene thumb image."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:485
+msgid "Icon sets have been retrieved."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:490
+#: includes/Rest/Controllers/DataController.php:495
+msgid "Failed to get icon sets."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:509
+msgid "Icons have been retrieved."
+msgstr ""
+
+#: includes/Rest/Controllers/DataController.php:514
+#: includes/Rest/Controllers/DataController.php:519
+msgid "Failed to get icons."
+msgstr ""
+
+#: includes/Rest/Controllers/SettingsController.php:56
+msgid "Settings have been successfully retrieved"
+msgstr ""
+
+#: includes/Rest/Controllers/SettingsController.php:63
+#: includes/Rest/Controllers/SettingsController.php:68
+msgid "Failed to get settings"
+msgstr ""
+
+#: includes/Rest/Controllers/SettingsController.php:82
+msgid "Settings are successfully updated"
+msgstr ""
+
+#: includes/Rest/Controllers/SettingsController.php:86
+#: includes/Rest/Controllers/SettingsController.php:91
+msgid "Failed to update settings"
+msgstr ""
+
+#: includes/Rest/Controllers/SettingsController.php:103
+msgid "Permission types have been successfully retrieved"
+msgstr ""
+
+#: includes/Rest/Controllers/SettingsController.php:110
+#: includes/Rest/Controllers/SettingsController.php:115
+msgid "Failed to get permission types"
+msgstr ""
+
+#: includes/System/Admin.php:47
+msgid "HappyVR Virtual Tours"
+msgstr ""
+
+#: includes/System/Admin.php:48
+msgid "HappyVR Virtual Tour"
+msgstr ""
+
+#: includes/System/Admin.php:71 includes/System/Admin.php:72
+#: includes/System/Admin.php:81 includes/System/Admin.php:84
+#: includes/System/Admin.php:85 includes/System/Admin.php:90
+msgid "HappyVR"
+msgstr ""
+
+#: includes/System/Admin.php:72
+msgid "All Virtual Tours"
+msgstr ""
+
+#: includes/System/Admin.php:81
+msgid "Add New"
+msgstr ""
+
+#: includes/System/Admin.php:84 includes/Views/guide.php:12
+msgid "How To"
+msgstr ""
+
+#: includes/System/Admin.php:85
+msgid "Settings"
+msgstr ""
+
+#: includes/System/Admin.php:131 includes/System/Admin.php:139
+#: includes/System/Admin.php:162
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: includes/System/Admin.php:132 includes/System/Admin.php:140
+#: includes/System/Admin.php:163 includes/System/Admin.php:171
+msgid "Access Denied"
+msgstr ""
+
+#: includes/System/Admin.php:149
+msgid ""
+"Failed to create a new virtual tour. Please try again or check your server "
+"logs for more details."
+msgstr ""
+
+#: includes/System/Admin.php:150
+msgid "Server Error"
+msgstr ""
+
+#: includes/System/Admin.php:170
+msgid ""
+"Sorry, you are not allowed to manage plugin settings. Only administrators "
+"can access this page."
+msgstr ""
+
+#: includes/System/Admin.php:202
+msgid "Thank you for using HappyVR! ✨"
+msgstr ""
+
+#: includes/System/Admin.php:205
+msgid ""
+"The free version lets you build up to 5 virtual tours with 5 scenes and 5 "
+"layers per scene. Go further with <b>HappyVR PRO</b>:"
+msgstr ""
+
+#: includes/System/Admin.php:207
+msgid "Unlimited virtual tours, scenes, and layers."
+msgstr ""
+
+#: includes/System/Admin.php:208
+msgid ""
+"Custom CSS, custom JavaScript, and Handlebars templates for full design "
+"control."
+msgstr ""
+
+#: includes/System/Admin.php:209
+msgid "Extra widgets, extra icon sets, and custom attributes."
+msgstr ""
+
+#: includes/System/Admin.php:210
+msgid "Background sounds, voice guidance, and cinematic scene transitions."
+msgstr ""
+
+#: includes/System/Admin.php:211
+msgid "Global settings and user permissions to manage your whole team."
+msgstr ""
+
+#: includes/System/Admin.php:215
+msgid "Get HappyVR PRO"
+msgstr ""
+
+#: includes/System/Admin.php:216
+msgid "Learn More"
+msgstr ""
+
+#: includes/System/Shortcode.php:40
+msgid "HappyVR: Virtual tour ID not defined."
+msgstr ""
+
+#: includes/System/Shortcode.php:48
+msgid "HappyVR: Virtual tour not found."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "HappyVR - Virtual Tour Builder & 360 Panorama Viewer"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://yalogica.com/happyvr"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Create interactive virtual tours with stunning 360° panoramas. Easily add "
+"scenes, interactive hotspot and controls, perfect for real estate, "
+"education, and business presentations."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Yalogica"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yalogica.com"
+msgstr ""

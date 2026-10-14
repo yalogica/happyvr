@@ -1,0 +1,240 @@
+.happyvr-app-preloading .happyvr-app-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+.happyvr-app-preloading .happyvr-header,
+.happyvr-app-preloading .happyvr-data {
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  border: none;
+  background-color: lightgray;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.happyvr-app-preloading .happyvr-header::after,
+.happyvr-app-preloading .happyvr-data::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(20%, rgba(255, 255, 255, 0.3)), color-stop(40%, rgba(255, 255, 255, 0.5)), color-stop(60%, rgba(255, 255, 255, 0.3)), color-stop(80%, rgba(255, 255, 255, 0)));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0) 80%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-animation: happyvr-fx-skeleton-shimmer 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: happyvr-fx-skeleton-shimmer 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.happyvr-app-preloading .happyvr-header {
+  position: relative;
+  height: 44px;
+  width: 300px;
+}
+.happyvr-app-preloading .happyvr-data {
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+@-webkit-keyframes happyvr-fx-skeleton-shimmer {
+  0% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+
+@keyframes happyvr-fx-skeleton-shimmer {
+  0% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+#happyvr-app {
+  position: relative;
+  padding: 0 10px 0 0;
+  height: calc(100vh - 32px - 20px);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 782px) {
+  #happyvr-app {
+    padding: 0 10px 0 0;
+    padding-left: 0;
+    height: calc(100vh - 46px - 20px);
+  }
+}
+
+.happyvr-app-container dd, .happyvr-app-container li,
+.happyvr-portal-container dd,
+.happyvr-portal-container li {
+  margin: unset;
+}
+.happyvr-app-container h1, .happyvr-app-container h2, .happyvr-app-container h3,
+.happyvr-portal-container h1,
+.happyvr-portal-container h2,
+.happyvr-portal-container h3 {
+  margin: unset;
+  padding: unset;
+}
+.happyvr-app-container button,
+.happyvr-portal-container button {
+  -webkit-margin-start: 0;
+  margin-inline-start: 0;
+  -webkit-margin-end: 0;
+  margin-inline-end: 0;
+}
+.happyvr-app-container p,
+.happyvr-portal-container p {
+  margin: unset;
+  padding: unset;
+  font-size: unset;
+  line-height: unset;
+}
+.happyvr-app-container a:focus,
+.happyvr-portal-container a:focus {
+  -webkit-box-shadow: unset;
+  box-shadow: unset;
+  outline: unset;
+}
+.happyvr-app-container input[type=number]:focus,
+.happyvr-portal-container input[type=number]:focus {
+  border-color: inherit;
+  outline: unset;
+}
+
+.happyvr-guide .happyvr-header {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
+}
+.happyvr-guide .happyvr-header .happyvr-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+.happyvr-guide .happyvr-header .happyvr-title span {
+  line-height: 1.3333333333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #fff;
+}
+.happyvr-guide .happyvr-header .happyvr-title sup {
+  position: relative;
+  top: -0.75rem;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: none;
+  text-transform: uppercase;
+  vertical-align: baseline;
+}
+.happyvr-guide .happyvr-header .happyvr-title svg {
+  width: 40px;
+  height: 40px;
+}
+.happyvr-guide .happyvr-header .happyvr-title svg path {
+  fill: currentColor !important;
+}
+.happyvr-guide .happyvr-content {
+  min-width: 900px;
+  max-width: 900px;
+  position: relative;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.happyvr-guide .happyvr-content video {
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.7);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.happyvr-guide .happyvr-content h2,
+.happyvr-guide .happyvr-content h3,
+.happyvr-guide .happyvr-content p,
+.happyvr-guide .happyvr-content ul {
+  margin: 20px 0;
+}
+.happyvr-guide .happyvr-content h2,
+.happyvr-guide .happyvr-content h3 {
+  font-size: 17px;
+}
+.happyvr-guide .happyvr-content h2:first-child,
+.happyvr-guide .happyvr-content h3:first-child {
+  margin-top: 0;
+}
+.happyvr-guide .happyvr-content a,
+.happyvr-guide .happyvr-content p,
+.happyvr-guide .happyvr-content li {
+  font-size: 14px;
+}
+
+.fs-notice,
+.notice {
+  margin-left: 0 !important;
+  margin-right: 10px !important;
+}
+
+#wpcontent {
+  padding: 0 0 0 10px;
+  background: #f0f0f1;
+}
+
+#wpbody-content {
+  padding: 10px 0 10px 0;
+}
+
+#wpfooter {
+  display: none;
+}
+
+div[role=tree]:focus {
+  border: none;
+  outline: none;
+}
